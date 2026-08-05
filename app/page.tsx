@@ -67,6 +67,40 @@ function getVideoPlace(title: string) {
 
 const destinationOrder = ["seattle", "alaska", "hawaii", "canada", "korea", "japan", "chicago", "yellowstone", "california", "usa"];
 
+const mapAreas = [
+  { key: "seattle", en: "Seattle", zh: "西雅图", pattern: /西雅图|seattle/i, x: 18, y: 30 },
+  { key: "sammamish", en: "Sammamish", zh: "萨马米什", pattern: /sammamish|萨马米什/i, x: 24, y: 36 },
+  { key: "chelan", en: "Chelan", zh: "奇兰", pattern: /chelan|奇兰/i, x: 30, y: 25 },
+  { key: "redmond", en: "Redmond", zh: "雷德蒙德", pattern: /redmond|雷德蒙/i, x: 22, y: 42 },
+  { key: "alaska", en: "Alaska", zh: "阿拉斯加", pattern: /alaska|阿拉斯加/i, x: 8, y: 8 },
+  { key: "hawaii", en: "Hawaii", zh: "夏威夷", pattern: /hawaii|夏威夷/i, x: 14, y: 78 },
+  { key: "canada", en: "Canada", zh: "加拿大", pattern: /canada|加拿大|vancouver|温哥华/i, x: 24, y: 14 },
+  { key: "yellowstone", en: "Yellowstone", zh: "黄石", pattern: /yellowstone|黄石/i, x: 39, y: 42 },
+  { key: "chicago", en: "Chicago", zh: "芝加哥", pattern: /chicago|芝加哥/i, x: 50, y: 38 },
+  { key: "harbin", en: "Harbin", zh: "哈尔滨", pattern: /harbin|哈尔滨/i, x: 84, y: 20 },
+  { key: "korea", en: "Korea", zh: "韩国", pattern: /korea|韩国|seoul|首尔|江陵|gangneung/i, x: 86, y: 42 },
+  { key: "japan", en: "Japan", zh: "日本", pattern: /japan|日本|北海道|hokkaido|东京|tokyo/i, x: 92, y: 52 },
+];
+
+const curatedSparkUrls = [
+  "https://www.douyin.com/video/7402500473552440612",
+  "https://www.douyin.com/video/7443316754949901595",
+  "https://www.douyin.com/video/7219158862765559096",
+  "https://www.douyin.com/video/7128616231518735647",
+  "https://www.douyin.com/video/7640499506980111027",
+  "https://www.douyin.com/video/7670288236707311214",
+  "https://www.douyin.com/video/7123404557735988488",
+  "https://www.douyin.com/video/7640706893246598363",
+  "https://www.douyin.com/video/7666322382810748507",
+];
+
+const essayCards = [
+  { title: "江陵船桥庄：桥没了，家还在", image: "https://p3-pc-sign.douyinpic.com/tos-cn-p-0015/oAgiQoIoUSAElBzOiC70vaS4FrII6APvYALzT~tplv-dy-cropcenter:323:430.jpeg?biz_tag=pcweb_cover&from=327834062&lk3s=138a59ce&s=PackSourceEnum_PUBLISH&sc=cover&se=true&sh=323_430&x-expires=2101276800&x-signature=UMI%2F65efLvddLgF9ya5Eakh1hL0%3D", url: "https://www.douyin.com/video/7661445447227301514", en: "The bridge disappeared, but ten generations kept the home alive." },
+  { title: "我在镜浦湖，没有一直看湖", image: "https://p3-pc-sign.douyinpic.com/tos-cn-p-0015/owBnfxQAEYAWkQHfWZ790y85Q6MYBCrg6EyUeQ~tplv-dy-cropcenter:323:430.jpeg?biz_tag=pcweb_cover&from=327834062&lk3s=138a59ce&s=PackSourceEnum_PUBLISH&sc=cover&se=true&sh=323_430&x-expires=2101276800&x-signature=JQZIyZ2ljumxrfBGh7l1AI2chGE%3D", url: "https://www.douyin.com/video/7666322382810748507", en: "The smallest sculptures became more memorable than the lake itself." },
+  { title: "北海道随笔：旅行以后，偷偷学会了什么", image: "https://p3-pc-sign.douyinpic.com/tos-cn-p-0015/oABIgC92IBxJHEizQfeWA4xAlsLwCgqGCIAji1~tplv-dy-cropcenter:323:430.jpeg?biz_tag=pcweb_cover&from=327834062&lk3s=138a59ce&s=PackSourceEnum_PUBLISH&sc=cover&se=true&sh=323_430&x-expires=2101276800&x-signature=ZclvkfWzVCOWFuTbI2c%2B6%2FsOEzs%3D", url: "https://www.douyin.com/video/7658469084598587122", en: "Small acts of consideration quietly changed the meaning of travel." },
+  { title: "下午一点五十九，我以为故事结束了", image: "https://p3-pc-sign.douyinpic.com/tos-cn-p-0015/oMDeGL1fAu97uGCXQebBbwR2qjIBtUvEADC0IB~tplv-dy-cropcenter:323:430.jpeg?biz_tag=pcweb_cover&from=327834062&lk3s=138a59ce&s=PackSourceEnum_PUBLISH&sc=cover&se=true&sh=323_430&x-expires=2101276800&x-signature=tRUi2i0FWFGFR0mHaEmh1n6HdmQ%3D", url: "https://www.douyin.com/video/7663498697128305883", en: "A Michelin afternoon in Insadong that refused to end on schedule." },
+];
+
 const ui = {
   en: {
     nav: ["Writing", "Postcards", "Recommendations", "About"], note: "Get the note",
@@ -170,7 +204,8 @@ export default function Home() {
   const [subscribed, setSubscribed] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [videoCategory, setVideoCategory] = useState("all");
-  const [videoPlace, setVideoPlace] = useState("all");
+  const [mapArea, setMapArea] = useState("seattle");
+  const [showArchive, setShowArchive] = useState(false);
   const [visibleVideos, setVisibleVideos] = useState(24);
   const t = ui[language];
   const selected = selectedId ? details[language][selectedId] : null;
@@ -178,8 +213,10 @@ export default function Home() {
   const posts = linkedinPosts[language];
   const categories = categoryLabels[language];
   const places = placeLabels[language];
-  const filteredVideos = douyinCatalog.filter((video) => (videoCategory === "all" || video.category === videoCategory) && (videoPlace === "all" || getVideoPlace(video.title) === videoPlace)).slice().sort((a, b) => b.views - a.views);
-  const destinations = destinationOrder.map((place) => ({ place, video: douyinCatalog.filter((video) => getVideoPlace(video.title) === place).sort((a, b) => b.views - a.views)[0] })).filter((item) => item.video);
+  const filteredVideos = douyinCatalog.filter((video) => videoCategory === "all" || video.category === videoCategory).slice().sort((a, b) => b.views - a.views);
+  const activeMapArea = mapAreas.find((area) => area.key === mapArea) || mapAreas[0];
+  const mapStories = douyinCatalog.filter((video) => activeMapArea.pattern.test(video.title)).sort((a, b) => b.views - a.views).slice(0, 4);
+  const curatedSparks = curatedSparkUrls.map((url) => douyinCatalog.find((video) => video.url === url)).filter(Boolean);
 
   function subscribe(event: FormEvent<HTMLFormElement>) { event.preventDefault(); setSubscribed(true); }
 
@@ -216,8 +253,12 @@ export default function Home() {
       </section>
 
       <section className="postcards section-pad" id="postcards"><div className="section-heading postcards-heading"><div><p className="eyebrow">{t.postcards}</p><h2>{t.postcardsTitle}</h2></div><p>{t.postcardsText}</p></div>
-        <div className="postcard-strip destination-grid">{destinations.map((item, index) => <a key={item.place} className="postcard destination-card" href={item.video.url} target="_blank" rel="noreferrer" style={{ backgroundImage: `linear-gradient(180deg, rgba(10,18,16,.06), rgba(10,18,16,.88)), url(${item.video.image})` }}><span className="postcard-index">{String(index + 1).padStart(2, "0")}</span><div><span>{places[item.place as keyof typeof places]}</span><h3>{item.video.title.split(/[。#]/)[0]}</h3><p>{item.video.views.toLocaleString()} {language === "zh" ? "次观看" : "views"}</p></div><span className="open-cue">{t.openPostcard} →</span></a>)}</div>
+        <div className="atlas-map"><div className="map-stage" aria-label={language === "zh" ? "可互动旅行地图" : "Interactive travel map"}>{mapAreas.map((area) => <button key={area.key} className={`map-pin ${mapArea === area.key ? "active" : ""}`} style={{ left: `${area.x}%`, top: `${area.y}%` }} type="button" onClick={() => setMapArea(area.key)}><i/><span>{language === "zh" ? area.zh : area.en}</span></button>)}<div className="map-orbit orbit-one"/><div className="map-orbit orbit-two"/></div>
+          <div className="map-results"><div><small>{language === "zh" ? "当前位置" : "Now exploring"}</small><h3>{language === "zh" ? activeMapArea.zh : activeMapArea.en}</h3><p>{language === "zh" ? "点击地图上的地点，发现最具代表性的现场片段。" : "Choose a place on the map to reveal its strongest visual field notes."}</p></div><div className="map-story-grid">{mapStories.map((video) => <a href={video.url} target="_blank" rel="noreferrer" key={video.url}><img src={video.image} alt={video.title}/><span>{video.title.split(/[。#]/)[0]}</span></a>)}</div></div>
+        </div>
       </section>
+
+      <section className="essay-salon section-pad" id="essays"><div className="essay-heading"><p className="eyebrow">{language === "zh" ? "城市随笔" : "Field essays"}</p><h2>{language === "zh" ? "有些地方，值得慢下来写。" : "Some places ask to be written slowly."}</h2><p>{language === "zh" ? "从老宅、湖边雕塑到一颗刚好成熟的哈密瓜——这些不是攻略，而是地方留下来的问题。" : "From an old house and lakeside sculptures to a melon ripened for exactly the right day—these are not guides, but questions left behind by places."}</p></div><div className="essay-grid">{essayCards.map((essay, index) => <a href={essay.url} target="_blank" rel="noreferrer" className={`essay-card essay-${index + 1}`} key={essay.url}><img src={essay.image} alt=""/><div><small>{language === "zh" ? "随笔" : "Essay"} · 0{index + 1}</small><h3>{essay.title}</h3><p>{language === "zh" ? ["一座房子真正的传奇，是无论世事怎样变迁，仍有人推门回家。", "有趣，大概也不需要翻译。", "旅行最好玩的地方，是回来后偷偷学会了什么。", "一个看似结束的下午，往往才刚刚开始。"][index] : essay.en}</p><span>{language === "zh" ? "阅读全文" : "Read the essay"} →</span></div></a>)}</div></section>
 
       <section className="recommendations section-pad" id="recommendations"><div className="recommendation-intro"><p className="eyebrow">{t.worth}</p><h2>{t.worthTitle}</h2><p>{t.worthText}</p></div>
         <div className="recommendation-list">{t.recs.map((item, index) => <button className="recommendation-item" key={item[1]} type="button" onClick={() => setSelectedId(["decisions", "professional", "videos"][index])}><span>0{index + 1}</span><div><small>{item[0]}</small><h3>{item[1]}</h3></div><span>{t.readNow} →</span></button>)}</div>
@@ -233,11 +274,10 @@ export default function Home() {
           <div className="linkedin-grid">{posts.map((post) => <a className="linkedin-card" href={post.url} target="_blank" rel="noreferrer" key={post.url}><img src={post.image} alt=""/><div><h4>{post.title}</h4><p>{post.text}</p><span>{social.open} ↗</span></div></a>)}</div>
         </div>
         <div className="channel-block sparks-block"><div className="channel-title"><div><img src="/media/douyin-avatar.jpg" alt="西雅图大南瓜"/><h3>{social.douyin}</h3></div><a href={douyinUrl} target="_blank" rel="noreferrer">{social.archive} ↗</a></div>
-          <div className="filter-group"><strong>{social.places}</strong><div className="video-filters" aria-label={social.places}><button className={videoPlace === "all" ? "active" : ""} onClick={() => { setVideoPlace("all"); setVisibleVideos(24); }} type="button">{social.all} <span>{videoCategory === "all" ? douyinCatalog.length : douyinCatalog.filter((video) => video.category === videoCategory).length}</span></button>{Object.entries(places).map(([key, label]) => { const count = douyinCatalog.filter((video) => getVideoPlace(video.title) === key && (videoCategory === "all" || video.category === videoCategory)).length; return count > 0 && <button className={videoPlace === key ? "active" : ""} onClick={() => { setVideoPlace(key); setVisibleVideos(24); }} type="button" key={key}>{label} <span>{count}</span></button>; })}</div></div>
-          <div className="filter-group"><strong>{social.themes}</strong><div className="video-filters" aria-label={social.themes}><button className={videoCategory === "all" ? "active" : ""} onClick={() => { setVideoCategory("all"); setVisibleVideos(24); }} type="button">{social.all} <span>{videoPlace === "all" ? douyinCatalog.length : douyinCatalog.filter((video) => getVideoPlace(video.title) === videoPlace).length}</span></button>{Object.entries(categories).map(([key, label]) => { const count = douyinCatalog.filter((video) => video.category === key && (videoPlace === "all" || getVideoPlace(video.title) === videoPlace)).length; return count > 0 && <button className={videoCategory === key ? "active" : ""} onClick={() => { setVideoCategory(key); setVisibleVideos(24); }} type="button" key={key}>{label} <span>{count}</span></button>; })}</div></div>
-          <p className="video-count">{social.showing} {Math.min(visibleVideos, filteredVideos.length)} {social.of} {filteredVideos.length}</p>
-          <div className="douyin-grid">{filteredVideos.slice(0, visibleVideos).map((video) => <a className="video-card" href={video.url} target="_blank" rel="noreferrer" key={video.url}><div><img src={video.image} alt={video.title} loading="lazy"/><span className="play-mark" aria-hidden="true">▶</span></div><h4>{video.title}</h4><span>{social.open} ↗</span></a>)}</div>
-          {visibleVideos < filteredVideos.length && <button className="load-more" type="button" onClick={() => setVisibleVideos((count) => count + 24)}>{social.loadMore} ↓</button>}
+          <p className="spark-intro">{language === "zh" ? "九个经过编辑挑选的瞬间：不是最新发布，而是最能代表我如何看世界的画面。" : "Nine editorially chosen moments—not the newest posts, but the clearest expression of how I see the world."}</p>
+          <div className="curated-grid">{curatedSparks.map((video, index) => video && <a className={`curated-card curated-${index + 1}`} href={video.url} target="_blank" rel="noreferrer" key={video.url}><img src={video.image} alt={video.title}/><div><small>{["PLACE", "HANDMADE", "PAINTING", "EVENT", "ART", "FISHING", "NIGHT", "SCULPTURE", "DISCOVERY"][index]}</small><h4>{video.title.split(/[。#]/)[0]}</h4><span>{social.open} ↗</span></div></a>)}</div>
+          <button className="archive-toggle" type="button" onClick={() => setShowArchive((open) => !open)}>{showArchive ? (language === "zh" ? "收起完整档案" : "Close the full archive") : (language === "zh" ? "按主题浏览全部 305 个作品" : "Browse all 305 works by theme")} {showArchive ? "↑" : "↓"}</button>
+          {showArchive && <div className="archive-panel"><div className="filter-group"><strong>{social.themes}</strong><div className="video-filters" aria-label={social.themes}><button className={videoCategory === "all" ? "active" : ""} onClick={() => { setVideoCategory("all"); setVisibleVideos(24); }} type="button">{social.all} <span>{douyinCatalog.length}</span></button>{Object.entries(categories).map(([key, label]) => { const count = douyinCatalog.filter((video) => video.category === key).length; return <button className={videoCategory === key ? "active" : ""} onClick={() => { setVideoCategory(key); setVisibleVideos(24); }} type="button" key={key}>{label} <span>{count}</span></button>; })}</div></div><p className="video-count">{social.showing} {Math.min(visibleVideos, filteredVideos.length)} {social.of} {filteredVideos.length}</p><div className="douyin-grid">{filteredVideos.slice(0, visibleVideos).map((video) => <a className="video-card" href={video.url} target="_blank" rel="noreferrer" key={video.url}><div><img src={video.image} alt={video.title} loading="lazy"/><span className="play-mark" aria-hidden="true">▶</span></div><h4>{video.title}</h4><span>{social.open} ↗</span></a>)}</div>{visibleVideos < filteredVideos.length && <button className="load-more" type="button" onClick={() => setVisibleVideos((count) => count + 24)}>{social.loadMore} ↓</button>}</div>}
         </div>
       </section>
 
