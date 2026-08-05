@@ -118,8 +118,14 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid 
 .globe-pin span { position: absolute; left: 14px; top: -2px; padding: 4px 7px; white-space: nowrap; border-radius: 4px; background: rgba(4,12,22,.76); font-size: 9px; }
 .globe-pin.active i { transform: scale(1.35); background: #fff; }
 .nasa-credit { position: absolute; left: 16px; bottom: 12px; color: rgba(255,255,255,.4); font-size: 7px; letter-spacing: .1em; }
-.google-map { width: 100%; height: 280px; margin: 22px 0 0; border: 0; border-radius: 8px; filter: saturate(.82) contrast(1.03); }
 .landmark-name { color: #e6c281 !important; font-size: 10px !important; letter-spacing: .09em; text-transform: uppercase; }
+.landmark-symbol { width: 118px; height: 118px; margin: 26px 0 18px; display: grid; place-items: center; border: 1px solid rgba(230,194,129,.4); border-radius: 28px; background: radial-gradient(circle at 35% 25%,rgba(255,255,255,.2),transparent 23%),linear-gradient(145deg,#8b663d,#1a3248); color: #fff2d6; font-family: Georgia,"Noto Serif SC",serif; font-size: 58px; box-shadow: 0 22px 50px rgba(0,0,0,.28); }
+.earth-link { display: inline-block; margin-top: 18px; padding: 12px 16px; border: 1px solid rgba(230,194,129,.55); border-radius: 999px; color: #f1cf92; font-size: 9px; font-weight: 750; letter-spacing: .1em; text-transform: uppercase; }
+.globe-city-selector { position: absolute; z-index: 5; left: 18px; right: 18px; bottom: 30px; display: flex; gap: 6px; overflow-x: auto; padding-bottom: 5px; }
+.globe-city-selector button { min-width: 70px; padding: 8px 7px; display: grid; place-items: center; gap: 2px; border: 1px solid rgba(255,255,255,.16); border-radius: 8px; background: rgba(3,12,22,.78); color: #aebdca; cursor: pointer; backdrop-filter: blur(9px); }
+.globe-city-selector button.active { border-color: #e1b76c; color: #f8ddb0; }
+.globe-city-selector b { font-family: Georgia,"Noto Serif SC",serif; font-size: 18px; }
+.globe-city-selector span { font-size: 8px; white-space: nowrap; }
 
 .essay-salon { padding-top: 125px; }
 .essay-heading { display: grid; grid-template-columns: 1fr 1fr; gap: 28px 70px; margin-bottom: 55px; align-items: end; }
@@ -164,7 +170,13 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid 
 .book-cover-fallback i { font-style: normal; font-size: 6px; letter-spacing: .1em; text-transform: uppercase; opacity: .65; }
 .book-tools { margin: -20px 0 30px; display: flex; align-items: center; gap: 16px; }
 .book-tools input { width: min(520px,100%); padding: 14px 17px; border: 1px solid var(--line); border-radius: 999px; background: rgba(255,255,255,.5); color: var(--ink); font: inherit; }
+.book-tools select { padding: 13px 36px 13px 15px; border: 1px solid var(--line); border-radius: 999px; background: rgba(255,255,255,.5); color: var(--ink); }
 .book-tools span { color: var(--muted); font-size: 11px; }
+.book-categories { margin: -12px 0 30px; display: flex; flex-wrap: wrap; gap: 8px; }
+.book-categories button { padding: 9px 13px; border: 1px solid var(--line); border-radius: 999px; background: transparent; color: var(--muted); cursor: pointer; font-size: 10px; }
+.book-categories button.active { border-color: #ba8a47; background: #172638; color: #f6e5c4; }
+.book-links { margin-top: 14px; display: flex; gap: 12px; }
+.book-links a { padding-bottom: 3px; border-bottom: 1px solid #bd8d52; color: #986634; font-size: 9px; font-weight: 750; letter-spacing: .08em; text-transform: uppercase; }
 .books-more { margin: 28px auto 0; display: block; }
 .book-card small { color: var(--coral); font-size: 9px; letter-spacing: .1em; text-transform: uppercase; }
 .book-card h3 { margin: 9px 0 12px; font-family: Georgia,serif; font-size: 24px; font-weight: 400; }
