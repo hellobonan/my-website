@@ -147,27 +147,24 @@ function getVideoPlace(title: string) {
 
 const destinationOrder = ["seattle", "alaska", "hawaii", "canada", "korea", "japan", "chicago", "yellowstone", "california", "usa"];
 
-const mapAreas = [
-  { key: "seattle", en: "Seattle", zh: "西雅图", pattern: /西雅图|seattle/i, x: 18, y: 30 },
-  { key: "sammamish", en: "Sammamish", zh: "萨马米什", pattern: /sammamish|萨马米什/i, x: 24, y: 36 },
-  { key: "chelan", en: "Chelan", zh: "奇兰", pattern: /chelan|奇兰/i, x: 30, y: 25 },
-  { key: "redmond", en: "Redmond", zh: "雷德蒙德", pattern: /redmond|雷德蒙/i, x: 22, y: 42 },
-  { key: "alaska", en: "Alaska", zh: "阿拉斯加", pattern: /alaska|阿拉斯加/i, x: 8, y: 8 },
-  { key: "hawaii", en: "Hawaii", zh: "夏威夷", pattern: /hawaii|夏威夷/i, x: 14, y: 78 },
-  { key: "canada", en: "Canada", zh: "加拿大", pattern: /canada|加拿大|vancouver|温哥华/i, x: 24, y: 14 },
-  { key: "yellowstone", en: "Yellowstone", zh: "黄石", pattern: /yellowstone|黄石/i, x: 39, y: 42 },
-  { key: "chicago", en: "Chicago", zh: "芝加哥", pattern: /chicago|芝加哥/i, x: 50, y: 38 },
-  { key: "harbin", en: "Harbin", zh: "哈尔滨", pattern: /harbin|哈尔滨/i, x: 84, y: 20 },
-  { key: "korea", en: "Korea", zh: "韩国", pattern: /korea|韩国|seoul|首尔|江陵|gangneung/i, x: 86, y: 42 },
-  { key: "japan", en: "Japan", zh: "日本", pattern: /japan|日本|北海道|hokkaido|东京|tokyo/i, x: 92, y: 52 },
+const atlasCities = [
+  { key: "seattle", en: "Seattle", zh: "西雅图", lat: 47.6205, lon: -122.3493, landmark: "Space Needle, Seattle", symbol: "", pattern: /西雅图|seattle|华盛顿湖|washington lake/i },
+  { key: "sammamish", en: "Sammamish", zh: "萨马米什", lat: 47.6163, lon: -122.0356, landmark: "Lake Sammamish, Washington", symbol: "", pattern: /sammamish|萨马米什/i },
+  { key: "chelan", en: "Chelan", zh: "奇兰", lat: 47.8408, lon: -120.0165, landmark: "Lake Chelan, Washington", symbol: "", pattern: /chel[ae]n|奇兰/i },
+  { key: "redmond", en: "Redmond", zh: "雷德蒙德", lat: 47.674, lon: -122.1215, landmark: "Redmond, Washington", symbol: "", pattern: /redmond|雷德蒙/i },
+  { key: "alaska", en: "Alaska", zh: "阿拉斯加", lat: 63.0695, lon: -151.0074, landmark: "Denali, Alaska", symbol: "", pattern: /alaska|阿拉斯加/i },
+  { key: "hawaii", en: "Hawaii", zh: "夏威夷", lat: 21.3069, lon: -157.8583, landmark: "Honolulu, Hawaii", symbol: "", pattern: /hawaii|夏威夷|honolulu|檀香山/i },
+  { key: "canada", en: "Vancouver", zh: "温哥华", lat: 49.2888, lon: -123.1111, landmark: "Canada Place, Vancouver", symbol: "", pattern: /canada|加拿大|vancouver|温哥华|victoria|维多利亚/i },
+  { key: "toronto", en: "Toronto", zh: "多伦多", lat: 43.6426, lon: -79.3871, landmark: "CN Tower, Toronto", symbol: "", pattern: /toronto|多伦多/i },
+  { key: "yellowstone", en: "Yellowstone", zh: "黄石", lat: 44.916, lon: -110.4158, landmark: "Lamar Valley, Yellowstone", symbol: "", pattern: /yellowstone|黄石/i },
+  { key: "chicago", en: "Chicago", zh: "芝加哥", lat: 41.8796, lon: -87.6237, landmark: "Art Institute of Chicago", symbol: "", pattern: /chicago|芝加哥/i },
+  { key: "harbin", en: "Harbin", zh: "哈尔滨", lat: 45.7732, lon: 126.6167, landmark: "Flood Control Monument, Harbin", symbol: "", pattern: /harbin|哈尔滨/i },
+  { key: "korea", en: "Seoul", zh: "首尔", lat: 37.5796, lon: 126.977, landmark: "Gyeongbokgung Palace, Seoul", symbol: "", pattern: /korea|韩国|seoul|首尔|江陵|gangneung|釜山|busan|济州|jeju/i },
+  { key: "japan", en: "Japan", zh: "日本", lat: 35.6762, lon: 139.6503, landmark: "Tokyo, Japan", symbol: "", pattern: /japan|日本|北海道|hokkaido|东京|tokyo|大阪|osaka|京都|kyoto/i },
 ];
 
-const globeLocations = [
-  { key: "seattle", en: "Seattle", zh: "西雅图", lat: 47.6205, lon: -122.3493, landmark: "Space Needle, Seattle", symbol: "◭" }, { key: "sammamish", en: "Sammamish", zh: "萨马米什", lat: 47.6163, lon: -122.0356, landmark: "Lake Sammamish, Washington", symbol: "≈" }, { key: "chelan", en: "Chelan", zh: "奇兰", lat: 47.8408, lon: -120.0165, landmark: "Lake Chelan, Washington", symbol: "≈" },
-  { key: "alaska", en: "Alaska", zh: "阿拉斯加", lat: 63.0695, lon: -151.0074, landmark: "Denali, Alaska", symbol: "△" }, { key: "hawaii", en: "Hawaii", zh: "夏威夷", lat: 21.2634, lon: -157.8057, landmark: "Hawaiian tropical flowers", symbol: "✿" }, { key: "canada", en: "Vancouver", zh: "温哥华", lat: 49.2888, lon: -123.1111, landmark: "Canada Place, Vancouver", symbol: "⌁" }, { key: "toronto", en: "Toronto", zh: "多伦多", lat: 43.6426, lon: -79.3871, landmark: "CN Tower, Toronto", symbol: "↟" },
-  { key: "yellowstone", en: "Yellowstone", zh: "黄石", lat: 44.916, lon: -110.4158, landmark: "Bison in Lamar Valley, Yellowstone", symbol: "♉" }, { key: "chicago", en: "Chicago", zh: "芝加哥", lat: 41.8796, lon: -87.6237, landmark: "Art Institute of Chicago", symbol: "▣" }, { key: "harbin", en: "Harbin", zh: "哈尔滨", lat: 45.7732, lon: 126.6167, landmark: "Flood Control Monument, Harbin", symbol: "♜" },
-  { key: "korea", en: "Seoul", zh: "首尔", lat: 37.5796, lon: 126.977, landmark: "Gyeongbokgung Palace, Seoul", symbol: "宫" }, { key: "japan", en: "Japan", zh: "日本", lat: 35.6762, lon: 139.6503, landmark: "Sushi in Tokyo, Japan", symbol: "鮨" },
-];
+const mapAreas = atlasCities;
+const globeLocations = atlasCities;
 
 const curatedSparkUrls = [
   "https://www.douyin.com/video/7402500473552440612",
@@ -299,17 +296,6 @@ export default function Home() {
   const [bookSort, setBookSort] = useState("curated");
   const [visibleBooks, setVisibleBooks] = useState(18);
   const dragStart = useRef<{ x: number; rotation: number } | null>(null);
-  useEffect(() => {
-    const globe = document.querySelector(".globe");
-    const openSelectedCity = (event: Event) => {
-      const marker = (event.target as HTMLElement).closest<HTMLButtonElement>(".globe-pin");
-      if (!marker) return;
-      const place = globeLocations.find((item) => marker.textContent?.trim() === (language === "zh" ? item.zh : item.en));
-      if (place) window.open(`https://earth.google.com/web/search/${encodeURIComponent(place.landmark)}`, "_blank", "noopener,noreferrer");
-    };
-    globe?.addEventListener("click", openSelectedCity);
-    return () => globe?.removeEventListener("click", openSelectedCity);
-  }, [language]);
   const t = ui[language];
   const selected = selectedId ? details[language][selectedId] : null;
   const selectedEssay = (essayCollection as Essay[]).find((essay) => essay.id === selectedEssayId) || null;
@@ -372,7 +358,7 @@ export default function Home() {
       </section>
 
       <section className="postcards section-pad" id="postcards"><div className="section-heading postcards-heading"><div><p className="eyebrow">{t.postcards}</p><h2>{t.postcardsTitle}</h2></div><p>{t.postcardsText}</p></div>
-        <div className="atlas-map"><div className="globe-stage"><div className="globe-controls"><button type="button" onClick={() => setGlobeZoom((z) => Math.min(1.28, z + .1))} aria-label="Zoom in">＋</button><button type="button" onClick={() => setGlobeZoom((z) => Math.max(.8, z - .1))} aria-label="Zoom out">−</button><small>{language === "zh" ? "拖拽旋转地球 · 点击3D地标" : "DRAG THE EARTH · CHOOSE A 3D LANDMARK"}</small></div><div className="globe" style={{ transform: `scale(${globeZoom})`, backgroundPosition: `${50 - globeRotation / 1.8}% center` }} onPointerDown={(event) => { dragStart.current = { x: event.clientX, rotation: globeRotation }; event.currentTarget.setPointerCapture(event.pointerId); }} onPointerMove={(event) => { if (dragStart.current) setGlobeRotation(dragStart.current.rotation + (event.clientX - dragStart.current.x) * .45); }} onPointerUp={() => { dragStart.current = null; }} onWheel={(event) => { event.preventDefault(); setGlobeZoom((z) => Math.max(.8, Math.min(1.28, z - event.deltaY * .001))); }}><div className="globe-grid"/>{globeLocations.map((place) => { const relativeLon = ((place.lon + globeRotation + 540) % 360) - 180; const visible = Math.abs(relativeLon) < 88; const x = 50 + relativeLon / 1.8; const y = 50 - place.lat / 1.8; return <button key={place.key} type="button" className={`globe-pin landmark-${place.key} ${mapArea === place.key ? "active" : ""}`} style={{ left: `${x}%`, top: `${y}%`, opacity: visible ? 1 : 0, pointerEvents: visible ? "auto" : "none" }} onClick={() => setMapArea(place.key)}><i className="landmark-mini"><b>{place.symbol}</b></i><span>{language === "zh" ? place.zh : place.en}</span></button>; })}</div><div className="globe-city-selector">{globeLocations.map((place) => <button type="button" key={place.key} className={mapArea === place.key ? "active" : ""} onClick={() => { setMapArea(place.key); setGlobeRotation(-place.lon); }}><b>{place.symbol}</b><span>{language === "zh" ? place.zh : place.en}</span></button>)}</div><small className="nasa-credit">NASA Blue Marble · Markers share the map projection</small></div>
+        <div className="atlas-map"><div className="globe-stage"><div className="globe-controls"><button type="button" onClick={() => setGlobeZoom((z) => Math.min(1.28, z + .1))} aria-label="Zoom in">＋</button><button type="button" onClick={() => setGlobeZoom((z) => Math.max(.8, z - .1))} aria-label="Zoom out">−</button><small>{language === "zh" ? "拖拽旋转地球 · 点击3D地标" : "DRAG THE EARTH · CHOOSE A 3D LANDMARK"}</small></div><div className="globe" style={{ transform: `scale(${globeZoom})`, backgroundPosition: `${50 - globeRotation / 1.8}% center` }} onPointerDown={(event) => { dragStart.current = { x: event.clientX, rotation: globeRotation }; event.currentTarget.setPointerCapture(event.pointerId); }} onPointerMove={(event) => { if (dragStart.current) setGlobeRotation(dragStart.current.rotation + (event.clientX - dragStart.current.x) * .45); }} onPointerUp={() => { dragStart.current = null; }} onWheel={(event) => { event.preventDefault(); setGlobeZoom((z) => Math.max(.8, Math.min(1.28, z - event.deltaY * .001))); }}><div className="globe-grid"/>{globeLocations.map((place) => { const relativeLon = ((place.lon + globeRotation + 540) % 360) - 180; const visible = Math.abs(relativeLon) < 88; const x = 50 + relativeLon / 1.8; const y = 50 - place.lat / 1.8; return <a key={place.key} href={`https://earth.google.com/web/search/${encodeURIComponent(place.landmark)}`} target="_blank" rel="noreferrer" className={`globe-pin landmark-${place.key} ${mapArea === place.key ? "active" : ""}`} style={{ left: `${x}%`, top: `${y}%`, opacity: visible ? 1 : 0, pointerEvents: visible ? "auto" : "none" }} onClick={() => setMapArea(place.key)}><i className="landmark-mini"><b>{place.symbol}</b></i><span>{language === "zh" ? place.zh : place.en}</span></a>; })}</div><div className="globe-city-selector">{globeLocations.map((place) => <button type="button" key={place.key} className={mapArea === place.key ? "active" : ""} onClick={() => { setMapArea(place.key); setGlobeRotation(-place.lon); }}><b>{place.symbol}</b><span>{language === "zh" ? place.zh : place.en}</span></button>)}</div><small className="nasa-credit">NASA Blue Marble · Markers share the map projection</small></div>
           <div className="map-results"><div><small>{language === "zh" ? "城市3D地标" : "CITY · 3D LANDMARK"}</small><div className={`landmark-symbol landmark-large landmark-${activeGlobePlace.key}`}>{activeGlobePlace.symbol}</div><h3>{language === "zh" ? activeGlobePlace.zh : activeGlobePlace.en}</h3><p className="landmark-name">{activeGlobePlace.landmark}</p><p>{language === "zh" ? "这个微型3D场景直接标记在城市位置；也可以继续进入 Google Earth 查看真实环境。" : "This miniature 3D scene sits directly on the city location. Google Earth remains available for the real surroundings."}</p><a className="earth-link" href={`https://earth.google.com/web/search/${encodeURIComponent(activeGlobePlace.landmark)}`} target="_blank" rel="noreferrer">{language === "zh" ? "查看真实地标" : "See the real landmark"} ↗</a></div><div className="map-story-grid">{mapStories.map((video, index) => <a href={video.url} target="_blank" rel="noreferrer" key={video.url}><img src={video.image} alt={displayVideoTitle(video, language, index)}/><span>{displayVideoTitle(video, language, index)}</span></a>)}</div></div>
         </div><Engagement id="atlas" language={language}/>
       </section>

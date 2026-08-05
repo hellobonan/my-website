@@ -148,6 +148,14 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid 
 .landmark-mini, .landmark-large, .globe-city-selector b { display: none !important; }
 .globe-pin { min-width: 10px; min-height: 10px; }
 .globe-pin > span { margin-left: 0; }
+.globe-pin::before { position: absolute; left: -5px; top: -5px; width: 10px; height: 10px; content: ""; border: 2px solid #fff4d8; border-radius: 50%; background: #d79a51; box-shadow: 0 0 0 5px rgba(215,154,81,.18),0 0 16px rgba(215,154,81,.9); }
+.globe-pin.active::before { background: white; box-shadow: 0 0 0 6px rgba(225,183,108,.3),0 0 20px white; }
+.landmark-seattle > span { transform: translate(-82px,-26px); }
+.landmark-sammamish > span { transform: translate(-42px,34px); }
+.landmark-chelan > span { transform: translate(-52px,-48px); }
+.landmark-redmond > span { transform: translate(24px,-24px); }
+.landmark-canada > span { transform: translate(-78px,18px); }
+.landmark-toronto > span { transform: translate(18px,-22px); }
 .globe-city-selector button { min-width: 86px; padding: 11px 10px; }
 .globe-city-selector span { font-size: 10px; letter-spacing: .04em; }
 .map-results > div:first-child > small,
