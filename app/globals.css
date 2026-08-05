@@ -137,7 +137,9 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid 
 .linkedin-card p { margin: 16px 0 22px; color: var(--muted); font-size: 13px; line-height: 1.55; }
 .linkedin-card span, .video-card > span { margin-top: auto; color: var(--coral); font-size: 10px; font-weight: 750; letter-spacing: .08em; text-transform: uppercase; }
 .douyin-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; }
-.video-filters { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 18px; }
+.filter-group { margin: 0 0 20px; }
+.filter-group > strong { display: block; margin-bottom: 10px; color: var(--muted); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; }
+.video-filters { display: flex; flex-wrap: wrap; gap: 8px; }
 .video-filters button { min-height: 38px; padding: 0 14px; border: 1px solid var(--line); border-radius: 999px; background: transparent; color: var(--muted); cursor: pointer; font-size: 12px; }
 .video-filters button span { margin-left: 5px; opacity: .62; }
 .video-filters button:hover, .video-filters button.active { border-color: var(--ink); background: var(--ink); color: white; }

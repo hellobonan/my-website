@@ -13,12 +13,12 @@ const socialCopy = {
   en: {
     label: "From my channels", title: "Recent work, in the original context.",
     intro: "Read recent leadership posts and browse selected short films here—without needing an account. Open the source only when you want the full platform experience.",
-    linkedin: "LinkedIn · Leadership & marketplaces", douyin: "Douyin · Complete video archive", open: "Open original", all: "All", showing: "Showing", of: "of", loadMore: "Load more videos",
+    linkedin: "LinkedIn · Leadership & marketplaces", douyin: "Douyin · Complete video archive", open: "Open original", all: "All", places: "Filter by place", themes: "Filter by theme", showing: "Showing", of: "of", loadMore: "Load more videos",
   },
   zh: {
     label: "来自我的社交频道", title: "在原本的语境里，看见最近的创作。",
     intro: "无需账号，也能在这里阅读近期职业文章、浏览精选短视频。只有想进入平台查看完整内容时，才需要打开原始链接。",
-    linkedin: "LinkedIn · 领导力与市场平台", douyin: "抖音 · 完整作品分类", open: "打开原文", all: "全部", showing: "正在显示", of: "共", loadMore: "加载更多视频",
+    linkedin: "LinkedIn · 领导力与市场平台", douyin: "抖音 · 完整作品分类", open: "打开原文", all: "全部", places: "按地点筛选", themes: "按主题筛选", showing: "正在显示", of: "共", loadMore: "加载更多视频",
   },
 } as const;
 
@@ -51,6 +51,23 @@ const categoryLabels = {
   en: { cities: "Cities", events: "Events", arts: "Arts & culture", sports: "Fishing & sports", handmade: "Handmade", nature: "Nature", travel: "Travel", food: "Food", everyday: "Everyday life" },
   zh: { cities: "城市", events: "活动与节庆", arts: "艺术与文化", sports: "钓鱼与运动", handmade: "手工创作", nature: "自然", travel: "旅行", food: "美食", everyday: "日常生活" },
 } as const;
+
+const placeLabels = {
+  en: { seattle: "Seattle area", alaska: "Alaska", hawaii: "Hawaii", canada: "Canada", korea: "Korea", japan: "Japan", chicago: "Chicago", yellowstone: "Yellowstone", california: "California", usa: "Other U.S.", elsewhere: "Elsewhere" },
+  zh: { seattle: "西雅图地区", alaska: "阿拉斯加", hawaii: "夏威夷", canada: "加拿大", korea: "韩国", japan: "日本", chicago: "芝加哥", yellowstone: "黄石公园", california: "加利福尼亚", usa: "美国其他地区", elsewhere: "其他地点" },
+} as const;
+
+function getVideoPlace(title: string) {
+  const rules: [string, RegExp][] = [
+    ["alaska", /阿拉斯加|alaska/i], ["hawaii", /夏威夷|hawaii|honolulu|檀香山/i], ["canada", /加拿大|canada|温哥华|vancouver|victoria|banff|班夫/i],
+    ["chicago", /芝加哥|chicago/i], ["yellowstone", /黄石|yellowstone/i], ["california", /加州|加利福尼亚|california|san francisco|旧金山|los angeles|洛杉矶/i],
+    ["seattle", /西雅图|seattle|bellevue|贝尔维尤|redmond|雷德蒙德|华盛顿湖|washington lake|marymoor|chel[ae]n|雷尼尔|rainier/i],
+    ["korea", /韩国|korea|首尔|seoul|江陵|gangneung|釜山|busan|济州|jeju|汉江|han river|东大门|dongdaemun/i],
+    ["japan", /日本|japan|东京|tokyo|北海道|hokkaido|富良野|furano|大阪|osaka|京都|kyoto/i],
+    ["usa", /美国|america|usa|u\.s\.|纽约|new york|拉斯维加斯|las vegas|波士顿|boston|佛罗里达|florida/i],
+  ];
+  return (rules.find(([, pattern]) => pattern.test(title)) || ["elsewhere"])[0];
+}
 
 const ui = {
   en: {
@@ -151,13 +168,15 @@ export default function Home() {
   const [subscribed, setSubscribed] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [videoCategory, setVideoCategory] = useState("all");
+  const [videoPlace, setVideoPlace] = useState("all");
   const [visibleVideos, setVisibleVideos] = useState(24);
   const t = ui[language];
   const selected = selectedId ? details[language][selectedId] : null;
   const social = socialCopy[language];
   const posts = linkedinPosts[language];
   const categories = categoryLabels[language];
-  const filteredVideos = videoCategory === "all" ? douyinCatalog : douyinCatalog.filter((video) => video.category === videoCategory);
+  const places = placeLabels[language];
+  const filteredVideos = douyinCatalog.filter((video) => (videoCategory === "all" || video.category === videoCategory) && (videoPlace === "all" || getVideoPlace(video.title) === videoPlace));
 
   function subscribe(event: FormEvent<HTMLFormElement>) { event.preventDefault(); setSubscribed(true); }
 
@@ -211,7 +230,8 @@ export default function Home() {
           <div className="linkedin-grid">{posts.map((post) => <a className="linkedin-card" href={post.url} target="_blank" rel="noreferrer" key={post.url}><img src={post.image} alt=""/><div><h4>{post.title}</h4><p>{post.text}</p><span>{social.open} ↗</span></div></a>)}</div>
         </div>
         <div className="channel-block"><div className="channel-title"><div><img src="/media/douyin-avatar.jpg" alt="西雅图大南瓜"/><h3>{social.douyin}</h3></div><a href={douyinUrl} target="_blank" rel="noreferrer">Douyin ↗</a></div>
-          <div className="video-filters" aria-label={social.douyin}><button className={videoCategory === "all" ? "active" : ""} onClick={() => { setVideoCategory("all"); setVisibleVideos(24); }} type="button">{social.all} <span>{douyinCatalog.length}</span></button>{Object.entries(categories).map(([key, label]) => <button className={videoCategory === key ? "active" : ""} onClick={() => { setVideoCategory(key); setVisibleVideos(24); }} type="button" key={key}>{label} <span>{douyinCatalog.filter((video) => video.category === key).length}</span></button>)}</div>
+          <div className="filter-group"><strong>{social.places}</strong><div className="video-filters" aria-label={social.places}><button className={videoPlace === "all" ? "active" : ""} onClick={() => { setVideoPlace("all"); setVisibleVideos(24); }} type="button">{social.all} <span>{videoCategory === "all" ? douyinCatalog.length : douyinCatalog.filter((video) => video.category === videoCategory).length}</span></button>{Object.entries(places).map(([key, label]) => { const count = douyinCatalog.filter((video) => getVideoPlace(video.title) === key && (videoCategory === "all" || video.category === videoCategory)).length; return count > 0 && <button className={videoPlace === key ? "active" : ""} onClick={() => { setVideoPlace(key); setVisibleVideos(24); }} type="button" key={key}>{label} <span>{count}</span></button>; })}</div></div>
+          <div className="filter-group"><strong>{social.themes}</strong><div className="video-filters" aria-label={social.themes}><button className={videoCategory === "all" ? "active" : ""} onClick={() => { setVideoCategory("all"); setVisibleVideos(24); }} type="button">{social.all} <span>{videoPlace === "all" ? douyinCatalog.length : douyinCatalog.filter((video) => getVideoPlace(video.title) === videoPlace).length}</span></button>{Object.entries(categories).map(([key, label]) => { const count = douyinCatalog.filter((video) => video.category === key && (videoPlace === "all" || getVideoPlace(video.title) === videoPlace)).length; return count > 0 && <button className={videoCategory === key ? "active" : ""} onClick={() => { setVideoCategory(key); setVisibleVideos(24); }} type="button" key={key}>{label} <span>{count}</span></button>; })}</div></div>
           <p className="video-count">{social.showing} {Math.min(visibleVideos, filteredVideos.length)} {social.of} {filteredVideos.length}</p>
           <div className="douyin-grid">{filteredVideos.slice(0, visibleVideos).map((video) => <a className="video-card" href={video.url} target="_blank" rel="noreferrer" key={video.url}><div><img src={video.image} alt={video.title} loading="lazy"/><span className="play-mark" aria-hidden="true">▶</span></div><h4>{video.title}</h4><span>{social.open} ↗</span></a>)}</div>
           {visibleVideos < filteredVideos.length && <button className="load-more" type="button" onClick={() => setVisibleVideos((count) => count + 24)}>{social.loadMore} ↓</button>}
