@@ -284,6 +284,9 @@ export default function Home() {
   const [selectedEssayId, setSelectedEssayId] = useState<string | null>(null);
   const [essayCategory, setEssayCategory] = useState("all");
   const [videoCategory, setVideoCategory] = useState("all");
+  const [videoYear, setVideoYear] = useState("all");
+  const [videoMonth, setVideoMonth] = useState("all");
+  const [videoSort, setVideoSort] = useState("views");
   const [mapArea, setMapArea] = useState("seattle");
   const [showArchive, setShowArchive] = useState(false);
   const [visibleVideos, setVisibleVideos] = useState(24);
@@ -302,7 +305,17 @@ export default function Home() {
   const posts = linkedinPosts[language];
   const categories = categoryLabels[language];
   const places = placeLabels[language];
-  const filteredVideos = douyinCatalog.filter((video) => videoCategory === "all" || video.category === videoCategory).slice().sort((a, b) => b.views - a.views);
+  const videoDate = (video: (typeof douyinCatalog)[number]) => {
+    const id = video.url.match(/video\/(\d+)/)?.[1];
+    return id ? new Date(Number(BigInt(id) >> 32n) * 1000) : new Date(0);
+  };
+  const videoYears = [...new Set(douyinCatalog.map((video) => videoDate(video).getFullYear()))].sort((a, b) => b - a);
+  const filteredVideos = douyinCatalog
+    .filter((video) => videoCategory === "all" || video.category === videoCategory)
+    .filter((video) => videoYear === "all" || videoDate(video).getFullYear() === Number(videoYear))
+    .filter((video) => videoMonth === "all" || videoDate(video).getMonth() + 1 === Number(videoMonth))
+    .slice()
+    .sort((a, b) => videoSort === "newest" ? videoDate(b).getTime() - videoDate(a).getTime() : videoSort === "oldest" ? videoDate(a).getTime() - videoDate(b).getTime() : b.views - a.views);
   const activeMapArea = mapAreas.find((area) => area.key === mapArea) || mapAreas[0];
   const activeGlobePlace = globeLocations.find((place) => place.key === mapArea) || globeLocations[0];
   const activeMapPattern = mapAreas.find((area) => area.key === mapArea)?.pattern || new RegExp(activeGlobePlace.en, "i");
@@ -373,7 +386,15 @@ export default function Home() {
           <p className="spark-intro">{language === "zh" ? "九个经过编辑挑选的瞬间：不是最新发布，而是最能代表我如何看世界的画面。" : "Nine editorially chosen moments—not the newest posts, but the clearest expression of how I see the world."}</p>
           <div className="curated-grid">{curatedSparks.map((video, index) => video && <a className={`curated-card curated-${index + 1}`} href={video.url} target="_blank" rel="noreferrer" key={video.url}><div className="spark-media"><img src={video.image} alt={displayVideoTitle(video, language, index)}/><span className="hover-preview">▶ {language === "zh" ? "悬停静音预览" : "HOVER FOR MUTED PREVIEW"}</span></div><div><small>{language === "zh" ? ["城市", "手作", "绘画", "活动", "艺术", "钓鱼", "夜色", "雕塑", "发现"][index] : ["PLACE", "HANDMADE", "PAINTING", "EVENT", "ART", "FISHING", "NIGHT", "SCULPTURE", "DISCOVERY"][index]}</small><h4>{displayVideoTitle(video, language, index)}</h4><span>{social.open} ↗</span></div></a>)}</div>
           <button className="archive-toggle" type="button" onClick={() => setShowArchive((open) => !open)}>{showArchive ? (language === "zh" ? "收起完整档案" : "Close the full archive") : (language === "zh" ? "按主题浏览全部 305 个作品" : "Browse all 305 works by theme")} {showArchive ? "↑" : "↓"}</button>
-          {showArchive && <div className="archive-panel"><div className="filter-group"><strong>{social.themes}</strong><div className="video-filters" aria-label={social.themes}><button className={videoCategory === "all" ? "active" : ""} onClick={() => { setVideoCategory("all"); setVisibleVideos(24); }} type="button">{social.all} <span>{douyinCatalog.length}</span></button>{Object.entries(categories).map(([key, label]) => { const count = douyinCatalog.filter((video) => video.category === key).length; return <button className={videoCategory === key ? "active" : ""} onClick={() => { setVideoCategory(key); setVisibleVideos(24); }} type="button" key={key}>{label} <span>{count}</span></button>; })}</div></div><p className="video-count">{social.showing} {Math.min(visibleVideos, filteredVideos.length)} {social.of} {filteredVideos.length}</p><div className="douyin-grid">{filteredVideos.slice(0, visibleVideos).map((video, index) => <a className="video-card" href={video.url} target="_blank" rel="noreferrer" key={video.url}><div><img src={video.image} alt={displayVideoTitle(video, language, index)} loading="lazy"/><span className="play-mark" aria-hidden="true">▶</span></div><h4>{displayVideoTitle(video, language, index)}</h4><span>{social.open} ↗</span></a>)}</div>{visibleVideos < filteredVideos.length && <button className="load-more" type="button" onClick={() => setVisibleVideos((count) => count + 24)}>{social.loadMore} ↓</button>}</div>}<Engagement id="sparks" language={language}/>
+          {showArchive && <div className="archive-panel">
+            <div className="filter-group"><strong>{social.themes}</strong><div className="video-filters" aria-label={social.themes}><button className={videoCategory === "all" ? "active" : ""} onClick={() => { setVideoCategory("all"); setVisibleVideos(24); }} type="button">{social.all} <span>{douyinCatalog.length}</span></button>{Object.entries(categories).map(([key, label]) => { const count = douyinCatalog.filter((video) => video.category === key).length; return <button className={videoCategory === key ? "active" : ""} onClick={() => { setVideoCategory(key); setVisibleVideos(24); }} type="button" key={key}>{label} <span>{count}</span></button>; })}</div></div>
+            <div className="spark-time-tools">
+              <label><span>{language === "zh" ? "年份" : "Year"}</span><select value={videoYear} onChange={(event) => { setVideoYear(event.target.value); setVisibleVideos(24); }}><option value="all">{language === "zh" ? "全部年份" : "All years"}</option>{videoYears.map((year) => <option value={year} key={year}>{year}</option>)}</select></label>
+              <label><span>{language === "zh" ? "月份" : "Month"}</span><select value={videoMonth} onChange={(event) => { setVideoMonth(event.target.value); setVisibleVideos(24); }}><option value="all">{language === "zh" ? "全部月份" : "All months"}</option>{Array.from({ length: 12 }, (_, index) => index + 1).map((month) => <option value={month} key={month}>{language === "zh" ? `${month}月` : new Date(2024, month - 1).toLocaleString("en", { month: "long" })}</option>)}</select></label>
+              <label><span>{language === "zh" ? "排序" : "Sort"}</span><select value={videoSort} onChange={(event) => { setVideoSort(event.target.value); setVisibleVideos(24); }}><option value="views">{language === "zh" ? "最多观看" : "Most viewed"}</option><option value="newest">{language === "zh" ? "最新发布" : "Newest"}</option><option value="oldest">{language === "zh" ? "最早发布" : "Oldest"}</option></select></label>
+              {(videoYear !== "all" || videoMonth !== "all") && <button type="button" onClick={() => { setVideoYear("all"); setVideoMonth("all"); setVisibleVideos(24); }}>{language === "zh" ? "清除日期" : "Clear date"}</button>}
+            </div>
+            <p className="video-count">{social.showing} {Math.min(visibleVideos, filteredVideos.length)} {social.of} {filteredVideos.length}</p><div className="douyin-grid">{filteredVideos.slice(0, visibleVideos).map((video, index) => <a className="video-card" href={video.url} target="_blank" rel="noreferrer" key={video.url}><div><img src={video.image} alt={displayVideoTitle(video, language, index)} loading="lazy"/><span className="play-mark" aria-hidden="true">▶</span></div><h4>{displayVideoTitle(video, language, index)}</h4><span>{social.open} ↗</span></a>)}</div>{visibleVideos < filteredVideos.length && <button className="load-more" type="button" onClick={() => setVisibleVideos((count) => count + 24)}>{social.loadMore} ↓</button>}</div>}<Engagement id="sparks" language={language}/>
         </div>
       </section>
 
