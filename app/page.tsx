@@ -299,6 +299,17 @@ export default function Home() {
   const [bookSort, setBookSort] = useState("curated");
   const [visibleBooks, setVisibleBooks] = useState(18);
   const dragStart = useRef<{ x: number; rotation: number } | null>(null);
+  useEffect(() => {
+    const globe = document.querySelector(".globe");
+    const openSelectedCity = (event: Event) => {
+      const marker = (event.target as HTMLElement).closest<HTMLButtonElement>(".globe-pin");
+      if (!marker) return;
+      const place = globeLocations.find((item) => marker.textContent?.trim() === (language === "zh" ? item.zh : item.en));
+      if (place) window.open(`https://earth.google.com/web/search/${encodeURIComponent(place.landmark)}`, "_blank", "noopener,noreferrer");
+    };
+    globe?.addEventListener("click", openSelectedCity);
+    return () => globe?.removeEventListener("click", openSelectedCity);
+  }, [language]);
   const t = ui[language];
   const selected = selectedId ? details[language][selectedId] : null;
   const selectedEssay = (essayCollection as Essay[]).find((essay) => essay.id === selectedEssayId) || null;

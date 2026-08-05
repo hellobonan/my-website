@@ -215,10 +215,15 @@ main[lang="zh-CN"] .globe-controls small::after { content: "拖拽旋转地球 �
 .web-card:hover { transform: translateY(-6px); }
 .web-card > div:last-child { padding: 34px 28px; display: flex; flex-direction: column; justify-content: center; }
 .web-visual { position: relative; display: grid; place-items: center; overflow: hidden; background: radial-gradient(circle at 35% 30%,#ffd5c0,transparent 28%),linear-gradient(155deg,#b34c72,#303057); }
-.webcam-web .web-visual { background: radial-gradient(circle at 68% 28%,#f6ca77,transparent 23%),linear-gradient(155deg,#246277,#10283b); }
+.anime-web .web-visual { background: center / cover no-repeat url("/media/anitabi-representative.png"); }
+.webcam-web .web-visual { background: center / cover no-repeat url("/media/skyline-preview.png"); }
+.anime-web .web-visual span { display: none; }
+.webcam-web .web-visual span { position: absolute; top: 18px; left: 18px; padding: 7px 10px; border-radius: 4px; background: #e73832; font-family: inherit; font-size: 10px; letter-spacing: .12em; text-shadow: none; }
+.web-visual::after { position: absolute; inset: 0; content: ""; background: linear-gradient(180deg,transparent 48%,rgba(3,13,23,.72)); pointer-events: none; }
 .web-visual::before { position: absolute; width: 220px; height: 220px; content: ""; border: 1px solid rgba(255,255,255,.26); border-radius: 50%; box-shadow: 0 0 0 24px rgba(255,255,255,.05),0 0 0 48px rgba(255,255,255,.03); }
+.anime-web .web-visual::before, .webcam-web .web-visual::before { display: none; }
 .web-visual span { z-index: 1; font-family: Georgia,"Noto Serif SC",serif; font-size: 62px; text-shadow: 5px 7px 0 rgba(0,0,0,.18); }
-.web-visual i { position: absolute; z-index: 1; bottom: 24px; font-style: normal; font-size: 7px; letter-spacing: .18em; }
+.web-visual i { position: absolute; z-index: 2; bottom: 24px; padding: 7px 10px; border-radius: 3px; background: rgba(4,15,25,.72); font-style: normal; font-size: 7px; letter-spacing: .18em; }
 .web-card small { color: #efc77f; font-size: 8px; letter-spacing: .15em; }
 .web-card h3 { margin: 11px 0 16px; font-family: Georgia,"Noto Serif SC",serif; font-size: 29px; font-weight: 400; }
 .web-card p { color: #c1cbd5; font-size: 13px; line-height: 1.7; }
