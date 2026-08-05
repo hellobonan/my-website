@@ -181,7 +181,7 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid 
 .books-heading > p { color: var(--muted); font-family: Georgia,"Noto Serif SC",serif; font-size: 18px; line-height: 1.65; }
 .book-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 28px 18px; }
 .book-card { padding: 24px; display: grid; grid-template-columns: 120px 1fr; gap: 22px; border: 1px solid var(--line); border-radius: 10px; background: rgba(255,255,255,.38); }
-.book-card img { width: 120px; height: 180px; object-fit: cover; border-radius: 3px; box-shadow: 0 12px 28px rgba(36,30,22,.22); }
+.book-card img { width: 120px; height: 180px; object-fit: contain; border-radius: 3px; background: #f2f0ea; box-shadow: 0 12px 28px rgba(36,30,22,.22); }
 .book-cover-fallback { width: 120px; height: 180px; padding: 15px 10px; display: flex; flex-direction: column; justify-content: space-between; border-radius: 3px; background: linear-gradient(145deg,#1b3348,#8a6c48); color: white; box-shadow: 0 12px 28px rgba(36,30,22,.22); }
 .book-cover-fallback span { font-family: Georgia,serif; font-size: 15px; line-height: 1.1; }
 .book-cover-fallback i { font-style: normal; font-size: 6px; letter-spacing: .1em; text-transform: uppercase; opacity: .65; }
