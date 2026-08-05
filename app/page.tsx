@@ -8,6 +8,53 @@ const douyinUrl = "https://www.douyin.com/user/MS4wLjABAAAAjQLsDJzNqH-lMIXUsRCp2
 type Language = "en" | "zh";
 type Detail = { title: string; category: string; intro: string; paragraphs: string[]; external?: { label: string; url: string } };
 
+const socialCopy = {
+  en: {
+    label: "From my channels", title: "Recent work, in the original context.",
+    intro: "Read recent leadership posts and browse selected short films here—without needing an account. Open the source only when you want the full platform experience.",
+    linkedin: "LinkedIn · Leadership & marketplaces", douyin: "Douyin · Places, culture & everyday life", open: "Open original",
+  },
+  zh: {
+    label: "来自我的社交频道", title: "在原本的语境里，看见最近的创作。",
+    intro: "无需账号，也能在这里阅读近期职业文章、浏览精选短视频。只有想进入平台查看完整内容时，才需要打开原始链接。",
+    linkedin: "LinkedIn · 领导力与市场平台", douyin: "抖音 · 地方、文化与日常生活", open: "打开原文",
+  },
+} as const;
+
+const linkedinPosts = {
+  en: [
+    { image: "/media/linkedin-team-culture.jpg", title: "The strongest teams make everyone better", text: "Everyday acts—sharing knowledge, stepping in, and earning trust—rarely appear on a dashboard, but they shape culture and performance.", url: "https://www.linkedin.com/feed/update/urn:li:activity:7488859470878646272/" },
+    { image: "/media/linkedin-womens-day.jpg", title: "Opportunity, contribution, and leadership", text: "A reflection on equity, inclusion, and creating spaces where every voice can be heard when decisions are made.", url: "https://www.linkedin.com/feed/update/urn:li:activity:7436660928278048768/" },
+    { image: "/media/linkedin-couprize.jpg", title: "When excellence shows up in different forms", text: "Deep ownership, customer-first judgment, innovation, and automation create a talent pool where impact multiplies.", url: "https://www.linkedin.com/feed/update/urn:li:activity:7414482092639813632/" },
+    { image: "/media/linkedin-talent-clarity.jpg", title: "Talent is the engine. Clarity is the compass.", text: "A framework for leading multi-layered teams through rapid organizational change without losing scale, speed, or direction.", url: "https://www.linkedin.com/feed/update/urn:li:activity:7411175389114429440/" },
+  ],
+  zh: [
+    { image: "/media/linkedin-team-culture.jpg", title: "最强的团队，让身边每个人都变得更好", text: "分享知识、主动补位、赢得信任——这些行动很少出现在仪表盘上，却塑造文化并推动绩效。", url: "https://www.linkedin.com/feed/update/urn:li:activity:7488859470878646272/" },
+    { image: "/media/linkedin-womens-day.jpg", title: "机会、贡献与领导力", text: "关于公平、包容，以及如何让每一个声音都能在决策空间里被听见。", url: "https://www.linkedin.com/feed/update/urn:li:activity:7436660928278048768/" },
+    { image: "/media/linkedin-couprize.jpg", title: "当卓越以不同方式出现", text: "深度主人翁意识、客户优先的判断、创新和自动化，让优秀人才彼此影响并放大成果。", url: "https://www.linkedin.com/feed/update/urn:li:activity:7414482092639813632/" },
+    { image: "/media/linkedin-talent-clarity.jpg", title: "人才是引擎，清晰是指南针", text: "在快速组织变化中领导多层团队，同时保持规模、速度和方向的一套框架。", url: "https://www.linkedin.com/feed/update/urn:li:activity:7411175389114429440/" },
+  ],
+} as const;
+
+const douyinVideos = {
+  en: [
+    { image: "/media/douyin-seattle-seasons.jpg", title: "Seattle through four seasons", url: "https://www.douyin.com/video/7402500473552440612" },
+    { image: "/media/douyin-trout.jpg", title: "Trout fishing in the American West", url: "https://www.douyin.com/video/7123404557735988488" },
+    { image: "/media/douyin-blue-angels.jpg", title: "Seafair and the Blue Angels", url: "https://www.douyin.com/video/7128616231518735647" },
+    { image: "/media/douyin-illustration-fair.jpg", title: "The city that draws itself", url: "https://www.douyin.com/video/7670288236707311214" },
+    { image: "/media/douyin-han-river-jazz.jpg", title: "Summer jazz by the Han River", url: "https://www.douyin.com/video/7669058971198339210" },
+    { image: "/media/douyin-redmond-drone.jpg", title: "When the sky became a movie screen", url: "https://www.douyin.com/video/7640706893246598363" },
+  ],
+  zh: [
+    { image: "/media/douyin-seattle-seasons.jpg", title: "西雅图四季", url: "https://www.douyin.com/video/7402500473552440612" },
+    { image: "/media/douyin-trout.jpg", title: "美国西部钓鳟鱼", url: "https://www.douyin.com/video/7123404557735988488" },
+    { image: "/media/douyin-blue-angels.jpg", title: "西雅图海洋节与蓝天使", url: "https://www.douyin.com/video/7128616231518735647" },
+    { image: "/media/douyin-illustration-fair.jpg", title: "一座自己画自己的城市", url: "https://www.douyin.com/video/7670288236707311214" },
+    { image: "/media/douyin-han-river-jazz.jpg", title: "汉江夏季爵士乐", url: "https://www.douyin.com/video/7669058971198339210" },
+    { image: "/media/douyin-redmond-drone.jpg", title: "当天空变成电影屏幕", url: "https://www.douyin.com/video/7640706893246598363" },
+  ],
+} as const;
+
 const ui = {
   en: {
     nav: ["Writing", "Postcards", "Recommendations", "About"], note: "Get the note",
@@ -15,7 +62,7 @@ const ui = {
     hero: "Ideas, encounters, and useful things.",
     lede: "I’m Bonan Zhong. I build marketplaces, adaptive organizations, and leaders—then stay curious about the people, places, and small decisions that reveal how systems really work.",
     readLatest: "Read the latest", noteName: "A Note from Bonan",
-    roles: ["Director at Coupang", "Former Amazon", "Seattle · Seoul · Elsewhere"], portrait: "Portrait coming soon",
+    roles: ["Director at Coupang", "Former Amazon", "Seattle · Seoul · Elsewhere"], portrait: "Bonan Zhong",
     portraitLine: "From medicine to marketplaces, I follow the next meaningful bottleneck.",
     featuredLabel: "Featured idea · 6 min read", featuredTitle: "Every solution creates a new constraint.",
     featuredText: "The strength that gets a team to one stage can become the thing that holds it back at the next. The work is not simply becoming an expert—it is noticing when the system needs a new question.", readIdea: "Read the full idea",
@@ -48,7 +95,7 @@ const ui = {
     hero: "想法、见闻，还有值得分享的东西。",
     lede: "我是钟博南。我致力于构建市场平台、能够适应变化的组织和独当一面的领导者；同时，我也好奇于人、地方和日常中的小决定，因为它们往往能让我们看清一个系统如何运作。",
     readLatest: "阅读最新文章", noteName: "博南手记",
-    roles: ["酷澎总监", "前亚马逊", "西雅图 · 首尔 · 更远的地方"], portrait: "个人照片即将上线",
+    roles: ["酷澎总监", "前亚马逊", "西雅图 · 首尔 · 更远的地方"], portrait: "钟博南",
     portraitLine: "从医学到市场平台，我始终在寻找下一个值得解决的瓶颈。",
     featuredLabel: "本期精选 · 阅读约 6 分钟", featuredTitle: "每一个解决方案，都会创造新的约束。",
     featuredText: "把团队带到一个新阶段的优势，有时会成为下一阶段的阻力。真正的挑战不只是成为专家，而是及时发现：系统已经需要一个新问题。", readIdea: "阅读全文",
@@ -108,6 +155,9 @@ export default function Home() {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const t = ui[language];
   const selected = selectedId ? details[language][selectedId] : null;
+  const social = socialCopy[language];
+  const posts = linkedinPosts[language];
+  const videos = douyinVideos[language];
 
   function subscribe(event: FormEvent<HTMLFormElement>) { event.preventDefault(); setSubscribed(true); }
 
@@ -132,7 +182,7 @@ export default function Home() {
           <div className="hero-actions"><a className="button button-primary" href="#writing">{t.readLatest}</a><a className="button button-secondary" href="#subscribe">{t.noteName}</a></div>
           <div className="role-line">{t.roles.map((role) => <span key={role}>{role}</span>)}</div>
         </div>
-        <div className="hero-portrait"><div className="portrait-frame"><span className="portrait-monogram">BZ</span><span className="portrait-note">{t.portrait}</span></div><p>{t.portraitLine}</p></div>
+        <div className="hero-portrait"><div className="portrait-frame portrait-photo"><img src="/media/linkedin-profile.jpg" alt={t.portrait}/><span className="portrait-note">{t.portrait}</span></div><p>{t.portraitLine}</p></div>
       </section>
 
       <section className="featured section-pad"><div className="section-label">{t.featuredLabel}</div><div className="featured-grid"><h2>{t.featuredTitle}</h2><div><p>{t.featuredText}</p><button className="text-link text-button" type="button" onClick={() => setSelectedId("constraint")}>{t.readIdea} <span>→</span></button></div></div></section>
@@ -154,6 +204,16 @@ export default function Home() {
       <section className="about section-pad" id="about"><div className="about-number">05</div><div className="about-copy"><p className="eyebrow">{t.about}</p><h2>{t.aboutTitle}</h2><p className="about-lede">{t.aboutLede}</p><div className="about-columns"><p>{t.aboutA}</p><p>{t.aboutB}</p></div>
         <div className="social-links"><button type="button" onClick={() => setSelectedId("professional")}>{t.profileHere} →</button><button type="button" onClick={() => setSelectedId("videos")}>{t.videosHere} →</button></div><small className="external-warning">{t.externalNote}</small>
       </div></section>
+
+      <section className="social-showcase section-pad" id="channels">
+        <div className="social-heading"><p className="eyebrow">{social.label}</p><h2>{social.title}</h2><p>{social.intro}</p></div>
+        <div className="channel-block"><div className="channel-title"><div><img src="/media/linkedin-profile.jpg" alt={t.portrait}/><h3>{social.linkedin}</h3></div><a href={linkedinUrl} target="_blank" rel="noreferrer">LinkedIn ↗</a></div>
+          <div className="linkedin-grid">{posts.map((post) => <a className="linkedin-card" href={post.url} target="_blank" rel="noreferrer" key={post.url}><img src={post.image} alt=""/><div><h4>{post.title}</h4><p>{post.text}</p><span>{social.open} ↗</span></div></a>)}</div>
+        </div>
+        <div className="channel-block"><div className="channel-title"><div><img src="/media/douyin-avatar.jpg" alt="西雅图大南瓜"/><h3>{social.douyin}</h3></div><a href={douyinUrl} target="_blank" rel="noreferrer">Douyin ↗</a></div>
+          <div className="douyin-grid">{videos.map((video) => <a className="video-card" href={video.url} target="_blank" rel="noreferrer" key={video.url}><div><img src={video.image} alt={video.title}/><span className="play-mark" aria-hidden="true">▶</span></div><h4>{video.title}</h4><span>{social.open} ↗</span></a>)}</div>
+        </div>
+      </section>
 
       <section className="subscribe section-pad" id="subscribe"><div><p className="eyebrow">{t.noteName}</p><h2>{t.subscribeTitle}</h2></div><div className="subscribe-copy"><p>{t.subscribeText}</p>
         {subscribed ? <div className="success-message" role="status">{t.thanks}</div> : <form onSubmit={subscribe}><label className="sr-only" htmlFor="email">{t.email}</label><input id="email" name="email" type="email" placeholder={t.emailPlaceholder} required/><button type="submit">{t.note}</button></form>}<small>{t.privacy}</small>
