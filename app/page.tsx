@@ -11,14 +11,14 @@ type Detail = { title: string; category: string; intro: string; paragraphs: stri
 
 const socialCopy = {
   en: {
-    label: "From my channels", title: "Recent work, in the original context.",
-    intro: "Read recent leadership posts and browse selected short films here—without needing an account. Open the source only when you want the full platform experience.",
-    linkedin: "LinkedIn · Leadership & marketplaces", douyin: "Douyin · Complete video archive", open: "Open original", all: "All", places: "Filter by place", themes: "Filter by theme", showing: "Showing", of: "of", loadMore: "Load more videos",
+    label: "Ideas in motion", title: "Work, wonder, and the moments between.",
+    intro: "Leadership reflections meet hundreds of visual field notes—from rivers and cities to handmade experiments, live events, and the small surprises that make life vivid.",
+    linkedin: "From the professional notebook", douyin: "Sparks of Life", archive: "See the full source archive", open: "Open story", all: "All", places: "Explore by place", themes: "Explore by theme", showing: "Showing", of: "of", loadMore: "Reveal more sparks",
   },
   zh: {
-    label: "来自我的社交频道", title: "在原本的语境里，看见最近的创作。",
-    intro: "无需账号，也能在这里阅读近期职业文章、浏览精选短视频。只有想进入平台查看完整内容时，才需要打开原始链接。",
-    linkedin: "LinkedIn · 领导力与市场平台", douyin: "抖音 · 完整作品分类", open: "打开原文", all: "全部", places: "按地点筛选", themes: "按主题筛选", showing: "正在显示", of: "共", loadMore: "加载更多视频",
+    label: "流动的想法", title: "工作、好奇心，以及它们之间的生活。",
+    intro: "这里既有关于领导力的思考，也有数百个视觉现场笔记——河流、城市、手工创作、现场活动，以及让生活突然发亮的小意外。",
+    linkedin: "职业思考手记", douyin: "生活火花", archive: "查看完整来源档案", open: "打开故事", all: "全部", places: "按地点探索", themes: "按主题探索", showing: "正在显示", of: "共", loadMore: "发现更多火花",
   },
 } as const;
 
@@ -28,22 +28,18 @@ const linkedinPosts = {
     { image: "/media/linkedin-womens-day.jpg", title: "Opportunity, contribution, and leadership", text: "A reflection on equity, inclusion, and creating spaces where every voice can be heard when decisions are made.", url: "https://www.linkedin.com/feed/update/urn:li:activity:7436660928278048768/" },
     { image: "/media/linkedin-couprize.jpg", title: "When excellence shows up in different forms", text: "Deep ownership, customer-first judgment, innovation, and automation create a talent pool where impact multiplies.", url: "https://www.linkedin.com/feed/update/urn:li:activity:7414482092639813632/" },
     { image: "/media/linkedin-talent-clarity.jpg", title: "Talent is the engine. Clarity is the compass.", text: "A framework for leading multi-layered teams through rapid organizational change without losing scale, speed, or direction.", url: "https://www.linkedin.com/feed/update/urn:li:activity:7411175389114429440/" },
-    { image: "/media/linkedin-memo-culture.jpg", title: "Depth of thinking, not volume of talking", text: "Amazon’s memo culture taught me that writing forces clarity, silence builds alignment, and ownership delivers results.", url: "https://www.linkedin.com/feed/update/urn:li:activity:7393142833597046784/" },
     { image: "/media/linkedin-brand-program.jpg", title: "Launching the Coupang Brand Program", text: "Helping brands understand customers, build equity, and simplify operations in one of the world’s fastest-growing eCommerce markets.", url: "https://www.linkedin.com/feed/update/urn:li:activity:7387681006633410560/" },
-    { image: "/media/linkedin-ai-certificate.gif", title: "AI for Everyone", text: "Continuing to learn how AI can support better decisions, systems, and organizations.", url: "https://www.linkedin.com/feed/update/urn:li:activity:7385261461553598464/" },
-    { image: "/media/linkedin-iteration.jpg", title: "Launch gets you on the field. Iteration wins.", text: "A launch is a starting point: plan the next iterations, preserve measurement, and keep learning after release.", url: "https://www.linkedin.com/feed/update/urn:li:activity:7383657701479919616/" },
     { image: "/media/linkedin-collaboration.jpg", title: "A masterpiece of collaboration", text: "Individual paintings inspired by leadership principles came together as one visual expression of teamwork, creativity, and purpose.", url: "https://www.linkedin.com/feed/update/urn:li:activity:7333093175605022720/" },
+    { image: "/media/linkedin-snake-river.jpg", title: "Life Lessons from the Snake River", text: "A 1,078-mile river became a lesson in ambitious beginnings, patient growth, flexibility, learning from the dirt, and joining something larger than ourselves.", url: "https://www.linkedin.com/pulse/life-lessons-from-snake-river-bonan-zhong-d4mrc" },
   ],
   zh: [
     { image: "/media/linkedin-team-culture.jpg", title: "最强的团队，让身边每个人都变得更好", text: "分享知识、主动补位、赢得信任——这些行动很少出现在仪表盘上，却塑造文化并推动绩效。", url: "https://www.linkedin.com/feed/update/urn:li:activity:7488859470878646272/" },
     { image: "/media/linkedin-womens-day.jpg", title: "机会、贡献与领导力", text: "关于公平、包容，以及如何让每一个声音都能在决策空间里被听见。", url: "https://www.linkedin.com/feed/update/urn:li:activity:7436660928278048768/" },
     { image: "/media/linkedin-couprize.jpg", title: "当卓越以不同方式出现", text: "深度主人翁意识、客户优先的判断、创新和自动化，让优秀人才彼此影响并放大成果。", url: "https://www.linkedin.com/feed/update/urn:li:activity:7414482092639813632/" },
     { image: "/media/linkedin-talent-clarity.jpg", title: "人才是引擎，清晰是指南针", text: "在快速组织变化中领导多层团队，同时保持规模、速度和方向的一套框架。", url: "https://www.linkedin.com/feed/update/urn:li:activity:7411175389114429440/" },
-    { image: "/media/linkedin-memo-culture.jpg", title: "思考的深度，而不是说话的音量", text: "亚马逊的备忘录文化让我看到：写作迫使思考清晰，安静阅读建立共识，主人翁意识带来结果。", url: "https://www.linkedin.com/feed/update/urn:li:activity:7393142833597046784/" },
     { image: "/media/linkedin-brand-program.jpg", title: "推出酷澎品牌增长计划", text: "帮助品牌理解客户、建立品牌资产，并在高速增长的电商市场中简化运营。", url: "https://www.linkedin.com/feed/update/urn:li:activity:7387681006633410560/" },
-    { image: "/media/linkedin-ai-certificate.gif", title: "AI For Everyone", text: "持续学习 AI 如何支持更好的决策、系统和组织。", url: "https://www.linkedin.com/feed/update/urn:li:activity:7385261461553598464/" },
-    { image: "/media/linkedin-iteration.jpg", title: "发布让你上场，迭代让你获胜", text: "发布只是起点：提前规划后续迭代、保留数据衡量，并在上线后继续学习。", url: "https://www.linkedin.com/feed/update/urn:li:activity:7383657701479919616/" },
     { image: "/media/linkedin-collaboration.jpg", title: "协作与创造力的作品", text: "每个人围绕领导力原则完成一幅画，最终组合成一个关于团队、创意和共同目标的整体。", url: "https://www.linkedin.com/feed/update/urn:li:activity:7333093175605022720/" },
+    { image: "/media/linkedin-snake-river.jpg", title: "蛇河教给我的人生课", text: "一条绵延 1,078 英里的河，让我重新理解高目标、耐心成长、灵活前行、从泥沙中学习，以及融入更大整体的意义。", url: "https://www.linkedin.com/pulse/life-lessons-from-snake-river-bonan-zhong-d4mrc" },
   ],
 } as const;
 
@@ -69,6 +65,8 @@ function getVideoPlace(title: string) {
   return (rules.find(([, pattern]) => pattern.test(title)) || ["elsewhere"])[0];
 }
 
+const destinationOrder = ["seattle", "alaska", "hawaii", "canada", "korea", "japan", "chicago", "yellowstone", "california", "usa"];
+
 const ui = {
   en: {
     nav: ["Writing", "Postcards", "Recommendations", "About"], note: "Get the note",
@@ -80,13 +78,13 @@ const ui = {
     portraitLine: "From medicine to marketplaces, I follow the next meaningful bottleneck.",
     featuredLabel: "Featured idea · 6 min read", featuredTitle: "Every solution creates a new constraint.",
     featuredText: "The strength that gets a team to one stage can become the thing that holds it back at the next. The work is not simply becoming an expert—it is noticing when the system needs a new question.", readIdea: "Read the full idea",
-    journal: "The journal", journalTitle: "Three ways into the work.", readNow: "Read now",
+    journal: "How I see", journalTitle: "Three lenses for seeing what others miss.", readNow: "Read now",
     stories: [
-      ["Marketplace & Systems", "The next bottleneck", "What changes when the operating model that created growth starts limiting it?", "Essay"],
-      ["Everyday Encounters", "A small thing I noticed", "The best part of travel is not only what we see, but what we quietly learn after coming home.", "Reflection"],
-      ["AI & Adaptive Systems", "Organizations that keep learning", "AI matters less as a feature than as a new way for an organization to notice and adapt.", "Note"],
+      ["01 · SYSTEMS", "Find the constraint behind the problem", "Most visible problems are symptoms. I look for the bottleneck quietly shaping every decision around it.", "Field principle"],
+      ["02 · LEADERSHIP", "Build yourself out of the system", "The strongest leader is not the permanent answer, but the person who leaves behind judgment that keeps multiplying.", "Leadership principle"],
+      ["03 · CURIOSITY", "Small signals reveal the whole", "A river, a melon, or a covered spray bottle can expose how an entire culture or system really works.", "Observation principle"],
     ],
-    postcards: "Postcards", postcardsTitle: "Places change the questions.", postcardsText: "Short observations from the Pacific Northwest, Seoul, and wherever curiosity leads next.", openPostcard: "Open postcard",
+    postcards: "Field atlas", postcardsTitle: "Every place leaves a different question behind.", postcardsText: "An image-led atlas of the places that shaped the stories—from the Pacific Northwest to Asia and beyond.", openPostcard: "Explore place",
     postcardItems: [
       ["Seattle", "Sweet home, seen again", "Rain, water, evergreens—and the quiet pull of returning."],
       ["Seoul", "A city that performs", "Lanterns, live music, and a weekend along the Han River."],
@@ -113,13 +111,13 @@ const ui = {
     portraitLine: "从医学到市场平台，我始终在寻找下一个值得解决的瓶颈。",
     featuredLabel: "本期精选 · 阅读约 6 分钟", featuredTitle: "每一个解决方案，都会创造新的约束。",
     featuredText: "把团队带到一个新阶段的优势，有时会成为下一阶段的阻力。真正的挑战不只是成为专家，而是及时发现：系统已经需要一个新问题。", readIdea: "阅读全文",
-    journal: "文章", journalTitle: "从三个角度认识我的思考。", readNow: "立即阅读",
+    journal: "我的观察方式", journalTitle: "三个视角，看见别人容易错过的东西。", readNow: "立即阅读",
     stories: [
-      ["市场平台与系统", "下一个瓶颈", "当曾经推动增长的运营模式开始限制增长，会发生什么？", "长文"],
-      ["日常见闻", "一件我注意到的小事", "旅行最好玩的地方，不只是看见了什么，而是回来以后偷偷学会了什么。", "随笔"],
-      ["AI 与适应性系统", "不断学习的组织", "AI 的意义不只是一个功能，而是帮助组织更好地感知和适应。", "手记"],
+      ["01 · 系统", "找到问题背后的约束", "最显眼的问题往往只是症状。我寻找那个安静地影响所有决定的真正瓶颈。", "现场原则"],
+      ["02 · 领导力", "让系统最终不再依赖自己", "最强的领导者不是永远提供答案的人，而是留下能够持续复制判断力的系统。", "领导力原则"],
+      ["03 · 好奇心", "小信号能揭示整个系统", "一条河、一颗哈密瓜，或一只被手挡住的喷壶，都可能暴露一种文化或系统如何真正运作。", "观察原则"],
     ],
-    postcards: "旅行手记", postcardsTitle: "不同的地方，会改变我们提出的问题。", postcardsText: "来自美国西北部、首尔，以及好奇心带我到达的每一个地方的短篇观察。", openPostcard: "打开手记",
+    postcards: "现场地图", postcardsTitle: "每一个地方，都会留下一个不同的问题。", postcardsText: "一张由真实画面组成的旅行地图——从美国西北部到亚洲，以及更远的地方。", openPostcard: "探索地点",
     postcardItems: [
       ["西雅图", "再次看见家乡", "雨、水、常青树，还有回家时那种安静的吸引力。"],
       ["首尔", "一座会表演的城市", "花灯、现场音乐，还有汉江边的周末。"],
@@ -142,6 +140,8 @@ const details: Record<Language, Record<string, Detail>> = {
   en: {
     constraint: { title: "Every solution creates a new constraint", category: "Marketplace & Systems", intro: "What if your greatest strength eventually becomes your greatest limitation?", paragraphs: ["I have asked myself that question throughout my career. It led me from surgery to regenerative medicine, from biotechnology to Amazon and Coupang—not because I was searching for a different career, but because I was searching for the next bottleneck where I could create greater impact.", "Every solution eventually creates a new constraint. A process that once brought clarity can become bureaucracy. Expertise that once accelerated decisions can narrow the questions we are willing to ask.", "The challenge is not simply becoming an expert. It is knowing when the system has changed enough that we need to learn something completely new.", "My approach remains consistent: question assumptions, find the real bottleneck, build systems that adapt, and develop leaders who eventually make themselves unnecessary."] },
     bottleneck: { title: "The next bottleneck", category: "Marketplace & Systems", intro: "The operating model that creates growth is rarely the one that sustains every later stage.", paragraphs: ["When a system succeeds, it changes the environment around it. More customers create more edge cases. More sellers create more variation. More tools create more handoffs.", "Scaling is not a larger version of the same work. It requires asking which constraint now limits the whole system—and whether our strongest habits are preventing us from seeing it.", "I look for four signals: decisions waiting for one person, teams optimizing local metrics at the expense of the whole, exceptions growing faster than the rules, and yesterday’s expertise shutting down new questions.", "The goal is a system capable of noticing its next constraint and adapting before it becomes a crisis."] },
+    independence: { title: "Build yourself out of the system", category: "Leadership", intro: "The goal of leadership is not to become indispensable. It is to make good judgment increasingly independent of you.", paragraphs: ["A leader can solve today’s problem and still become tomorrow’s bottleneck. Every decision that must climb the hierarchy teaches the organization to wait instead of think.", "I look for places where context, principles, and decision rights can move closer to the work. The aim is not less accountability; it is accountability distributed with enough clarity to act.", "The real test is what happens when the leader leaves the room. Does quality fall, or does the system continue learning, challenging itself, and raising its own standard?", "The strongest legacy is not a queue of people who need your answer. It is a network of leaders capable of producing better answers than you could alone."] },
+    smallSignals: { title: "Small signals reveal the whole", category: "Curiosity & Systems", intro: "The smallest gesture can be a compressed explanation of an entire culture, organization, or life.", paragraphs: ["A shopkeeper replacing a melon because it will not ripen today says something about customer judgment. A hand shielding strangers from spray mist says something about consideration. A river navigating fifteen dams says something about adaptation.", "I pay attention to these moments because systems often reveal themselves indirectly. Policies describe what should happen; small behaviors reveal what people have truly learned to value.", "This is also why travel matters to me. A new place interrupts familiar assumptions and makes ordinary details visible again.", "Curiosity is not a hobby separate from leadership. It is the discipline of noticing weak signals before they become obvious truths."] },
     hokkaido: { title: "What I quietly learned after traveling", category: "Places & Cultures · Hokkaido", intro: "Nothing earth-shattering happened. Many people simply chose to take one small extra step.", paragraphs: ["This was my second Asian summer after moving to Seoul. Last year Tokyo’s heat made me question my choices, so this year I went north—to Hokkaido. The moment I stepped off the plane into weather below 20°C, I forgave the Asian summer.", "At breakfast, an elderly man cleaned a table. He held the spray bottle in one hand and used the other to shield people waiting nearby from the mist. It was the first time I thought that even a spray bottle could demonstrate consideration.", "In Furano, I chose a melon without understanding the label. At checkout, the shopkeeper stopped me and explained: ‘This one will be ripe in three days. I think you want to eat it today.’ She replaced it with one that was ready. Back at the hotel, it was perfect.", "The best part of travel is not only what we see, but what we quietly learn after coming home. Maybe the next time I pass a slow car, I will wave: It’s okay. Going slowly can be good too."], external: { label: "Open the original on Douyin — sign-in may be required", url: "https://www.douyin.com/video/7658469084598587122" } },
     learning: { title: "Organizations that keep learning", category: "AI & Adaptive Systems", intro: "AI matters less as a feature than as a new way for an organization to notice and adapt.", paragraphs: ["A feature can improve one task. An adaptive system changes how an organization senses what is happening, shares what it learns, and updates its decisions.", "The useful question is not only where AI can automate work. It is where information is lost, feedback arrives too late, and judgment remains trapped with too few people.", "Technology creates leverage only when the operating model changes with it. Otherwise, a faster tool delivers old assumptions more efficiently.", "The opportunity is to build organizations that continue getting smarter long after today’s problems have been solved."] },
     seattle: { title: "Seattle—sweet home", category: "Postcard · Seattle", intro: "Rain, water, evergreens—and the quiet pull of returning.", paragraphs: ["Seattle is where a city and the outdoors keep interrupting each other. Water appears at the end of a street. Mountains arrive when the clouds decide to move.", "It is where many of my interests meet: marketplaces and technology, fishing and lakes, everyday life and enormous landscapes.", "Some places impress you immediately. Home works differently. You understand it by leaving, returning, and noticing what your eyes had stopped seeing."] },
@@ -153,6 +153,8 @@ const details: Record<Language, Record<string, Detail>> = {
   zh: {
     constraint: { title: "每一个解决方案，都会创造新的约束", category: "市场平台与系统", intro: "如果你最大的优势，最终变成了最大的限制，会怎样？", paragraphs: ["我在职业生涯中一直问自己这个问题。它带我从外科医学走向再生医学，从生物技术走向亚马逊和酷澎。这不是因为我只想换一份工作，而是因为我在寻找下一个能够创造更大影响的瓶颈。", "每一个解决方案最终都会创造新的约束。曾经带来清晰的流程可能变成官僚；曾经加速决策的专业知识可能限制我们愿意提出的问题。", "挑战不只是成为专家，而是知道什么时候系统已经变化，我们必须学习完全不同的东西。", "我始终遵循同一套方法：质疑假设，找到真正的瓶颈，构建能够适应的系统，并培养最终不再依赖我的领导者。"] },
     bottleneck: { title: "下一个瓶颈", category: "市场平台与系统", intro: "创造增长的运营模式，很少能原样支撑之后的每一个阶段。", paragraphs: ["当一个系统成功时，它会改变周围的环境。更多客户带来更多边缘情况，更多卖家带来更多差异，更多工具带来更多交接。", "规模化不是把同样的工作放大。它要求我们重新问：现在是哪一个约束限制了整个系统？", "我会关注四个信号：决定不断等待同一个人；团队为局部指标牺牲整体；例外比规则增长得更快；昨天的专业知识在关闭今天的新问题。", "目标不是创造一个永远完美的系统，而是让它能发现下一个瓶颈，并在问题成为危机之前进化。"] },
+    independence: { title: "让系统最终不再依赖自己", category: "领导力", intro: "领导力的目标不是让自己不可替代，而是让好的判断越来越不必依赖自己。", paragraphs: ["领导者可以解决今天的问题，却成为明天的瓶颈。每一个必须层层上报的决定，都在教组织等待，而不是思考。", "我会寻找能够把背景、原则和决策权移到离工作更近的地方。这不是减少问责，而是让清晰度与责任一起被分配。", "真正的测试，是领导者离开房间以后会发生什么：质量会下降，还是系统会继续学习、挑战自己并提高标准？", "最好的遗产不是一群等待你回答的人，而是一张能够共同创造更好答案的领导者网络。"] },
+    smallSignals: { title: "小信号能揭示整个系统", category: "好奇心与系统", intro: "一个最小的动作，有时是对整种文化、组织或生活方式的压缩解释。", paragraphs: ["店主因为哈密瓜今天还没熟而主动替换，透露了她对客户判断的理解；一只挡住喷雾的手，透露了对陌生人的体贴；一条穿过十五座大坝的河，透露了适应的力量。", "我关注这些时刻，因为系统往往不会直接介绍自己。规则描述应该发生什么，而小行为揭示人们真正学会珍视什么。", "这也是旅行对我重要的原因。新的地方会打断熟悉的假设，让普通细节重新变得可见。", "好奇心不是与领导力分开的爱好。它是一种纪律：在微弱信号变成明显事实之前，就先注意到它。"] },
     hokkaido: { title: "旅行以后，偷偷学会了什么", category: "地方与文化 · 北海道", intro: "一路下来，没有惊天动地的大事。只是很多人愿意多做一步。", paragraphs: ["这是我来首尔后的第二个亚洲夏天。去年在东京休假，热得我怀疑人生。今年学聪明了，直接往北跑——北海道。一下飞机，不到二十度。我当场原谅了亚洲的夏天。", "早餐时，一个老爷爷擦桌子，左手喷壶，右手挡着水雾，怕溅到旁边等位的人。我第一次觉得，原来一个喷壶，也可以很有教养。", "去富良野买哈密瓜，结账时阿姨用翻译告诉我：‘这颗三天后才熟，我猜你今天就想吃。’然后换了一颗当天熟的。回酒店切开，真的刚刚好。", "旅行最好玩的地方，不是看见了什么，而是回来以后，开始偷偷学会了一些什么。没关系。慢一点。也挺好。"], external: { label: "在抖音打开原文——可能需要登录", url: "https://www.douyin.com/video/7658469084598587122" } },
     learning: { title: "不断学习的组织", category: "AI 与适应性系统", intro: "AI 的意义不只是一个功能，而是帮助组织更好地感知和适应。", paragraphs: ["一个功能可以改善一项任务。一个适应性系统则会改变组织如何感知现状、分享知识和更新决策。", "有用的问题不只是 AI 可以自动化哪些工作，而是信息在哪里丢失，反馈在哪里到得太晚，判断在哪里被少数人掌握。", "只有当运营模式也随之改变时，技术才会创造杠杆。否则，更快的工具只会更高效地交付旧假设。", "真正的机会，是构建一个在今天的问题被解决之后，仍能继续变得更聪明的组织。"] },
     seattle: { title: "西雅图——甜蜜的家", category: "旅行手记 · 西雅图", intro: "雨、水、常青树，还有回家时那种安静的吸引力。", paragraphs: ["西雅图是一座城市与户外不断相互打断的地方。街道尽头会出现水面，云散时山会突然到来。", "这里也是我许多兴趣交汇的地方：市场平台与科技、钓鱼与湖泊、日常生活与近在咫尺的广阔风景。", "有些地方会立刻让人惊叹；家不一样。离开、归来，再次注意到眼睛曾经习惯忽略的东西，我们才真正理解它。"] },
@@ -176,7 +178,8 @@ export default function Home() {
   const posts = linkedinPosts[language];
   const categories = categoryLabels[language];
   const places = placeLabels[language];
-  const filteredVideos = douyinCatalog.filter((video) => (videoCategory === "all" || video.category === videoCategory) && (videoPlace === "all" || getVideoPlace(video.title) === videoPlace));
+  const filteredVideos = douyinCatalog.filter((video) => (videoCategory === "all" || video.category === videoCategory) && (videoPlace === "all" || getVideoPlace(video.title) === videoPlace)).slice().sort((a, b) => b.views - a.views);
+  const destinations = destinationOrder.map((place) => ({ place, video: douyinCatalog.filter((video) => getVideoPlace(video.title) === place).sort((a, b) => b.views - a.views)[0] })).filter((item) => item.video);
 
   function subscribe(event: FormEvent<HTMLFormElement>) { event.preventDefault(); setSubscribed(true); }
 
@@ -208,12 +211,12 @@ export default function Home() {
 
       <section className="section-pad" id="writing"><div className="section-heading"><div><p className="eyebrow">{t.journal}</p><h2>{t.journalTitle}</h2></div></div>
         <div className="story-grid">
-          {t.stories.map((story, index) => <button key={story[1]} className={`story-card card-button ${index === 0 ? "story-card-dark" : index === 1 ? "story-card-coral" : "story-card-paper"}`} type="button" onClick={() => setSelectedId(["bottleneck", "hokkaido", "learning"][index])}><div className="card-meta"><span>{story[0]}</span><span>{language === "zh" ? "中文" : "EN"}</span></div><div className="story-symbol">{["↗", "小", "∞"][index]}</div><div><h3>{story[1]}</h3><p>{story[2]}</p><span className="card-foot">{story[3]} · {t.readNow} →</span></div></button>)}
+          {t.stories.map((story, index) => <button key={story[1]} className={`story-card card-button ${index === 0 ? "story-card-dark" : index === 1 ? "story-card-coral" : "story-card-paper"}`} type="button" onClick={() => setSelectedId(["bottleneck", "independence", "smallSignals"][index])}><div className="card-meta"><span>{story[0]}</span><span>{language === "zh" ? "中文" : "EN"}</span></div><div className="story-symbol">{["↗", "×", "◌"][index]}</div><div><h3>{story[1]}</h3><p>{story[2]}</p><span className="card-foot">{story[3]} · {t.readNow} →</span></div></button>)}
         </div>
       </section>
 
       <section className="postcards section-pad" id="postcards"><div className="section-heading postcards-heading"><div><p className="eyebrow">{t.postcards}</p><h2>{t.postcardsTitle}</h2></div><p>{t.postcardsText}</p></div>
-        <div className="postcard-strip">{t.postcardItems.map((item, index) => <button key={item[0]} className={`postcard card-button postcard-${["seattle", "seoul", "hokkaido"][index]}`} type="button" onClick={() => setSelectedId(["seattle", "seoul", "hokkaido"][index])}><span className="postcard-index">0{index + 1}</span><div><span>{item[0]}</span><h3>{item[1]}</h3><p>{item[2]}</p></div><span className="open-cue">{t.openPostcard} →</span></button>)}</div>
+        <div className="postcard-strip destination-grid">{destinations.map((item, index) => <a key={item.place} className="postcard destination-card" href={item.video.url} target="_blank" rel="noreferrer" style={{ backgroundImage: `linear-gradient(180deg, rgba(10,18,16,.06), rgba(10,18,16,.88)), url(${item.video.image})` }}><span className="postcard-index">{String(index + 1).padStart(2, "0")}</span><div><span>{places[item.place as keyof typeof places]}</span><h3>{item.video.title.split(/[。#]/)[0]}</h3><p>{item.video.views.toLocaleString()} {language === "zh" ? "次观看" : "views"}</p></div><span className="open-cue">{t.openPostcard} →</span></a>)}</div>
       </section>
 
       <section className="recommendations section-pad" id="recommendations"><div className="recommendation-intro"><p className="eyebrow">{t.worth}</p><h2>{t.worthTitle}</h2><p>{t.worthText}</p></div>
@@ -229,7 +232,7 @@ export default function Home() {
         <div className="channel-block"><div className="channel-title"><div><img src="/media/linkedin-profile.jpg" alt={t.portrait}/><h3>{social.linkedin}</h3></div><a href={linkedinUrl} target="_blank" rel="noreferrer">LinkedIn ↗</a></div>
           <div className="linkedin-grid">{posts.map((post) => <a className="linkedin-card" href={post.url} target="_blank" rel="noreferrer" key={post.url}><img src={post.image} alt=""/><div><h4>{post.title}</h4><p>{post.text}</p><span>{social.open} ↗</span></div></a>)}</div>
         </div>
-        <div className="channel-block"><div className="channel-title"><div><img src="/media/douyin-avatar.jpg" alt="西雅图大南瓜"/><h3>{social.douyin}</h3></div><a href={douyinUrl} target="_blank" rel="noreferrer">Douyin ↗</a></div>
+        <div className="channel-block sparks-block"><div className="channel-title"><div><img src="/media/douyin-avatar.jpg" alt="西雅图大南瓜"/><h3>{social.douyin}</h3></div><a href={douyinUrl} target="_blank" rel="noreferrer">{social.archive} ↗</a></div>
           <div className="filter-group"><strong>{social.places}</strong><div className="video-filters" aria-label={social.places}><button className={videoPlace === "all" ? "active" : ""} onClick={() => { setVideoPlace("all"); setVisibleVideos(24); }} type="button">{social.all} <span>{videoCategory === "all" ? douyinCatalog.length : douyinCatalog.filter((video) => video.category === videoCategory).length}</span></button>{Object.entries(places).map(([key, label]) => { const count = douyinCatalog.filter((video) => getVideoPlace(video.title) === key && (videoCategory === "all" || video.category === videoCategory)).length; return count > 0 && <button className={videoPlace === key ? "active" : ""} onClick={() => { setVideoPlace(key); setVisibleVideos(24); }} type="button" key={key}>{label} <span>{count}</span></button>; })}</div></div>
           <div className="filter-group"><strong>{social.themes}</strong><div className="video-filters" aria-label={social.themes}><button className={videoCategory === "all" ? "active" : ""} onClick={() => { setVideoCategory("all"); setVisibleVideos(24); }} type="button">{social.all} <span>{videoPlace === "all" ? douyinCatalog.length : douyinCatalog.filter((video) => getVideoPlace(video.title) === videoPlace).length}</span></button>{Object.entries(categories).map(([key, label]) => { const count = douyinCatalog.filter((video) => video.category === key && (videoPlace === "all" || getVideoPlace(video.title) === videoPlace)).length; return count > 0 && <button className={videoCategory === key ? "active" : ""} onClick={() => { setVideoCategory(key); setVisibleVideos(24); }} type="button" key={key}>{label} <span>{count}</span></button>; })}</div></div>
           <p className="video-count">{social.showing} {Math.min(visibleVideos, filteredVideos.length)} {social.of} {filteredVideos.length}</p>
