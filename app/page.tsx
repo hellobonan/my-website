@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useState } from "react";
+import douyinCatalog from "./douyin-catalog.json";
 
 const linkedinUrl = "https://www.linkedin.com/in/bonanzhong/";
 const douyinUrl = "https://www.douyin.com/user/MS4wLjABAAAAjQLsDJzNqH-lMIXUsRCp298zla02LnmZyACESD7llC4";
@@ -12,12 +13,12 @@ const socialCopy = {
   en: {
     label: "From my channels", title: "Recent work, in the original context.",
     intro: "Read recent leadership posts and browse selected short films here—without needing an account. Open the source only when you want the full platform experience.",
-    linkedin: "LinkedIn · Leadership & marketplaces", douyin: "Douyin · Places, culture & everyday life", open: "Open original",
+    linkedin: "LinkedIn · Leadership & marketplaces", douyin: "Douyin · Complete video archive", open: "Open original", all: "All", showing: "Showing", of: "of", loadMore: "Load more videos",
   },
   zh: {
     label: "来自我的社交频道", title: "在原本的语境里，看见最近的创作。",
     intro: "无需账号，也能在这里阅读近期职业文章、浏览精选短视频。只有想进入平台查看完整内容时，才需要打开原始链接。",
-    linkedin: "LinkedIn · 领导力与市场平台", douyin: "抖音 · 地方、文化与日常生活", open: "打开原文",
+    linkedin: "LinkedIn · 领导力与市场平台", douyin: "抖音 · 完整作品分类", open: "打开原文", all: "全部", showing: "正在显示", of: "共", loadMore: "加载更多视频",
   },
 } as const;
 
@@ -27,32 +28,28 @@ const linkedinPosts = {
     { image: "/media/linkedin-womens-day.jpg", title: "Opportunity, contribution, and leadership", text: "A reflection on equity, inclusion, and creating spaces where every voice can be heard when decisions are made.", url: "https://www.linkedin.com/feed/update/urn:li:activity:7436660928278048768/" },
     { image: "/media/linkedin-couprize.jpg", title: "When excellence shows up in different forms", text: "Deep ownership, customer-first judgment, innovation, and automation create a talent pool where impact multiplies.", url: "https://www.linkedin.com/feed/update/urn:li:activity:7414482092639813632/" },
     { image: "/media/linkedin-talent-clarity.jpg", title: "Talent is the engine. Clarity is the compass.", text: "A framework for leading multi-layered teams through rapid organizational change without losing scale, speed, or direction.", url: "https://www.linkedin.com/feed/update/urn:li:activity:7411175389114429440/" },
+    { image: "/media/linkedin-memo-culture.jpg", title: "Depth of thinking, not volume of talking", text: "Amazon’s memo culture taught me that writing forces clarity, silence builds alignment, and ownership delivers results.", url: "https://www.linkedin.com/feed/update/urn:li:activity:7393142833597046784/" },
+    { image: "/media/linkedin-brand-program.jpg", title: "Launching the Coupang Brand Program", text: "Helping brands understand customers, build equity, and simplify operations in one of the world’s fastest-growing eCommerce markets.", url: "https://www.linkedin.com/feed/update/urn:li:activity:7387681006633410560/" },
+    { image: "/media/linkedin-ai-certificate.gif", title: "AI for Everyone", text: "Continuing to learn how AI can support better decisions, systems, and organizations.", url: "https://www.linkedin.com/feed/update/urn:li:activity:7385261461553598464/" },
+    { image: "/media/linkedin-iteration.jpg", title: "Launch gets you on the field. Iteration wins.", text: "A launch is a starting point: plan the next iterations, preserve measurement, and keep learning after release.", url: "https://www.linkedin.com/feed/update/urn:li:activity:7383657701479919616/" },
+    { image: "/media/linkedin-collaboration.jpg", title: "A masterpiece of collaboration", text: "Individual paintings inspired by leadership principles came together as one visual expression of teamwork, creativity, and purpose.", url: "https://www.linkedin.com/feed/update/urn:li:activity:7333093175605022720/" },
   ],
   zh: [
     { image: "/media/linkedin-team-culture.jpg", title: "最强的团队，让身边每个人都变得更好", text: "分享知识、主动补位、赢得信任——这些行动很少出现在仪表盘上，却塑造文化并推动绩效。", url: "https://www.linkedin.com/feed/update/urn:li:activity:7488859470878646272/" },
     { image: "/media/linkedin-womens-day.jpg", title: "机会、贡献与领导力", text: "关于公平、包容，以及如何让每一个声音都能在决策空间里被听见。", url: "https://www.linkedin.com/feed/update/urn:li:activity:7436660928278048768/" },
     { image: "/media/linkedin-couprize.jpg", title: "当卓越以不同方式出现", text: "深度主人翁意识、客户优先的判断、创新和自动化，让优秀人才彼此影响并放大成果。", url: "https://www.linkedin.com/feed/update/urn:li:activity:7414482092639813632/" },
     { image: "/media/linkedin-talent-clarity.jpg", title: "人才是引擎，清晰是指南针", text: "在快速组织变化中领导多层团队，同时保持规模、速度和方向的一套框架。", url: "https://www.linkedin.com/feed/update/urn:li:activity:7411175389114429440/" },
+    { image: "/media/linkedin-memo-culture.jpg", title: "思考的深度，而不是说话的音量", text: "亚马逊的备忘录文化让我看到：写作迫使思考清晰，安静阅读建立共识，主人翁意识带来结果。", url: "https://www.linkedin.com/feed/update/urn:li:activity:7393142833597046784/" },
+    { image: "/media/linkedin-brand-program.jpg", title: "推出酷澎品牌增长计划", text: "帮助品牌理解客户、建立品牌资产，并在高速增长的电商市场中简化运营。", url: "https://www.linkedin.com/feed/update/urn:li:activity:7387681006633410560/" },
+    { image: "/media/linkedin-ai-certificate.gif", title: "AI For Everyone", text: "持续学习 AI 如何支持更好的决策、系统和组织。", url: "https://www.linkedin.com/feed/update/urn:li:activity:7385261461553598464/" },
+    { image: "/media/linkedin-iteration.jpg", title: "发布让你上场，迭代让你获胜", text: "发布只是起点：提前规划后续迭代、保留数据衡量，并在上线后继续学习。", url: "https://www.linkedin.com/feed/update/urn:li:activity:7383657701479919616/" },
+    { image: "/media/linkedin-collaboration.jpg", title: "协作与创造力的作品", text: "每个人围绕领导力原则完成一幅画，最终组合成一个关于团队、创意和共同目标的整体。", url: "https://www.linkedin.com/feed/update/urn:li:activity:7333093175605022720/" },
   ],
 } as const;
 
-const douyinVideos = {
-  en: [
-    { image: "/media/douyin-seattle-seasons.jpg", title: "Seattle through four seasons", url: "https://www.douyin.com/video/7402500473552440612" },
-    { image: "/media/douyin-trout.jpg", title: "Trout fishing in the American West", url: "https://www.douyin.com/video/7123404557735988488" },
-    { image: "/media/douyin-blue-angels.jpg", title: "Seafair and the Blue Angels", url: "https://www.douyin.com/video/7128616231518735647" },
-    { image: "/media/douyin-illustration-fair.jpg", title: "The city that draws itself", url: "https://www.douyin.com/video/7670288236707311214" },
-    { image: "/media/douyin-han-river-jazz.jpg", title: "Summer jazz by the Han River", url: "https://www.douyin.com/video/7669058971198339210" },
-    { image: "/media/douyin-redmond-drone.jpg", title: "When the sky became a movie screen", url: "https://www.douyin.com/video/7640706893246598363" },
-  ],
-  zh: [
-    { image: "/media/douyin-seattle-seasons.jpg", title: "西雅图四季", url: "https://www.douyin.com/video/7402500473552440612" },
-    { image: "/media/douyin-trout.jpg", title: "美国西部钓鳟鱼", url: "https://www.douyin.com/video/7123404557735988488" },
-    { image: "/media/douyin-blue-angels.jpg", title: "西雅图海洋节与蓝天使", url: "https://www.douyin.com/video/7128616231518735647" },
-    { image: "/media/douyin-illustration-fair.jpg", title: "一座自己画自己的城市", url: "https://www.douyin.com/video/7670288236707311214" },
-    { image: "/media/douyin-han-river-jazz.jpg", title: "汉江夏季爵士乐", url: "https://www.douyin.com/video/7669058971198339210" },
-    { image: "/media/douyin-redmond-drone.jpg", title: "当天空变成电影屏幕", url: "https://www.douyin.com/video/7640706893246598363" },
-  ],
+const categoryLabels = {
+  en: { cities: "Cities", events: "Events", arts: "Arts & culture", sports: "Fishing & sports", handmade: "Handmade", nature: "Nature", travel: "Travel", food: "Food", everyday: "Everyday life" },
+  zh: { cities: "城市", events: "活动与节庆", arts: "艺术与文化", sports: "钓鱼与运动", handmade: "手工创作", nature: "自然", travel: "旅行", food: "美食", everyday: "日常生活" },
 } as const;
 
 const ui = {
@@ -79,7 +76,7 @@ const ui = {
       ["Hokkaido", "The extra small step", "What a ripe melon and a covered spray bottle taught me about care."],
     ],
     worth: "Worth sharing", worthTitle: "Useful things should come with a reason.", worthText: "Books, places, performances, tools, and ideas—each with a short note about why it might deserve your attention.",
-    recs: [["BOOKS & IDEAS", "Four questions for a better decision"], ["PLACES & CULTURE", "A quieter way to experience a city"], ["VIDEO PROFILE", "One minute with Bonan"]],
+    recs: [["BOOKS & IDEAS", "Four questions for a better decision"], ["LEADERSHIP", "Talent is the engine. Clarity is the compass."], ["VIDEO PROFILE", "Explore the complete video archive"]],
     about: "About Bonan", aboutTitle: "A career built by following the next meaningful constraint.",
     aboutLede: "My path has crossed surgery, regenerative medicine, biotechnology, Amazon, and Coupang. The common thread is a habit of questioning assumptions, finding the real bottleneck, and building systems that adapt.",
     aboutA: "Today, my interests center on AI, marketplaces, consumer platforms, seller services, and organizations that keep learning.",
@@ -112,7 +109,7 @@ const ui = {
       ["北海道", "多做的那一小步", "一颗刚好成熟的哈密瓜和一个被手挡住的喷壶，让我重新理解了体贴。"],
     ],
     worth: "值得分享", worthTitle: "好东西，应该说清楚为什么值得。", worthText: "书、地方、表演、工具和想法——每一项都附上一段简短的理由。",
-    recs: [["书与思想", "做出更好决定的四个问题"], ["地方与文化", "用更安静的方式体验一座城市"], ["视频主页", "和博南相处一分钟"]],
+    recs: [["书与思想", "做出更好决定的四个问题"], ["领导力", "人才是引擎，清晰是指南针"], ["视频主页", "浏览完整视频档案"]],
     about: "关于我", aboutTitle: "我的职业路径，始终围绕着寻找下一个值得解决的瓶颈。",
     aboutLede: "我的经历跨越了外科医学、再生医学、生物技术、亚马逊和酷澎。贯穿其中的是一种习惯：质疑假设、找到真正的瓶颈，并构建能够不断适应的系统。",
     aboutA: "今天，我关注 AI、市场平台、消费者平台、卖家服务，以及能够不断学习的组织。",
@@ -153,11 +150,14 @@ export default function Home() {
   const [language, setLanguage] = useState<Language>("en");
   const [subscribed, setSubscribed] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [videoCategory, setVideoCategory] = useState("all");
+  const [visibleVideos, setVisibleVideos] = useState(24);
   const t = ui[language];
   const selected = selectedId ? details[language][selectedId] : null;
   const social = socialCopy[language];
   const posts = linkedinPosts[language];
-  const videos = douyinVideos[language];
+  const categories = categoryLabels[language];
+  const filteredVideos = videoCategory === "all" ? douyinCatalog : douyinCatalog.filter((video) => video.category === videoCategory);
 
   function subscribe(event: FormEvent<HTMLFormElement>) { event.preventDefault(); setSubscribed(true); }
 
@@ -198,7 +198,7 @@ export default function Home() {
       </section>
 
       <section className="recommendations section-pad" id="recommendations"><div className="recommendation-intro"><p className="eyebrow">{t.worth}</p><h2>{t.worthTitle}</h2><p>{t.worthText}</p></div>
-        <div className="recommendation-list">{t.recs.map((item, index) => <button className="recommendation-item" key={item[1]} type="button" onClick={() => setSelectedId(["decisions", "hokkaido", "videos"][index])}><span>0{index + 1}</span><div><small>{item[0]}</small><h3>{item[1]}</h3></div><span>{t.readNow} →</span></button>)}</div>
+        <div className="recommendation-list">{t.recs.map((item, index) => <button className="recommendation-item" key={item[1]} type="button" onClick={() => setSelectedId(["decisions", "professional", "videos"][index])}><span>0{index + 1}</span><div><small>{item[0]}</small><h3>{item[1]}</h3></div><span>{t.readNow} →</span></button>)}</div>
       </section>
 
       <section className="about section-pad" id="about"><div className="about-number">05</div><div className="about-copy"><p className="eyebrow">{t.about}</p><h2>{t.aboutTitle}</h2><p className="about-lede">{t.aboutLede}</p><div className="about-columns"><p>{t.aboutA}</p><p>{t.aboutB}</p></div>
@@ -211,7 +211,10 @@ export default function Home() {
           <div className="linkedin-grid">{posts.map((post) => <a className="linkedin-card" href={post.url} target="_blank" rel="noreferrer" key={post.url}><img src={post.image} alt=""/><div><h4>{post.title}</h4><p>{post.text}</p><span>{social.open} ↗</span></div></a>)}</div>
         </div>
         <div className="channel-block"><div className="channel-title"><div><img src="/media/douyin-avatar.jpg" alt="西雅图大南瓜"/><h3>{social.douyin}</h3></div><a href={douyinUrl} target="_blank" rel="noreferrer">Douyin ↗</a></div>
-          <div className="douyin-grid">{videos.map((video) => <a className="video-card" href={video.url} target="_blank" rel="noreferrer" key={video.url}><div><img src={video.image} alt={video.title}/><span className="play-mark" aria-hidden="true">▶</span></div><h4>{video.title}</h4><span>{social.open} ↗</span></a>)}</div>
+          <div className="video-filters" aria-label={social.douyin}><button className={videoCategory === "all" ? "active" : ""} onClick={() => { setVideoCategory("all"); setVisibleVideos(24); }} type="button">{social.all} <span>{douyinCatalog.length}</span></button>{Object.entries(categories).map(([key, label]) => <button className={videoCategory === key ? "active" : ""} onClick={() => { setVideoCategory(key); setVisibleVideos(24); }} type="button" key={key}>{label} <span>{douyinCatalog.filter((video) => video.category === key).length}</span></button>)}</div>
+          <p className="video-count">{social.showing} {Math.min(visibleVideos, filteredVideos.length)} {social.of} {filteredVideos.length}</p>
+          <div className="douyin-grid">{filteredVideos.slice(0, visibleVideos).map((video) => <a className="video-card" href={video.url} target="_blank" rel="noreferrer" key={video.url}><div><img src={video.image} alt={video.title} loading="lazy"/><span className="play-mark" aria-hidden="true">▶</span></div><h4>{video.title}</h4><span>{social.open} ↗</span></a>)}</div>
+          {visibleVideos < filteredVideos.length && <button className="load-more" type="button" onClick={() => setVisibleVideos((count) => count + 24)}>{social.loadMore} ↓</button>}
         </div>
       </section>
 
