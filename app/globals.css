@@ -52,6 +52,7 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid 
 .featured h2 { max-width: 800px; font-size: clamp(45px, 6vw, 82px); }
 .featured-grid p { margin: 4px 0 34px; color: #ccc5b9; font-family: Georgia, serif; font-size: 20px; line-height: 1.65; }
 .text-link { display: inline-flex; gap: 14px; padding-bottom: 5px; border-bottom: 1px solid #766e63; font-size: 14px; }
+.text-button { padding: 0 0 5px; background: transparent; color: inherit; cursor: pointer; }
 
 .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 40px; margin-bottom: 48px; }
 .section-heading h2 { font-size: clamp(42px, 5vw, 70px); }
@@ -61,6 +62,8 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid 
 .story-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
 .story-card { min-height: 430px; padding: 25px; display: flex; flex-direction: column; justify-content: space-between; border-radius: 8px; transition: transform .2s ease; }
 .story-card:hover { transform: translateY(-5px); }
+.card-button { width: 100%; border: 0; text-align: left; cursor: pointer; font: inherit; }
+.card-button:hover .card-foot, .card-button:hover .open-cue { opacity: 1; }
 .story-card-dark { background: var(--forest); color: #f4f0e8; }
 .story-card-coral { background: var(--coral); color: white; }
 .story-card-paper { border: 1px solid var(--line); background: var(--surface); }
@@ -85,12 +88,14 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid 
 .postcard div > span { font-size: 10px; font-weight: 750; letter-spacing: .12em; text-transform: uppercase; opacity: .7; }
 .postcard h3 { max-width: 330px; margin: 10px 0 12px; font-family: Georgia, serif; font-size: 36px; font-weight: 400; line-height: 1.05; }
 .postcard p { max-width: 320px; margin: 0; font-size: 13px; line-height: 1.55; opacity: .75; }
+.open-cue { align-self: flex-end; margin-top: 22px; font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; opacity: .65; }
 
 .recommendations { display: grid; grid-template-columns: .75fr 1.25fr; gap: 100px; }
 .recommendation-intro h2 { font-size: clamp(42px, 5vw, 68px); }
 .recommendation-intro > p:last-child { max-width: 450px; color: var(--muted); font-family: Georgia, serif; font-size: 18px; line-height: 1.6; }
 .recommendation-list { border-top: 1px solid var(--line); }
-.recommendation-item { min-height: 125px; display: grid; grid-template-columns: 45px 1fr auto; gap: 22px; align-items: center; border-bottom: 1px solid var(--line); }
+.recommendation-item { width: 100%; min-height: 125px; padding: 0; display: grid; grid-template-columns: 45px 1fr auto; gap: 22px; align-items: center; border: 0; border-bottom: 1px solid var(--line); background: transparent; color: inherit; text-align: left; cursor: pointer; }
+.recommendation-item:hover h3 { color: var(--coral); }
 .recommendation-item > span { color: var(--muted); font-size: 11px; }
 .recommendation-item small { color: var(--coral); font-size: 9px; font-weight: 750; letter-spacing: .12em; }
 .recommendation-item h3 { margin: 8px 0 0; font-family: Georgia, serif; font-size: 23px; font-weight: 400; }
@@ -110,6 +115,19 @@ form input { flex: 1; min-width: 0; min-height: 50px; border: 0; background: tra
 form button { min-height: 48px; padding: 0 22px; border: 0; border-radius: 999px; background: var(--coral); color: white; cursor: pointer; font-size: 13px; font-weight: 750; }
 .subscribe-copy small { display: block; margin-top: 13px; color: var(--muted); font-size: 10px; }
 .success-message { padding: 18px 20px; border: 1px solid #789486; border-radius: 7px; background: #e5eee9; color: #244b3e; }
+
+.reader-overlay { position: fixed; inset: 0; z-index: 50; display: grid; place-items: center; padding: 24px; background: rgba(16, 20, 18, .78); backdrop-filter: blur(10px); }
+.reader-panel { width: min(920px, 100%); max-height: calc(100svh - 48px); overflow: auto; border-radius: 10px; background: var(--surface); box-shadow: 0 40px 120px rgba(0,0,0,.35); }
+.reader-topline { position: sticky; top: 0; z-index: 2; min-height: 68px; padding: 0 28px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--line); background: rgba(251,248,242,.94); backdrop-filter: blur(12px); }
+.reader-topline div { display: flex; gap: 18px; color: var(--coral); font-size: 10px; font-weight: 750; letter-spacing: .11em; text-transform: uppercase; }
+.reader-topline button, .reader-footer button { min-height: 40px; border: 0; background: transparent; color: var(--muted); cursor: pointer; font-size: 12px; }
+.reader-body { max-width: 720px; margin: 0 auto; padding: 76px 36px 90px; }
+.reader-body h2 { margin: 0; font-family: Georgia, "Noto Serif SC", serif; font-size: clamp(46px, 7vw, 76px); font-weight: 400; letter-spacing: -.05em; line-height: 1; }
+.reader-intro { margin: 38px 0 52px; padding-bottom: 40px; border-bottom: 1px solid var(--line); color: #4b4842; font-family: Georgia, "Noto Serif SC", serif; font-size: 22px; line-height: 1.55; }
+.reader-copy { font-family: Georgia, "Noto Serif SC", serif; font-size: 19px; line-height: 1.8; }
+.reader-copy p { margin: 0 0 1.35em; }
+.reader-source { display: inline-block; margin-top: 30px; padding-bottom: 5px; border-bottom: 1px solid var(--coral); color: var(--coral); font-size: 13px; font-weight: 700; }
+.reader-footer { min-height: 75px; padding: 0 28px; display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--line); color: var(--muted); font-family: Georgia, serif; font-size: 13px; }
 
 footer { width: min(100% - 48px, 1240px); margin: 0 auto; padding: 55px 0 42px; display: grid; grid-template-columns: 1fr 1fr auto; gap: 32px; align-items: center; border-top: 1px solid var(--line); }
 footer p { color: var(--muted); font-family: Georgia, serif; }
@@ -155,6 +173,13 @@ footer small { grid-column: 1 / -1; color: #908b82; font-size: 10px; }
   form input { padding: 0 16px; border: 1px solid var(--line); border-radius: 6px; }
   footer { grid-template-columns: 1fr; }
   footer small { grid-column: auto; }
+  .reader-overlay { padding: 0; place-items: stretch; }
+  .reader-panel { width: 100%; max-height: 100svh; border-radius: 0; }
+  .reader-topline { padding: 0 18px; }
+  .reader-body { padding: 56px 22px 70px; }
+  .reader-body h2 { font-size: 46px; }
+  .reader-intro { font-size: 19px; }
+  .reader-copy { font-size: 18px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
