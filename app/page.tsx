@@ -2,12 +2,19 @@
 
 import { FormEvent, useState } from "react";
 import douyinCatalog from "./douyin-catalog.json";
+import essayCollection from "./essay-collection.json";
 
 const linkedinUrl = "https://www.linkedin.com/in/bonanzhong/";
 const douyinUrl = "https://www.douyin.com/user/MS4wLjABAAAAjQLsDJzNqH-lMIXUsRCp298zla02LnmZyACESD7llC4";
 
 type Language = "en" | "zh";
 type Detail = { title: string; category: string; intro: string; paragraphs: string[]; external?: { label: string; url: string } };
+type Essay = { id: string; title: string; category: string; excerpt: string; body: string };
+
+const essayCategories = {
+  en: { all: "All essays", places: "Cities & journeys", arts: "Arts & encounters", leadership: "Teams & leadership", systems: "Systems & ideas", people: "People & lives", everyday: "Everyday wit" },
+  zh: { all: "全部随笔", places: "城市与远方", arts: "艺术与现场", leadership: "组织与领导力", systems: "系统与思想", people: "人物与人生", everyday: "日常与幽默" },
+} as const;
 
 const socialCopy = {
   en: {
@@ -92,13 +99,6 @@ const curatedSparkUrls = [
   "https://www.douyin.com/video/7123404557735988488",
   "https://www.douyin.com/video/7640706893246598363",
   "https://www.douyin.com/video/7666322382810748507",
-];
-
-const essayCards = [
-  { title: "江陵船桥庄：桥没了，家还在", image: "https://p3-pc-sign.douyinpic.com/tos-cn-p-0015/oAgiQoIoUSAElBzOiC70vaS4FrII6APvYALzT~tplv-dy-cropcenter:323:430.jpeg?biz_tag=pcweb_cover&from=327834062&lk3s=138a59ce&s=PackSourceEnum_PUBLISH&sc=cover&se=true&sh=323_430&x-expires=2101276800&x-signature=UMI%2F65efLvddLgF9ya5Eakh1hL0%3D", url: "https://www.douyin.com/video/7661445447227301514", en: "The bridge disappeared, but ten generations kept the home alive." },
-  { title: "我在镜浦湖，没有一直看湖", image: "https://p3-pc-sign.douyinpic.com/tos-cn-p-0015/owBnfxQAEYAWkQHfWZ790y85Q6MYBCrg6EyUeQ~tplv-dy-cropcenter:323:430.jpeg?biz_tag=pcweb_cover&from=327834062&lk3s=138a59ce&s=PackSourceEnum_PUBLISH&sc=cover&se=true&sh=323_430&x-expires=2101276800&x-signature=JQZIyZ2ljumxrfBGh7l1AI2chGE%3D", url: "https://www.douyin.com/video/7666322382810748507", en: "The smallest sculptures became more memorable than the lake itself." },
-  { title: "北海道随笔：旅行以后，偷偷学会了什么", image: "https://p3-pc-sign.douyinpic.com/tos-cn-p-0015/oABIgC92IBxJHEizQfeWA4xAlsLwCgqGCIAji1~tplv-dy-cropcenter:323:430.jpeg?biz_tag=pcweb_cover&from=327834062&lk3s=138a59ce&s=PackSourceEnum_PUBLISH&sc=cover&se=true&sh=323_430&x-expires=2101276800&x-signature=ZclvkfWzVCOWFuTbI2c%2B6%2FsOEzs%3D", url: "https://www.douyin.com/video/7658469084598587122", en: "Small acts of consideration quietly changed the meaning of travel." },
-  { title: "下午一点五十九，我以为故事结束了", image: "https://p3-pc-sign.douyinpic.com/tos-cn-p-0015/oMDeGL1fAu97uGCXQebBbwR2qjIBtUvEADC0IB~tplv-dy-cropcenter:323:430.jpeg?biz_tag=pcweb_cover&from=327834062&lk3s=138a59ce&s=PackSourceEnum_PUBLISH&sc=cover&se=true&sh=323_430&x-expires=2101276800&x-signature=tRUi2i0FWFGFR0mHaEmh1n6HdmQ%3D", url: "https://www.douyin.com/video/7663498697128305883", en: "A Michelin afternoon in Insadong that refused to end on schedule." },
 ];
 
 const ui = {
@@ -203,12 +203,16 @@ export default function Home() {
   const [language, setLanguage] = useState<Language>("en");
   const [subscribed, setSubscribed] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [selectedEssayId, setSelectedEssayId] = useState<string | null>(null);
+  const [essayCategory, setEssayCategory] = useState("all");
   const [videoCategory, setVideoCategory] = useState("all");
   const [mapArea, setMapArea] = useState("seattle");
   const [showArchive, setShowArchive] = useState(false);
   const [visibleVideos, setVisibleVideos] = useState(24);
   const t = ui[language];
   const selected = selectedId ? details[language][selectedId] : null;
+  const selectedEssay = (essayCollection as Essay[]).find((essay) => essay.id === selectedEssayId) || null;
+  const filteredEssays = (essayCollection as Essay[]).filter((essay) => essayCategory === "all" || essay.category === essayCategory);
   const social = socialCopy[language];
   const posts = linkedinPosts[language];
   const categories = categoryLabels[language];
@@ -258,7 +262,11 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="essay-salon section-pad" id="essays"><div className="essay-heading"><p className="eyebrow">{language === "zh" ? "城市随笔" : "Field essays"}</p><h2>{language === "zh" ? "有些地方，值得慢下来写。" : "Some places ask to be written slowly."}</h2><p>{language === "zh" ? "从老宅、湖边雕塑到一颗刚好成熟的哈密瓜——这些不是攻略，而是地方留下来的问题。" : "From an old house and lakeside sculptures to a melon ripened for exactly the right day—these are not guides, but questions left behind by places."}</p></div><div className="essay-grid">{essayCards.map((essay, index) => <a href={essay.url} target="_blank" rel="noreferrer" className={`essay-card essay-${index + 1}`} key={essay.url}><img src={essay.image} alt=""/><div><small>{language === "zh" ? "随笔" : "Essay"} · 0{index + 1}</small><h3>{essay.title}</h3><p>{language === "zh" ? ["一座房子真正的传奇，是无论世事怎样变迁，仍有人推门回家。", "有趣，大概也不需要翻译。", "旅行最好玩的地方，是回来后偷偷学会了什么。", "一个看似结束的下午，往往才刚刚开始。"][index] : essay.en}</p><span>{language === "zh" ? "阅读全文" : "Read the essay"} →</span></div></a>)}</div></section>
+      <section className="essay-salon section-pad" id="essays">
+        <div className="essay-heading"><p className="eyebrow">{language === "zh" ? "人间拾光 · 原创随笔" : "COLLECTED LIGHT · ORIGINAL ESSAYS"}</p><h2>{language === "zh" ? "人间拾光" : "Collected Light"}</h2><p>{language === "zh" ? "十八篇关于城市、艺术、团队、系统与日常的现场笔记。不是攻略，而是生活经过时留下的光。" : "Eighteen original field notes on cities, art, teams, systems, and everyday life—small illuminations gathered along the way."}</p></div>
+        <div className="essay-filters" aria-label={language === "zh" ? "随笔分类" : "Essay categories"}>{Object.entries(essayCategories[language]).map(([key, label]) => <button key={key} type="button" className={essayCategory === key ? "active" : ""} onClick={() => setEssayCategory(key)}>{label}<span>{key === "all" ? essayCollection.length : essayCollection.filter((essay) => essay.category === key).length}</span></button>)}</div>
+        <div className="essay-grid">{filteredEssays.map((essay, index) => <button type="button" onClick={() => setSelectedEssayId(essay.id)} className={`essay-card essay-tone-${(Number(essay.id.slice(-2)) % 6) + 1}`} key={essay.id}><div className="essay-art"><span>{String(index + 1).padStart(2, "0")}</span><i>{language === "zh" ? "图片待上传" : "IMAGE COMING SOON"}</i></div><div className="essay-card-copy"><small>{essayCategories[language][essay.category as keyof typeof essayCategories.en]}</small><h3>{essay.title}</h3><p>{essay.excerpt}</p><span>{language === "zh" ? "阅读全文" : "Read the full essay"} →</span></div></button>)}</div>
+      </section>
 
       <section className="recommendations section-pad" id="recommendations"><div className="recommendation-intro"><p className="eyebrow">{t.worth}</p><h2>{t.worthTitle}</h2><p>{t.worthText}</p></div>
         <div className="recommendation-list">{t.recs.map((item, index) => <button className="recommendation-item" key={item[1]} type="button" onClick={() => setSelectedId(["decisions", "professional", "videos"][index])}><span>0{index + 1}</span><div><small>{item[0]}</small><h3>{item[1]}</h3></div><span>{t.readNow} →</span></button>)}</div>
@@ -286,6 +294,8 @@ export default function Home() {
       </div></section>
 
       {selected && <div className="reader-overlay" role="presentation" onMouseDown={() => setSelectedId(null)}><article className="reader-panel" role="dialog" aria-modal="true" aria-labelledby="reader-title" onMouseDown={(event) => event.stopPropagation()}><div className="reader-topline"><div><span>{selected.category}</span><span>{language === "zh" ? "中文" : "EN"}</span></div><button type="button" onClick={() => setSelectedId(null)}>{t.close} ×</button></div><div className="reader-body"><h2 id="reader-title">{selected.title}</h2><p className="reader-intro">{selected.intro}</p><div className="reader-copy">{selected.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div>{selected.external && <a className="reader-source" href={selected.external.url} target="_blank" rel="noreferrer">{selected.external.label} ↗</a>}</div><div className="reader-footer"><span>Hello Bonan</span><button type="button" onClick={() => setSelectedId(null)}>{t.back}</button></div></article></div>}
+
+      {selectedEssay && <div className="reader-overlay" role="presentation" onMouseDown={() => setSelectedEssayId(null)}><article className="reader-panel essay-reader" role="dialog" aria-modal="true" aria-labelledby="essay-reader-title" onMouseDown={(event) => event.stopPropagation()}><div className="reader-topline"><div><span>{essayCategories[language][selectedEssay.category as keyof typeof essayCategories.en]}</span><span>{language === "zh" ? "原创中文" : "ORIGINAL · 中文"}</span></div><button type="button" onClick={() => setSelectedEssayId(null)}>{t.close} ×</button></div><div className="reader-body"><p className="essay-reader-kicker">人间拾光 · Collected Light</p><h2 id="essay-reader-title">{selectedEssay.title}</h2><div className="reader-copy">{selectedEssay.body.split(/\n\s*\n/).filter(Boolean).map((paragraph, index) => <p key={`${selectedEssay.id}-${index}`}>{paragraph}</p>)}</div></div><div className="reader-footer"><span>Hello Bonan</span><button type="button" onClick={() => setSelectedEssayId(null)}>{language === "zh" ? "返回人间拾光" : "Back to Collected Light"}</button></div></article></div>}
 
       <footer><div className="brand footer-brand"><span className="brand-dot">B</span><span>Hello Bonan</span></div><p>{t.footer}</p><div><button type="button" onClick={() => setSelectedId("professional")}>{t.about}</button><a href="#top">{t.top} ↑</a></div><small>© 2026 Bonan Zhong · {t.personal}</small></footer>
     </main>
