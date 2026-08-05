@@ -106,7 +106,8 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid 
 .map-story-grid span { position: absolute; inset: auto 0 0; padding: 35px 12px 12px; background: linear-gradient(transparent, rgba(5,10,18,.9)); font-size: 11px; line-height: 1.35; }
 .map-story-grid a:hover img { transform: scale(1.06); }
 .globe-stage { min-height: 620px; display: grid; place-items: center; position: relative; overflow: hidden; background: radial-gradient(circle at 50% 45%,rgba(75,125,157,.2),transparent 56%),linear-gradient(145deg,#071321,#101d2e); }
-.globe { width: min(500px,78vw); aspect-ratio: 1; position: relative; border-radius: 50%; touch-action: none; cursor: grab; overflow: hidden; background: radial-gradient(circle at 35% 30%,rgba(167,214,225,.72),transparent 8%),radial-gradient(ellipse at 35% 45%,#668b6d 0 13%,transparent 14%),radial-gradient(ellipse at 69% 35%,#7c956f 0 18%,transparent 19%),radial-gradient(ellipse at 62% 70%,#5f7d62 0 10%,transparent 11%),radial-gradient(circle at 35% 30%,#3f7d9f,#113c61 68%,#061a2c); box-shadow: inset -55px -38px 75px rgba(0,0,0,.68),inset 22px 18px 45px rgba(255,255,255,.2),0 0 0 1px rgba(255,255,255,.15),0 35px 90px rgba(0,0,0,.5); transition: transform .2s ease; }
+.globe { width: min(500px,78vw); aspect-ratio: 1; position: relative; border-radius: 50%; touch-action: none; cursor: grab; overflow: hidden; background-image: url("https://assets.science.nasa.gov/content/dam/science/esd/eo/images/bmng/bmng-base/january/world.200401.3x5400x2700.jpg"); background-size: auto 100%; background-repeat: repeat-x; box-shadow: inset -55px -38px 75px rgba(0,0,0,.68),inset 22px 18px 45px rgba(255,255,255,.2),0 0 0 1px rgba(255,255,255,.15),0 35px 90px rgba(0,0,0,.5); transition: transform .2s ease,background-position .08s linear; }
+.globe::before { position: absolute; z-index: 1; inset: 0; content: ""; border-radius: inherit; pointer-events: none; background: radial-gradient(circle at 34% 28%,rgba(255,255,255,.16),transparent 20%),radial-gradient(circle at 72% 65%,transparent 34%,rgba(0,0,0,.72) 82%); }
 .globe:active { cursor: grabbing; }
 .globe-grid { position: absolute; inset: 0; border-radius: 50%; opacity: .24; background: repeating-radial-gradient(ellipse at center,transparent 0 39px,rgba(255,255,255,.35) 40px 41px),repeating-linear-gradient(90deg,transparent 0 61px,rgba(255,255,255,.25) 62px 63px); mix-blend-mode: soft-light; }
 .globe-controls { position: absolute; z-index: 4; left: 20px; top: 20px; display: flex; align-items: center; gap: 7px; }
@@ -116,6 +117,9 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid 
 .globe-pin i { display: block; width: 10px; height: 10px; border: 2px solid #fff4d8; border-radius: 50%; background: #d79a51; box-shadow: 0 0 0 6px rgba(215,154,81,.2),0 0 18px #d79a51; }
 .globe-pin span { position: absolute; left: 14px; top: -2px; padding: 4px 7px; white-space: nowrap; border-radius: 4px; background: rgba(4,12,22,.76); font-size: 9px; }
 .globe-pin.active i { transform: scale(1.35); background: #fff; }
+.nasa-credit { position: absolute; left: 16px; bottom: 12px; color: rgba(255,255,255,.4); font-size: 7px; letter-spacing: .1em; }
+.google-map { width: 100%; height: 280px; margin: 22px 0 0; border: 0; border-radius: 8px; filter: saturate(.82) contrast(1.03); }
+.landmark-name { color: #e6c281 !important; font-size: 10px !important; letter-spacing: .09em; text-transform: uppercase; }
 
 .essay-salon { padding-top: 125px; }
 .essay-heading { display: grid; grid-template-columns: 1fr 1fr; gap: 28px 70px; margin-bottom: 55px; align-items: end; }
@@ -155,6 +159,13 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid 
 .book-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 28px 18px; }
 .book-card { padding: 24px; display: grid; grid-template-columns: 120px 1fr; gap: 22px; border: 1px solid var(--line); border-radius: 10px; background: rgba(255,255,255,.38); }
 .book-card img { width: 120px; height: 180px; object-fit: cover; border-radius: 3px; box-shadow: 0 12px 28px rgba(36,30,22,.22); }
+.book-cover-fallback { width: 120px; height: 180px; padding: 15px 10px; display: flex; flex-direction: column; justify-content: space-between; border-radius: 3px; background: linear-gradient(145deg,#1b3348,#8a6c48); color: white; box-shadow: 0 12px 28px rgba(36,30,22,.22); }
+.book-cover-fallback span { font-family: Georgia,serif; font-size: 15px; line-height: 1.1; }
+.book-cover-fallback i { font-style: normal; font-size: 6px; letter-spacing: .1em; text-transform: uppercase; opacity: .65; }
+.book-tools { margin: -20px 0 30px; display: flex; align-items: center; gap: 16px; }
+.book-tools input { width: min(520px,100%); padding: 14px 17px; border: 1px solid var(--line); border-radius: 999px; background: rgba(255,255,255,.5); color: var(--ink); font: inherit; }
+.book-tools span { color: var(--muted); font-size: 11px; }
+.books-more { margin: 28px auto 0; display: block; }
 .book-card small { color: var(--coral); font-size: 9px; letter-spacing: .1em; text-transform: uppercase; }
 .book-card h3 { margin: 9px 0 12px; font-family: Georgia,serif; font-size: 24px; font-weight: 400; }
 .book-card p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.65; }
@@ -375,6 +386,7 @@ footer small { grid-column: 1 / -1; color: #908b82; font-size: 10px; }
   .book-grid { grid-template-columns: 1fr; }
   .book-card { grid-template-columns: 95px 1fr; }
   .book-card img { width: 95px; height: 145px; }
+  .book-cover-fallback { width: 95px; height: 145px; }
   .globe-stage { min-height: 500px; }
   .recommendation-item { grid-template-columns: 32px 1fr; padding: 20px 0; }
   .recommendation-item > span:last-child { grid-column: 2; }
