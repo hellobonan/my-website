@@ -24,6 +24,9 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid 
 .brand-dot { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: var(--ink); color: var(--paper); font-family: Inter, sans-serif; font-size: 13px; font-weight: 700; }
 .desktop-nav { display: flex; gap: 34px; font-size: 14px; color: var(--muted); }
 .desktop-nav a:hover { color: var(--coral); }
+.header-tools { display: flex; align-items: center; gap: 14px; }
+.site-language { padding: 3px; }
+.site-language button { min-height: 32px; padding: 0 12px; }
 .header-cta { padding: 11px 17px; border: 1px solid var(--ink); border-radius: 999px; font-size: 13px; font-weight: 650; transition: .2s ease; }
 .header-cta:hover { background: var(--ink); color: var(--paper); }
 
@@ -106,6 +109,9 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid 
 .about-lede { max-width: 930px; margin: 45px 0; color: #d4d8d2; font-family: Georgia, serif; font-size: 24px; line-height: 1.6; }
 .about-columns { max-width: 900px; display: grid; grid-template-columns: 1fr 1fr; gap: 50px; color: #aebbb5; font-size: 15px; line-height: 1.7; }
 .social-links { display: flex; flex-wrap: wrap; gap: 14px 36px; margin-top: 42px; font-size: 13px; font-weight: 700; }
+.social-links button { min-height: 44px; padding: 0; border: 0; border-bottom: 1px solid rgba(255,255,255,.35); background: transparent; color: inherit; cursor: pointer; font-weight: 700; }
+.social-links button:hover { color: #efb38d; border-color: #efb38d; }
+.external-warning { display: block; margin-top: 16px; color: #82958e; font-size: 10px; letter-spacing: .05em; }
 
 .subscribe { display: grid; grid-template-columns: 1fr 1fr; gap: 100px; }
 .subscribe h2 { max-width: 650px; font-size: clamp(47px, 6vw, 80px); }
@@ -132,6 +138,7 @@ form button { min-height: 48px; padding: 0 22px; border: 0; border-radius: 999px
 footer { width: min(100% - 48px, 1240px); margin: 0 auto; padding: 55px 0 42px; display: grid; grid-template-columns: 1fr 1fr auto; gap: 32px; align-items: center; border-top: 1px solid var(--line); }
 footer p { color: var(--muted); font-family: Georgia, serif; }
 footer > div:nth-child(3) { display: flex; gap: 24px; font-size: 12px; }
+footer > div:nth-child(3) button { padding: 0; border: 0; background: transparent; color: inherit; cursor: pointer; }
 footer small { grid-column: 1 / -1; color: #908b82; font-size: 10px; }
 
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
@@ -150,6 +157,9 @@ footer small { grid-column: 1 / -1; color: #908b82; font-size: 10px; }
   .site-header, .hero, .section-pad, footer { width: min(100% - 36px, 1240px); }
   .site-header { min-height: 74px; }
   .header-cta { padding: 9px 13px; }
+  .header-tools { gap: 7px; }
+  .site-language button { min-height: 30px; padding: 0 9px; }
+  .header-cta { display: none; }
   .brand { font-size: 16px; }
   .hero { padding: 68px 0 74px; }
   .hero h1 { font-size: clamp(54px, 17vw, 78px); }

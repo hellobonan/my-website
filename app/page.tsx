@@ -2,379 +2,166 @@
 
 import { FormEvent, useState } from "react";
 
-const douyinUrl =
-  "https://www.douyin.com/user/MS4wLjABAAAAjQ%20LsDJzNqH-lMIXUsRCp298zla02LnmZyACESD7llC4".replace("%20", "");
+const linkedinUrl = "https://www.linkedin.com/in/bonanzhong/";
+const douyinUrl = "https://www.douyin.com/user/MS4wLjABAAAAjQLsDJzNqH-lMIXUsRCp298zla02LnmZyACESD7llC4";
 
-type Detail = {
-  title: string;
-  category: string;
-  language: "EN" | "中文";
-  intro: string;
-  paragraphs: string[];
-  sourceLabel?: string;
-  sourceUrl?: string;
-};
+type Language = "en" | "zh";
+type Detail = { title: string; category: string; intro: string; paragraphs: string[]; external?: { label: string; url: string } };
 
-const details: Record<string, Detail> = {
-  constraint: {
-    title: "Every solution creates a new constraint",
-    category: "Marketplace & Systems",
-    language: "EN",
-    intro: "What if your greatest strength eventually becomes your greatest limitation?",
-    paragraphs: [
-      "I have asked myself that question throughout my career. It led me from surgery to regenerative medicine, from biotechnology to Amazon and Coupang—not because I was searching for a different career, but because I was searching for the next bottleneck where I could create greater impact.",
-      "Every solution eventually creates a new constraint. A process that once brought clarity can become bureaucracy. Expertise that once accelerated decisions can narrow the questions we are willing to ask. A leader who once held a team together can become the reason the team cannot act without them.",
-      "The challenge is not simply becoming an expert. It is knowing when the system has changed enough that we need to learn something completely new.",
-      "My approach remains consistent: question assumptions, find the real bottleneck, build systems that adapt, and develop leaders who eventually make themselves unnecessary.",
+const ui = {
+  en: {
+    nav: ["Writing", "Postcards", "Recommendations", "About"], note: "Get the note",
+    eyebrow: "Marketplace leader · Systems thinker · Curious observer",
+    hero: "Ideas, encounters, and useful things.",
+    lede: "I’m Bonan Zhong. I build marketplaces, adaptive organizations, and leaders—then stay curious about the people, places, and small decisions that reveal how systems really work.",
+    readLatest: "Read the latest", noteName: "A Note from Bonan",
+    roles: ["Director at Coupang", "Former Amazon", "Seattle · Seoul · Elsewhere"], portrait: "Portrait coming soon",
+    portraitLine: "From medicine to marketplaces, I follow the next meaningful bottleneck.",
+    featuredLabel: "Featured idea · 6 min read", featuredTitle: "Every solution creates a new constraint.",
+    featuredText: "The strength that gets a team to one stage can become the thing that holds it back at the next. The work is not simply becoming an expert—it is noticing when the system needs a new question.", readIdea: "Read the full idea",
+    journal: "The journal", journalTitle: "Three ways into the work.", readNow: "Read now",
+    stories: [
+      ["Marketplace & Systems", "The next bottleneck", "What changes when the operating model that created growth starts limiting it?", "Essay"],
+      ["Everyday Encounters", "A small thing I noticed", "The best part of travel is not only what we see, but what we quietly learn after coming home.", "Reflection"],
+      ["AI & Adaptive Systems", "Organizations that keep learning", "AI matters less as a feature than as a new way for an organization to notice and adapt.", "Note"],
     ],
-    sourceLabel: "Connect with Bonan on LinkedIn",
-    sourceUrl: "https://www.linkedin.com/in/bonanzhong/",
+    postcards: "Postcards", postcardsTitle: "Places change the questions.", postcardsText: "Short observations from the Pacific Northwest, Seoul, and wherever curiosity leads next.", openPostcard: "Open postcard",
+    postcardItems: [
+      ["Seattle", "Sweet home, seen again", "Rain, water, evergreens—and the quiet pull of returning."],
+      ["Seoul", "A city that performs", "Lanterns, live music, and a weekend along the Han River."],
+      ["Hokkaido", "The extra small step", "What a ripe melon and a covered spray bottle taught me about care."],
+    ],
+    worth: "Worth sharing", worthTitle: "Useful things should come with a reason.", worthText: "Books, places, performances, tools, and ideas—each with a short note about why it might deserve your attention.",
+    recs: [["BOOKS & IDEAS", "Four questions for a better decision"], ["PLACES & CULTURE", "A quieter way to experience a city"], ["VIDEO PROFILE", "One minute with Bonan"]],
+    about: "About Bonan", aboutTitle: "A career built by following the next meaningful constraint.",
+    aboutLede: "My path has crossed surgery, regenerative medicine, biotechnology, Amazon, and Coupang. The common thread is a habit of questioning assumptions, finding the real bottleneck, and building systems that adapt.",
+    aboutA: "Today, my interests center on AI, marketplaces, consumer platforms, seller services, and organizations that keep learning.",
+    aboutB: "Outside work, I pay attention to culture, travel, nature, books, and the small encounters that make a place—and a life—more legible.",
+    profileHere: "Professional profile — read here", videosHere: "Video profile — watch & read here", externalNote: "External platforms may require sign-in",
+    subscribeTitle: "One thoughtful note, about once a week.", subscribeText: "Marketplace ideas, revealing encounters, and useful things—written in English or Chinese, whichever fits the thought best. Usually a five-minute read.",
+    email: "Email address", emailPlaceholder: "you@example.com", thanks: "Thank you. Email delivery will open with the publication launch.", privacy: "No spam. English, 中文, or both. Unsubscribe anytime.",
+    close: "Close", back: "Back to the journal", footer: "Ideas, encounters, and useful things.", top: "Back to top", personal: "Personal views only",
   },
-  bottleneck: {
-    title: "The next bottleneck",
-    category: "Marketplace & Systems",
-    language: "EN",
-    intro: "The operating model that creates growth is rarely the one that sustains every later stage.",
-    paragraphs: [
-      "When a system succeeds, it changes the environment around it. More customers create more edge cases. More sellers create more variation. More tools create more handoffs. The original bottleneck disappears, but a new one forms somewhere else.",
-      "This is why scaling is not a larger version of the same work. It requires asking which constraint now limits the whole system—and whether our strongest habits are preventing us from seeing it.",
-      "I look for four signals: decisions repeatedly waiting for one person, teams optimizing local metrics at the expense of the whole, exceptions growing faster than the rules, and yesterday’s expertise shutting down new questions.",
-      "The goal is not a permanently optimized system. It is a system capable of noticing its next constraint and adapting before the constraint becomes a crisis.",
+  zh: {
+    nav: ["文章", "旅行手记", "推荐", "关于我"], note: "订阅手记",
+    eyebrow: "市场平台领导者 · 系统思考者 · 好奇的观察者",
+    hero: "想法、见闻，还有值得分享的东西。",
+    lede: "我是钟博南。我致力于构建市场平台、能够适应变化的组织和独当一面的领导者；同时，我也好奇于人、地方和日常中的小决定，因为它们往往能让我们看清一个系统如何运作。",
+    readLatest: "阅读最新文章", noteName: "博南手记",
+    roles: ["酷澎总监", "前亚马逊", "西雅图 · 首尔 · 更远的地方"], portrait: "个人照片即将上线",
+    portraitLine: "从医学到市场平台，我始终在寻找下一个值得解决的瓶颈。",
+    featuredLabel: "本期精选 · 阅读约 6 分钟", featuredTitle: "每一个解决方案，都会创造新的约束。",
+    featuredText: "把团队带到一个新阶段的优势，有时会成为下一阶段的阻力。真正的挑战不只是成为专家，而是及时发现：系统已经需要一个新问题。", readIdea: "阅读全文",
+    journal: "文章", journalTitle: "从三个角度认识我的思考。", readNow: "立即阅读",
+    stories: [
+      ["市场平台与系统", "下一个瓶颈", "当曾经推动增长的运营模式开始限制增长，会发生什么？", "长文"],
+      ["日常见闻", "一件我注意到的小事", "旅行最好玩的地方，不只是看见了什么，而是回来以后偷偷学会了什么。", "随笔"],
+      ["AI 与适应性系统", "不断学习的组织", "AI 的意义不只是一个功能，而是帮助组织更好地感知和适应。", "手记"],
     ],
+    postcards: "旅行手记", postcardsTitle: "不同的地方，会改变我们提出的问题。", postcardsText: "来自美国西北部、首尔，以及好奇心带我到达的每一个地方的短篇观察。", openPostcard: "打开手记",
+    postcardItems: [
+      ["西雅图", "再次看见家乡", "雨、水、常青树，还有回家时那种安静的吸引力。"],
+      ["首尔", "一座会表演的城市", "花灯、现场音乐，还有汉江边的周末。"],
+      ["北海道", "多做的那一小步", "一颗刚好成熟的哈密瓜和一个被手挡住的喷壶，让我重新理解了体贴。"],
+    ],
+    worth: "值得分享", worthTitle: "好东西，应该说清楚为什么值得。", worthText: "书、地方、表演、工具和想法——每一项都附上一段简短的理由。",
+    recs: [["书与思想", "做出更好决定的四个问题"], ["地方与文化", "用更安静的方式体验一座城市"], ["视频主页", "和博南相处一分钟"]],
+    about: "关于我", aboutTitle: "我的职业路径，始终围绕着寻找下一个值得解决的瓶颈。",
+    aboutLede: "我的经历跨越了外科医学、再生医学、生物技术、亚马逊和酷澎。贯穿其中的是一种习惯：质疑假设、找到真正的瓶颈，并构建能够不断适应的系统。",
+    aboutA: "今天，我关注 AI、市场平台、消费者平台、卖家服务，以及能够不断学习的组织。",
+    aboutB: "工作之外，我关注文化、旅行、自然、阅读，以及那些让一个地方和一段人生变得更清晰的日常小事。",
+    profileHere: "职业简介——站内阅读", videosHere: "视频主页——站内浏览", externalNote: "外部平台可能要求登录",
+    subscribeTitle: "大约每周，写一封值得读的手记。", subscribeText: "市场平台、日常见闻和值得分享的东西——我会选择最自然的中文或英文来写，通常五分钟可以读完。",
+    email: "邮箱地址", emailPlaceholder: "name@example.com", thanks: "谢谢。邮件发送将在正式发布时开通。", privacy: "不发垃圾邮件。可选中文、英文或两者。可随时退订。",
+    close: "关闭", back: "返回文章", footer: "想法、见闻，还有值得分享的东西。", top: "回到顶部", personal: "仅代表个人观点",
   },
-  hokkaido: {
-    title: "旅行以后，偷偷学会了什么",
-    category: "Places & Cultures · Hokkaido",
-    language: "中文",
-    intro: "一路下来，没有惊天动地的大事。只是很多人愿意多做一步。",
-    paragraphs: [
-      "这是我来首尔后的第二个亚洲夏天。去年在东京休假，热得我怀疑人生。今年学聪明了，直接往北跑——北海道。一下飞机，不到二十度。我当场原谅了亚洲的夏天。",
-      "一路从札幌开到富良野、美瑛、旭川、小樽，再到苫小牧。最大感受：干净。干净到我一路都在找垃圾桶，后来发现，垃圾桶不一定有，垃圾是真的没有。",
-      "早餐时，一个老爷爷擦桌子，左手喷壶，右手挡着水雾，怕溅到旁边等位的人。我第一次觉得，原来一个喷壶，也可以很有教养。",
-      "去富良野买哈密瓜，看不懂日文，随手挑了一颗。结账时阿姨拦住我，用翻译告诉我：“这颗三天后才熟，我猜你今天就想吃。”然后换了一颗当天熟的。回酒店切开，真的刚刚好，甜得像作弊。",
-      "旅行最好玩的地方，不是看见了什么，而是回来以后，开始偷偷学会了一些什么。比如以后超过一辆开得很慢的车，我也许会挥挥手：没关系。慢一点。也挺好。",
-    ],
-    sourceLabel: "View the original on Douyin",
-    sourceUrl: "https://www.douyin.com/video/7658469084598587122",
+} as const;
+
+const details: Record<Language, Record<string, Detail>> = {
+  en: {
+    constraint: { title: "Every solution creates a new constraint", category: "Marketplace & Systems", intro: "What if your greatest strength eventually becomes your greatest limitation?", paragraphs: ["I have asked myself that question throughout my career. It led me from surgery to regenerative medicine, from biotechnology to Amazon and Coupang—not because I was searching for a different career, but because I was searching for the next bottleneck where I could create greater impact.", "Every solution eventually creates a new constraint. A process that once brought clarity can become bureaucracy. Expertise that once accelerated decisions can narrow the questions we are willing to ask.", "The challenge is not simply becoming an expert. It is knowing when the system has changed enough that we need to learn something completely new.", "My approach remains consistent: question assumptions, find the real bottleneck, build systems that adapt, and develop leaders who eventually make themselves unnecessary."] },
+    bottleneck: { title: "The next bottleneck", category: "Marketplace & Systems", intro: "The operating model that creates growth is rarely the one that sustains every later stage.", paragraphs: ["When a system succeeds, it changes the environment around it. More customers create more edge cases. More sellers create more variation. More tools create more handoffs.", "Scaling is not a larger version of the same work. It requires asking which constraint now limits the whole system—and whether our strongest habits are preventing us from seeing it.", "I look for four signals: decisions waiting for one person, teams optimizing local metrics at the expense of the whole, exceptions growing faster than the rules, and yesterday’s expertise shutting down new questions.", "The goal is a system capable of noticing its next constraint and adapting before it becomes a crisis."] },
+    hokkaido: { title: "What I quietly learned after traveling", category: "Places & Cultures · Hokkaido", intro: "Nothing earth-shattering happened. Many people simply chose to take one small extra step.", paragraphs: ["This was my second Asian summer after moving to Seoul. Last year Tokyo’s heat made me question my choices, so this year I went north—to Hokkaido. The moment I stepped off the plane into weather below 20°C, I forgave the Asian summer.", "At breakfast, an elderly man cleaned a table. He held the spray bottle in one hand and used the other to shield people waiting nearby from the mist. It was the first time I thought that even a spray bottle could demonstrate consideration.", "In Furano, I chose a melon without understanding the label. At checkout, the shopkeeper stopped me and explained: ‘This one will be ripe in three days. I think you want to eat it today.’ She replaced it with one that was ready. Back at the hotel, it was perfect.", "The best part of travel is not only what we see, but what we quietly learn after coming home. Maybe the next time I pass a slow car, I will wave: It’s okay. Going slowly can be good too."], external: { label: "Open the original on Douyin — sign-in may be required", url: "https://www.douyin.com/video/7658469084598587122" } },
+    learning: { title: "Organizations that keep learning", category: "AI & Adaptive Systems", intro: "AI matters less as a feature than as a new way for an organization to notice and adapt.", paragraphs: ["A feature can improve one task. An adaptive system changes how an organization senses what is happening, shares what it learns, and updates its decisions.", "The useful question is not only where AI can automate work. It is where information is lost, feedback arrives too late, and judgment remains trapped with too few people.", "Technology creates leverage only when the operating model changes with it. Otherwise, a faster tool delivers old assumptions more efficiently.", "The opportunity is to build organizations that continue getting smarter long after today’s problems have been solved."] },
+    seattle: { title: "Seattle—sweet home", category: "Postcard · Seattle", intro: "Rain, water, evergreens—and the quiet pull of returning.", paragraphs: ["Seattle is where a city and the outdoors keep interrupting each other. Water appears at the end of a street. Mountains arrive when the clouds decide to move.", "It is where many of my interests meet: marketplaces and technology, fishing and lakes, everyday life and enormous landscapes.", "Some places impress you immediately. Home works differently. You understand it by leaving, returning, and noticing what your eyes had stopped seeing."] },
+    seoul: { title: "A city that performs", category: "Postcard · Seoul", intro: "Lanterns, live music, taekwondo, K-pop, and weekends along the Han River.", paragraphs: ["Seoul often turns public space into a shared stage. A walk can become a concert, drone show, lantern procession, or a crowd around young performers with seemingly unlimited energy.", "At Dongdaemun, I watched taekwondo and K-pop share the same performance. They flipped, kicked, and danced as if gravity and knee pain did not exist yet.", "Youth is a built-in superpower people often appreciate only after it expires. A city can make that energy visible again, even if only for an evening."] },
+    decisions: { title: "Four questions for a better decision", category: "Books & Ideas", intro: "A compact framework I return to when a problem looks obvious.", paragraphs: ["Which assumption is carrying most of the conclusion? If it changes, does the decision still hold?", "Where is the actual system constraint? Improving anything else may create activity without impact.", "What second-order constraint will this solution create if it succeeds?", "What would let the people closest to the work make a better decision without waiting for me?"] },
+    professional: { title: "Bonan Zhong", category: "Professional profile", intro: "Director at Coupang · Former Amazon · Marketplace · Consumer Platforms · Seller Services", paragraphs: ["My career has crossed surgery, regenerative medicine, biotechnology, Amazon, and Coupang. The common thread is a search for the next bottleneck where I can create greater impact.", "Today I help organizations scale through AI, marketplaces, and leadership. My approach is to question assumptions, find the real bottleneck, build systems that adapt, and develop leaders who eventually make themselves unnecessary.", "I am interested in conversations about AI, consumer platforms, marketplaces, seller services, and organizations that continue getting smarter long after today’s problems have been solved."], external: { label: "Open LinkedIn — LinkedIn may require sign-in", url: linkedinUrl } },
+    videos: { title: "西雅图大南瓜 · Seattle Big Pumpkin", category: "Video profile", intro: "A playful, curious guide to life in the American Northwest, Seoul, and beyond.", paragraphs: ["The video archive includes nearly 300 works about Seattle, Seoul, Korea, Japan, nature, fishing, public performances, cultural details, and everyday encounters.", "Representative stories include Seattle’s seasons, trout fishing in the American West, Seafair and the Blue Angels, Seoul’s lantern festivals and Han River performances, and a reflective journey through Hokkaido.", "The voice is visual, curious, and often playful—using specific small details to move from an experience to a broader reflection."], external: { label: "Open Douyin — Douyin may require sign-in", url: douyinUrl } },
   },
-  learning: {
-    title: "Organizations that keep learning",
-    category: "AI & Adaptive Systems",
-    language: "EN",
-    intro: "AI matters less as a feature than as a new way for an organization to notice and adapt.",
-    paragraphs: [
-      "A feature can improve one task. An adaptive system changes how an organization senses what is happening, shares what it learns, and updates its decisions.",
-      "The useful question is not only where AI can automate work. It is where information is lost, where feedback arrives too late, and where judgment remains trapped with too few people.",
-      "Technology creates leverage only when the operating model changes with it. Otherwise, a faster tool simply delivers old assumptions more efficiently.",
-      "The opportunity is to build organizations that continue getting smarter long after today’s problems have been solved.",
-    ],
-  },
-  seattle: {
-    title: "Seattle—sweet home",
-    category: "Postcard · Seattle",
-    language: "EN",
-    intro: "Rain, water, evergreens—and the quiet pull of returning.",
-    paragraphs: [
-      "Seattle is where a city and the outdoors keep interrupting each other. Water appears at the end of a street. Mountains arrive when the clouds decide to move. Evergreen edges soften almost everything people build.",
-      "It is also where many of my interests meet: marketplaces and technology, fishing and lakes, everyday life and the enormous landscapes just beyond it.",
-      "Some places impress you immediately. Home works differently. You understand it by leaving, returning, and noticing what your eyes had stopped seeing.",
-    ],
-    sourceLabel: "See Seattle stories on Douyin",
-    sourceUrl: douyinUrl,
-  },
-  seoul: {
-    title: "A city that performs",
-    category: "Postcard · Seoul",
-    language: "EN",
-    intro: "Lanterns, live music, taekwondo, K-pop, and weekends along the Han River.",
-    paragraphs: [
-      "Seoul often turns public space into a shared stage. A walk can become a concert, a drone show, a lantern procession, or a crowd gathered around young performers who seem to have unlimited energy.",
-      "At Dongdaemun, I watched taekwondo and K-pop share the same performance. The performers were flipping, kicking, and dancing as if gravity and knee pain did not exist yet. It reminded me of high-school basketball days—eight hours straight and still not tired.",
-      "Youth is a built-in superpower people often appreciate only after it expires. A city can make that energy visible again, even if only for an evening.",
-    ],
-    sourceLabel: "View the original on Douyin",
-    sourceUrl: "https://www.douyin.com/video/7644529958057063270",
-  },
-  decisions: {
-    title: "Four questions for a better decision",
-    category: "Books & Ideas",
-    language: "EN",
-    intro: "A compact framework I return to when a problem looks obvious.",
-    paragraphs: [
-      "Which assumption is carrying most of the conclusion? If it changes, does the decision still hold?",
-      "Where is the actual system constraint? Improving anything else may create activity without impact.",
-      "What second-order constraint will this solution create if it succeeds?",
-      "What would let the people closest to the work make a better decision without waiting for me?",
-    ],
+  zh: {
+    constraint: { title: "每一个解决方案，都会创造新的约束", category: "市场平台与系统", intro: "如果你最大的优势，最终变成了最大的限制，会怎样？", paragraphs: ["我在职业生涯中一直问自己这个问题。它带我从外科医学走向再生医学，从生物技术走向亚马逊和酷澎。这不是因为我只想换一份工作，而是因为我在寻找下一个能够创造更大影响的瓶颈。", "每一个解决方案最终都会创造新的约束。曾经带来清晰的流程可能变成官僚；曾经加速决策的专业知识可能限制我们愿意提出的问题。", "挑战不只是成为专家，而是知道什么时候系统已经变化，我们必须学习完全不同的东西。", "我始终遵循同一套方法：质疑假设，找到真正的瓶颈，构建能够适应的系统，并培养最终不再依赖我的领导者。"] },
+    bottleneck: { title: "下一个瓶颈", category: "市场平台与系统", intro: "创造增长的运营模式，很少能原样支撑之后的每一个阶段。", paragraphs: ["当一个系统成功时，它会改变周围的环境。更多客户带来更多边缘情况，更多卖家带来更多差异，更多工具带来更多交接。", "规模化不是把同样的工作放大。它要求我们重新问：现在是哪一个约束限制了整个系统？", "我会关注四个信号：决定不断等待同一个人；团队为局部指标牺牲整体；例外比规则增长得更快；昨天的专业知识在关闭今天的新问题。", "目标不是创造一个永远完美的系统，而是让它能发现下一个瓶颈，并在问题成为危机之前进化。"] },
+    hokkaido: { title: "旅行以后，偷偷学会了什么", category: "地方与文化 · 北海道", intro: "一路下来，没有惊天动地的大事。只是很多人愿意多做一步。", paragraphs: ["这是我来首尔后的第二个亚洲夏天。去年在东京休假，热得我怀疑人生。今年学聪明了，直接往北跑——北海道。一下飞机，不到二十度。我当场原谅了亚洲的夏天。", "早餐时，一个老爷爷擦桌子，左手喷壶，右手挡着水雾，怕溅到旁边等位的人。我第一次觉得，原来一个喷壶，也可以很有教养。", "去富良野买哈密瓜，结账时阿姨用翻译告诉我：‘这颗三天后才熟，我猜你今天就想吃。’然后换了一颗当天熟的。回酒店切开，真的刚刚好。", "旅行最好玩的地方，不是看见了什么，而是回来以后，开始偷偷学会了一些什么。没关系。慢一点。也挺好。"], external: { label: "在抖音打开原文——可能需要登录", url: "https://www.douyin.com/video/7658469084598587122" } },
+    learning: { title: "不断学习的组织", category: "AI 与适应性系统", intro: "AI 的意义不只是一个功能，而是帮助组织更好地感知和适应。", paragraphs: ["一个功能可以改善一项任务。一个适应性系统则会改变组织如何感知现状、分享知识和更新决策。", "有用的问题不只是 AI 可以自动化哪些工作，而是信息在哪里丢失，反馈在哪里到得太晚，判断在哪里被少数人掌握。", "只有当运营模式也随之改变时，技术才会创造杠杆。否则，更快的工具只会更高效地交付旧假设。", "真正的机会，是构建一个在今天的问题被解决之后，仍能继续变得更聪明的组织。"] },
+    seattle: { title: "西雅图——甜蜜的家", category: "旅行手记 · 西雅图", intro: "雨、水、常青树，还有回家时那种安静的吸引力。", paragraphs: ["西雅图是一座城市与户外不断相互打断的地方。街道尽头会出现水面，云散时山会突然到来。", "这里也是我许多兴趣交汇的地方：市场平台与科技、钓鱼与湖泊、日常生活与近在咫尺的广阔风景。", "有些地方会立刻让人惊叹；家不一样。离开、归来，再次注意到眼睛曾经习惯忽略的东西，我们才真正理解它。"] },
+    seoul: { title: "一座会表演的城市", category: "旅行手记 · 首尔", intro: "花灯、现场音乐、跆拳道、K-pop，还有汉江边的周末。", paragraphs: ["首尔常常把公共空间变成共同的舞台。一次散步可以变成音乐会、无人机表演、花灯游行，或一群人围着充满能量的年轻表演者。", "在东大门，我看到跆拳道和 K-pop 出现在同一个表演中。他们翻跃、踢腿、跳舞，仿佛地心引力和膝盖疼痛还不存在。", "青春像是一种内置的超能力，人们往往在失去后才懂得珍惜。一座城市可以让这种能量重新被看见，即使只有一个晚上。"] },
+    decisions: { title: "做出更好决定的四个问题", category: "书与思想", intro: "当一个问题看起来理所当然时，我会回到这套简单的框架。", paragraphs: ["哪一个假设承担了大部分结论？如果它改变，这个决定还成立吗？", "系统真正的约束在哪里？改善其他部分可能只会创造忙碌，而不是影响。", "如果这个解决方案成功，它会创造什么第二层约束？", "如何让最靠近工作的人，不用等我也能做出更好的决定？"] },
+    professional: { title: "钟博南", category: "职业简介", intro: "酷澎总监 · 前亚马逊 · 市场平台 · 消费者平台 · 卖家服务", paragraphs: ["我的职业经历跨越了外科医学、再生医学、生物技术、亚马逊和酷澎。贯穿其中的线索，是寻找下一个能够创造更大影响的瓶颈。", "今天，我通过 AI、市场平台和领导力帮助组织实现规模化。我的方法是质疑假设、找到真正的瓶颈、构建能够适应的系统，并培养最终不再依赖我的领导者。", "我很愿意讨论 AI、消费者平台、市场平台、卖家服务，以及如何打造在今天问题解决后仍能继续学习的组织。"], external: { label: "打开 LinkedIn——LinkedIn 可能要求登录", url: linkedinUrl } },
+    videos: { title: "西雅图大南瓜", category: "视频主页", intro: "一个爱玩、好奇的观察者，带大家体验美国西北部、首尔和更远的生活。", paragraphs: ["这个视频档案在查看时已有近 300 个作品，内容包括西雅图、首尔、韩国、日本、自然、钓鱼、公共表演、文化细节和日常见闻。", "其中包括西雅图四季、美国西部钓鳟鱼、西雅图海洋节和蓝天使、首尔花灯节和汉江表演，以及北海道旅行的长篇思考。", "它的声音以视觉、好奇和玩心为特点，常常从一个具体的小细节走向更广泛的反思。"], external: { label: "打开抖音——抖音可能要求登录", url: douyinUrl } },
   },
 };
 
 export default function Home() {
-  const [language, setLanguage] = useState<"all" | "en" | "zh">("all");
+  const [language, setLanguage] = useState<Language>("en");
   const [subscribed, setSubscribed] = useState(false);
-  const [selectedDetail, setSelectedDetail] = useState<string | null>(null);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const t = ui[language];
+  const selected = selectedId ? details[language][selectedId] : null;
 
-  const selected = selectedDetail ? details[selectedDetail] : null;
-
-  function handleSubscribe(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setSubscribed(true);
-  }
+  function subscribe(event: FormEvent<HTMLFormElement>) { event.preventDefault(); setSubscribed(true); }
 
   return (
-    <main>
+    <main lang={language === "zh" ? "zh-CN" : "en"}>
       <header className="site-header">
-        <a className="brand" href="#top" aria-label="Hello Bonan home">
-          <span className="brand-dot">B</span>
-          <span>Hello Bonan</span>
-        </a>
+        <a className="brand" href="#top" aria-label="Hello Bonan"><span className="brand-dot">B</span><span>Hello Bonan</span></a>
         <nav className="desktop-nav" aria-label="Primary navigation">
-          <a href="#writing">Writing</a>
-          <a href="#postcards">Postcards</a>
-          <a href="#recommendations">Recommendations</a>
-          <a href="#about">About</a>
+          <a href="#writing">{t.nav[0]}</a><a href="#postcards">{t.nav[1]}</a><a href="#recommendations">{t.nav[2]}</a><a href="#about">{t.nav[3]}</a>
         </nav>
-        <a className="header-cta" href="#subscribe">Get the note</a>
+        <div className="header-tools">
+          <div className="language-filter site-language" aria-label="Site language">
+            <button className={language === "en" ? "active" : ""} onClick={() => setLanguage("en")} type="button">English</button>
+            <button className={language === "zh" ? "active" : ""} onClick={() => setLanguage("zh")} type="button">中文</button>
+          </div>
+          <a className="header-cta" href="#subscribe">{t.note}</a>
+        </div>
       </header>
 
       <section className="hero" id="top">
-        <div className="hero-copy">
-          <p className="eyebrow">Marketplace leader · Systems thinker · Curious observer</p>
-          <h1>Ideas, encounters, and useful things.</h1>
-          <p className="hero-lede">
-            I’m Bonan Zhong. I build marketplaces, adaptive organizations, and
-            leaders—then stay curious about the people, places, and small
-            decisions that reveal how systems really work.
-          </p>
-          <div className="hero-actions">
-            <a className="button button-primary" href="#writing">Read the latest</a>
-            <a className="button button-secondary" href="#subscribe">A Note from Bonan</a>
-          </div>
-          <div className="role-line">
-            <span>Director at Coupang</span>
-            <span>Former Amazon</span>
-            <span>Seattle · Seoul · Elsewhere</span>
-          </div>
+        <div className="hero-copy"><p className="eyebrow">{t.eyebrow}</p><h1>{t.hero}</h1><p className="hero-lede">{t.lede}</p>
+          <div className="hero-actions"><a className="button button-primary" href="#writing">{t.readLatest}</a><a className="button button-secondary" href="#subscribe">{t.noteName}</a></div>
+          <div className="role-line">{t.roles.map((role) => <span key={role}>{role}</span>)}</div>
         </div>
-        <div className="hero-portrait" aria-label="Portrait placeholder for Bonan Zhong">
-          <div className="portrait-frame">
-            <span className="portrait-monogram">BZ</span>
-            <span className="portrait-note">Portrait coming soon</span>
-          </div>
-          <p>From medicine to marketplaces, I follow the next meaningful bottleneck.</p>
-        </div>
+        <div className="hero-portrait"><div className="portrait-frame"><span className="portrait-monogram">BZ</span><span className="portrait-note">{t.portrait}</span></div><p>{t.portraitLine}</p></div>
       </section>
 
-      <section className="featured section-pad" aria-labelledby="featured-title">
-        <div className="section-label">Featured idea · 6 min read</div>
-        <div className="featured-grid">
-          <div>
-            <h2 id="featured-title">Every solution creates a new constraint.</h2>
-          </div>
-          <div>
-            <p>
-              The strength that gets a team to one stage can become the thing
-              that holds it back at the next. The work is not simply becoming
-              an expert—it is noticing when the system needs a new question.
-            </p>
-            <button className="text-link text-button" type="button" onClick={() => setSelectedDetail("constraint")}>
-              Read the full idea <span>→</span>
-            </button>
-          </div>
-        </div>
-      </section>
+      <section className="featured section-pad"><div className="section-label">{t.featuredLabel}</div><div className="featured-grid"><h2>{t.featuredTitle}</h2><div><p>{t.featuredText}</p><button className="text-link text-button" type="button" onClick={() => setSelectedId("constraint")}>{t.readIdea} <span>→</span></button></div></div></section>
 
-      <section className="section-pad" id="writing">
-        <div className="section-heading">
-          <div>
-            <p className="eyebrow">The journal</p>
-            <h2>Three ways into the work.</h2>
-          </div>
-          <div className="language-filter" aria-label="Filter writing by language">
-            {(["all", "en", "zh"] as const).map((item) => (
-              <button
-                key={item}
-                className={language === item ? "active" : ""}
-                onClick={() => setLanguage(item)}
-                type="button"
-              >
-                {item === "all" ? "All" : item === "en" ? "English" : "中文"}
-              </button>
-            ))}
-          </div>
-        </div>
-
+      <section className="section-pad" id="writing"><div className="section-heading"><div><p className="eyebrow">{t.journal}</p><h2>{t.journalTitle}</h2></div></div>
         <div className="story-grid">
-          {(language === "all" || language === "en") && (
-            <button className="story-card story-card-dark card-button" type="button" onClick={() => setSelectedDetail("bottleneck")}>
-              <div className="card-meta"><span>Marketplace & Systems</span><span>EN</span></div>
-              <div className="story-symbol">↗</div>
-              <div>
-                <h3>The next bottleneck</h3>
-                <p>What changes when the operating model that created growth starts limiting it?</p>
-                <span className="card-foot">Essay · Read now →</span>
-              </div>
-            </button>
-          )}
-          {(language === "all" || language === "zh") && (
-            <button className="story-card story-card-coral card-button" type="button" onClick={() => setSelectedDetail("hokkaido")}>
-              <div className="card-meta"><span>Everyday Encounters</span><span>中文</span></div>
-              <div className="story-symbol">小</div>
-              <div>
-                <h3>一件我注意到的小事</h3>
-                <p>旅行最好玩的地方，不只是看见了什么，而是回来以后偷偷学会了什么。</p>
-                <span className="card-foot">随笔 · 阅读全文 →</span>
-              </div>
-            </button>
-          )}
-          {(language === "all" || language === "en") && (
-            <button className="story-card story-card-paper card-button" type="button" onClick={() => setSelectedDetail("learning")}>
-              <div className="card-meta"><span>AI & Adaptive Systems</span><span>EN</span></div>
-              <div className="story-symbol">∞</div>
-              <div>
-                <h3>Organizations that keep learning</h3>
-                <p>AI matters less as a feature than as a new way for an organization to notice and adapt.</p>
-                <span className="card-foot">Note · Read now →</span>
-              </div>
-            </button>
-          )}
+          {t.stories.map((story, index) => <button key={story[1]} className={`story-card card-button ${index === 0 ? "story-card-dark" : index === 1 ? "story-card-coral" : "story-card-paper"}`} type="button" onClick={() => setSelectedId(["bottleneck", "hokkaido", "learning"][index])}><div className="card-meta"><span>{story[0]}</span><span>{language === "zh" ? "中文" : "EN"}</span></div><div className="story-symbol">{["↗", "小", "∞"][index]}</div><div><h3>{story[1]}</h3><p>{story[2]}</p><span className="card-foot">{story[3]} · {t.readNow} →</span></div></button>)}
         </div>
       </section>
 
-      <section className="postcards section-pad" id="postcards">
-        <div className="section-heading postcards-heading">
-          <div>
-            <p className="eyebrow">Postcards</p>
-            <h2>Places change the questions.</h2>
-          </div>
-          <p>Short observations from the Pacific Northwest, Seoul, and wherever curiosity leads next.</p>
-        </div>
-        <div className="postcard-strip">
-          <button className="postcard postcard-seattle card-button" type="button" onClick={() => setSelectedDetail("seattle")}>
-            <span className="postcard-index">01</span>
-            <div><span>Seattle</span><h3>Sweet home, seen again</h3><p>Rain, water, evergreens—and the quiet pull of returning.</p></div>
-            <span className="open-cue">Open postcard →</span>
-          </button>
-          <button className="postcard postcard-seoul card-button" type="button" onClick={() => setSelectedDetail("seoul")}>
-            <span className="postcard-index">02</span>
-            <div><span>Seoul</span><h3>A city that performs</h3><p>Lanterns, live music, and a weekend along the Han River.</p></div>
-            <span className="open-cue">Open postcard →</span>
-          </button>
-          <button className="postcard postcard-hokkaido card-button" type="button" onClick={() => setSelectedDetail("hokkaido")}>
-            <span className="postcard-index">03</span>
-            <div><span>Hokkaido</span><h3>The extra small step</h3><p>What a ripe melon and a covered spray bottle taught me about care.</p></div>
-            <span className="open-cue">Open postcard →</span>
-          </button>
-        </div>
+      <section className="postcards section-pad" id="postcards"><div className="section-heading postcards-heading"><div><p className="eyebrow">{t.postcards}</p><h2>{t.postcardsTitle}</h2></div><p>{t.postcardsText}</p></div>
+        <div className="postcard-strip">{t.postcardItems.map((item, index) => <button key={item[0]} className={`postcard card-button postcard-${["seattle", "seoul", "hokkaido"][index]}`} type="button" onClick={() => setSelectedId(["seattle", "seoul", "hokkaido"][index])}><span className="postcard-index">0{index + 1}</span><div><span>{item[0]}</span><h3>{item[1]}</h3><p>{item[2]}</p></div><span className="open-cue">{t.openPostcard} →</span></button>)}</div>
       </section>
 
-      <section className="recommendations section-pad" id="recommendations">
-        <div className="recommendation-intro">
-          <p className="eyebrow">Worth sharing</p>
-          <h2>Useful things should come with a reason.</h2>
-          <p>
-            Books, places, performances, tools, and ideas—each with a short note
-            about why it might deserve your attention.
-          </p>
-        </div>
-        <div className="recommendation-list">
-          <button className="recommendation-item" type="button" onClick={() => setSelectedDetail("decisions")}><span>01</span><div><small>BOOKS & IDEAS</small><h3>Four questions for a better decision</h3></div><span>Read →</span></button>
-          <button className="recommendation-item" type="button" onClick={() => setSelectedDetail("hokkaido")}><span>02</span><div><small>PLACES & CULTURE</small><h3>A quieter way to experience a city</h3></div><span>Read →</span></button>
-          <a className="recommendation-item" href={douyinUrl} target="_blank" rel="noreferrer"><span>03</span><div><small>VIDEO</small><h3>One minute with Bonan</h3></div><span>Open Douyin ↗</span></a>
-        </div>
+      <section className="recommendations section-pad" id="recommendations"><div className="recommendation-intro"><p className="eyebrow">{t.worth}</p><h2>{t.worthTitle}</h2><p>{t.worthText}</p></div>
+        <div className="recommendation-list">{t.recs.map((item, index) => <button className="recommendation-item" key={item[1]} type="button" onClick={() => setSelectedId(["decisions", "hokkaido", "videos"][index])}><span>0{index + 1}</span><div><small>{item[0]}</small><h3>{item[1]}</h3></div><span>{t.readNow} →</span></button>)}</div>
       </section>
 
-      <section className="about section-pad" id="about">
-        <div className="about-number">05</div>
-        <div className="about-copy">
-          <p className="eyebrow">About Bonan</p>
-          <h2>A career built by following the next meaningful constraint.</h2>
-          <p className="about-lede">
-            My path has crossed surgery, regenerative medicine, biotechnology,
-            Amazon, and Coupang. The common thread is a habit of questioning
-            assumptions, finding the real bottleneck, and building systems that adapt.
-          </p>
-          <div className="about-columns">
-            <p>
-              Today, my interests center on AI, marketplaces, consumer
-              platforms, seller services, and organizations that keep learning.
-            </p>
-            <p>
-              Outside work, I pay attention to culture, travel, nature, books,
-              and the small encounters that make a place—and a life—more legible.
-            </p>
-          </div>
-          <div className="social-links">
-            <a href="https://www.linkedin.com/in/bonanzhong/" target="_blank" rel="noreferrer">LinkedIn ↗</a>
-            <a href={douyinUrl} target="_blank" rel="noreferrer">Douyin · 西雅图大南瓜 ↗</a>
-          </div>
-        </div>
-      </section>
+      <section className="about section-pad" id="about"><div className="about-number">05</div><div className="about-copy"><p className="eyebrow">{t.about}</p><h2>{t.aboutTitle}</h2><p className="about-lede">{t.aboutLede}</p><div className="about-columns"><p>{t.aboutA}</p><p>{t.aboutB}</p></div>
+        <div className="social-links"><button type="button" onClick={() => setSelectedId("professional")}>{t.profileHere} →</button><button type="button" onClick={() => setSelectedId("videos")}>{t.videosHere} →</button></div><small className="external-warning">{t.externalNote}</small>
+      </div></section>
 
-      <section className="subscribe section-pad" id="subscribe">
-        <div>
-          <p className="eyebrow">A Note from Bonan</p>
-          <h2>One thoughtful note, about once a week.</h2>
-        </div>
-        <div className="subscribe-copy">
-          <p>
-            Marketplace ideas, revealing encounters, and useful things—written
-            in English or Chinese, whichever fits the thought best. Usually a five-minute read.
-          </p>
-          {subscribed ? (
-            <div className="success-message" role="status">
-              Thank you. Email delivery will open with the publication launch.
-            </div>
-          ) : (
-            <form onSubmit={handleSubscribe}>
-              <label className="sr-only" htmlFor="email">Email address</label>
-              <input id="email" name="email" type="email" placeholder="you@example.com" required />
-              <button type="submit">Get the note</button>
-            </form>
-          )}
-          <small>No spam. English, 中文, or both. Unsubscribe anytime.</small>
-        </div>
-      </section>
+      <section className="subscribe section-pad" id="subscribe"><div><p className="eyebrow">{t.noteName}</p><h2>{t.subscribeTitle}</h2></div><div className="subscribe-copy"><p>{t.subscribeText}</p>
+        {subscribed ? <div className="success-message" role="status">{t.thanks}</div> : <form onSubmit={subscribe}><label className="sr-only" htmlFor="email">{t.email}</label><input id="email" name="email" type="email" placeholder={t.emailPlaceholder} required/><button type="submit">{t.note}</button></form>}<small>{t.privacy}</small>
+      </div></section>
 
-      {selected && (
-        <div className="reader-overlay" role="presentation" onMouseDown={() => setSelectedDetail(null)}>
-          <article
-            className="reader-panel"
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="reader-title"
-            onMouseDown={(event) => event.stopPropagation()}
-          >
-            <div className="reader-topline">
-              <div><span>{selected.category}</span><span>{selected.language}</span></div>
-              <button type="button" onClick={() => setSelectedDetail(null)} aria-label="Close article">Close ×</button>
-            </div>
-            <div className="reader-body">
-              <h2 id="reader-title">{selected.title}</h2>
-              <p className="reader-intro">{selected.intro}</p>
-              <div className="reader-copy">
-                {selected.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
-              </div>
-              {selected.sourceUrl && (
-                <a className="reader-source" href={selected.sourceUrl} target="_blank" rel="noreferrer">
-                  {selected.sourceLabel} ↗
-                </a>
-              )}
-            </div>
-            <div className="reader-footer">
-              <span>Hello Bonan</span>
-              <button type="button" onClick={() => setSelectedDetail(null)}>Back to the journal</button>
-            </div>
-          </article>
-        </div>
-      )}
+      {selected && <div className="reader-overlay" role="presentation" onMouseDown={() => setSelectedId(null)}><article className="reader-panel" role="dialog" aria-modal="true" aria-labelledby="reader-title" onMouseDown={(event) => event.stopPropagation()}><div className="reader-topline"><div><span>{selected.category}</span><span>{language === "zh" ? "中文" : "EN"}</span></div><button type="button" onClick={() => setSelectedId(null)}>{t.close} ×</button></div><div className="reader-body"><h2 id="reader-title">{selected.title}</h2><p className="reader-intro">{selected.intro}</p><div className="reader-copy">{selected.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div>{selected.external && <a className="reader-source" href={selected.external.url} target="_blank" rel="noreferrer">{selected.external.label} ↗</a>}</div><div className="reader-footer"><span>Hello Bonan</span><button type="button" onClick={() => setSelectedId(null)}>{t.back}</button></div></article></div>}
 
-      <footer>
-        <div className="brand footer-brand"><span className="brand-dot">B</span><span>Hello Bonan</span></div>
-        <p>Ideas, encounters, and useful things.</p>
-        <div><a href="https://www.linkedin.com/in/bonanzhong/">LinkedIn</a><a href="#top">Back to top ↑</a></div>
-        <small>© 2026 Bonan Zhong · Personal views only</small>
-      </footer>
+      <footer><div className="brand footer-brand"><span className="brand-dot">B</span><span>Hello Bonan</span></div><p>{t.footer}</p><div><button type="button" onClick={() => setSelectedId("professional")}>{t.about}</button><a href="#top">{t.top} ↑</a></div><small>© 2026 Bonan Zhong · {t.personal}</small></footer>
     </main>
   );
 }
