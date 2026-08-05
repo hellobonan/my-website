@@ -144,6 +144,18 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid 
 .globe-city-selector b { font-family: Georgia,"Noto Serif SC",serif; font-size: 18px; }
 .globe-city-selector span { font-size: 8px; white-space: nowrap; }
 
+/* Field Atlas uses restrained map labels; the former faux landmark miniatures were decorative noise. */
+.landmark-mini, .landmark-large, .globe-city-selector b { display: none !important; }
+.globe-pin { min-width: 10px; min-height: 10px; }
+.globe-pin > span { margin-left: 0; }
+.globe-city-selector button { min-width: 86px; padding: 11px 10px; }
+.globe-city-selector span { font-size: 10px; letter-spacing: .04em; }
+.map-results > div:first-child > small,
+.map-results > div:first-child > p:not(.landmark-name) { display: none; }
+.globe-controls small { font-size: 0; }
+main[lang="en"] .globe-controls small::after { content: "DRAG THE EARTH · CHOOSE A CITY"; font-size: 10px; }
+main[lang="zh-CN"] .globe-controls small::after { content: "拖拽旋转地球 · 点击城市"; font-size: 10px; }
+
 .essay-salon { padding-top: 125px; }
 .essay-heading { display: grid; grid-template-columns: 1fr 1fr; gap: 28px 70px; margin-bottom: 55px; align-items: end; }
 .essay-heading .eyebrow { grid-column: 1 / -1; margin: 0; }
@@ -273,6 +285,27 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid 
 .social-heading h2 { margin: 0; font-family: Georgia, "Noto Serif SC", serif; font-size: clamp(44px, 5.5vw, 76px); font-weight: 400; letter-spacing: -.045em; line-height: 1.04; }
 .social-heading > p:last-child { max-width: 560px; margin: 0; color: var(--muted); font-family: Georgia, "Noto Serif SC", serif; font-size: 18px; line-height: 1.6; }
 .channel-block { padding: 36px 0 70px; border-top: 1px solid var(--line); }
+
+/* Editorial sequence: identity → work → thinking → writing → books → world → life → discoveries. */
+main { display: flex; flex-direction: column; }
+.site-header { order: 0; }
+.hero { order: 1; }
+#about { order: 2; }
+.featured { order: 3; }
+#channels { display: contents; }
+#channels > .social-heading { order: 4; padding-top: 110px; }
+#channels > .channel-block:not(.sparks-block) { order: 5; }
+#writing { order: 6; }
+#essays { order: 7; }
+#books { order: 8; }
+#postcards { order: 9; }
+#channels > .sparks-block { order: 10; padding-top: 110px; }
+#subscribe { order: 11; }
+#web-discoveries { order: 12; }
+footer { order: 13; }
+.reader-overlay { order: 20; }
+#channels > .social-heading,
+#channels > .channel-block { width: min(100% - 48px, 1240px); margin-left: auto; margin-right: auto; }
 .sparks-block { width: calc(100% + 64px); margin: 18px -32px -18px; padding: 42px 32px 54px; border: 0; border-radius: 18px; background: radial-gradient(circle at 88% 0, rgba(223,161,86,.23), transparent 25rem), linear-gradient(145deg, #183a33, #132821 65%); color: #f7f1e7; box-shadow: 0 30px 80px rgba(29,43,37,.18); }
 .spark-intro { max-width: 680px; margin: 0 0 28px; color: #bac9c3; font-family: Georgia, "Noto Serif SC", serif; font-size: 18px; line-height: 1.6; }
 .curated-grid { display: grid; grid-template-columns: repeat(12,1fr); grid-auto-rows: 230px; gap: 12px; }
