@@ -195,6 +195,22 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid 
 .book-links { margin-top: 14px; display: flex; gap: 12px; }
 .book-links a { padding-bottom: 3px; border-bottom: 1px solid #bd8d52; color: #986634; font-size: 9px; font-weight: 750; letter-spacing: .08em; text-transform: uppercase; }
 .books-more { margin: 28px auto 0; display: block; }
+.web-discoveries { padding-top: 120px; }
+.web-heading { max-width: 900px; margin-bottom: 48px; }
+.web-heading h2 { margin: 12px 0 0; font-family: Georgia,"Noto Serif SC",serif; font-size: clamp(44px,5.5vw,74px); font-weight: 400; line-height: 1.04; }
+.web-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.web-card { min-height: 440px; overflow: hidden; display: grid; grid-template-columns: .8fr 1.2fr; border-radius: 14px; background: #102032; color: white; box-shadow: 0 24px 60px rgba(30,27,22,.18); transition: transform .3s ease; }
+.web-card:hover { transform: translateY(-6px); }
+.web-card > div:last-child { padding: 34px 28px; display: flex; flex-direction: column; justify-content: center; }
+.web-visual { position: relative; display: grid; place-items: center; overflow: hidden; background: radial-gradient(circle at 35% 30%,#ffd5c0,transparent 28%),linear-gradient(155deg,#b34c72,#303057); }
+.webcam-web .web-visual { background: radial-gradient(circle at 68% 28%,#f6ca77,transparent 23%),linear-gradient(155deg,#246277,#10283b); }
+.web-visual::before { position: absolute; width: 220px; height: 220px; content: ""; border: 1px solid rgba(255,255,255,.26); border-radius: 50%; box-shadow: 0 0 0 24px rgba(255,255,255,.05),0 0 0 48px rgba(255,255,255,.03); }
+.web-visual span { z-index: 1; font-family: Georgia,"Noto Serif SC",serif; font-size: 62px; text-shadow: 5px 7px 0 rgba(0,0,0,.18); }
+.web-visual i { position: absolute; z-index: 1; bottom: 24px; font-style: normal; font-size: 7px; letter-spacing: .18em; }
+.web-card small { color: #efc77f; font-size: 8px; letter-spacing: .15em; }
+.web-card h3 { margin: 11px 0 16px; font-family: Georgia,"Noto Serif SC",serif; font-size: 29px; font-weight: 400; }
+.web-card p { color: #c1cbd5; font-size: 13px; line-height: 1.7; }
+.web-card b { margin-top: 22px; color: #f0ce93; font-size: 9px; letter-spacing: .1em; text-transform: uppercase; }
 .book-card small { color: var(--coral); font-size: 9px; letter-spacing: .1em; text-transform: uppercase; }
 .book-card h3 { margin: 9px 0 12px; font-family: Georgia,serif; font-size: 24px; font-weight: 400; }
 .book-card p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.65; }
@@ -417,6 +433,9 @@ footer small { grid-column: 1 / -1; color: #908b82; font-size: 10px; }
   .book-card img { width: 95px; height: 145px; }
   .book-cover-fallback { width: 95px; height: 145px; }
   .globe-stage { min-height: 500px; }
+  .web-grid { grid-template-columns: 1fr; }
+  .web-card { grid-template-columns: 1fr; }
+  .web-visual { min-height: 250px; }
   .recommendation-item { grid-template-columns: 32px 1fr; padding: 20px 0; }
   .recommendation-item > span:last-child { grid-column: 2; }
   .about { grid-template-columns: 1fr; gap: 20px; }
