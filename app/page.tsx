@@ -15,6 +15,15 @@ type Detail = { title: string; category: string; intro: string; paragraphs: stri
 type Essay = { id: string; title: string; category: string; excerpt: string; body: string };
 type EnglishStory = { id: string; title: string; category: string; summary: string; body: string; date: string; dateLabel: string; image: string | null };
 
+const chineseEssayStoryIds: Record<string, string> = {
+  "essay-01": "story-01", "essay-02": "story-02", "essay-03": "story-03", "essay-04": "story-04",
+  "essay-05": "story-05", "essay-06": "story-06", "essay-07": "story-07", "essay-08": "story-08",
+  "essay-09": "story-09", "essay-10": "story-10", "essay-11": "story-11", "essay-12": "story-12",
+  "essay-13": "story-13", "essay-14": "story-14", "essay-15": "story-16", "essay-16": "story-17",
+  "essay-19": "story-18", "essay-17": "story-19", "essay-18": "story-20", "essay-20": "story-21",
+};
+const englishStoryEssayIds = Object.fromEntries(Object.entries(chineseEssayStoryIds).map(([essayId, storyId]) => [storyId, essayId]));
+
 const featuredBooks = [
   { isbn: "9780062316097", title: "Sapiens", author: "Yuval Noah Harari", zh: "《人类简史》把人类的共同想象、制度与合作能力放进一条宏大的时间线，提醒我们：许多看似自然的规则，其实都是可以重新设计的。", en: "A sweeping account of how shared stories, institutions, and cooperation shaped humanity—and why many rules that feel natural are, in fact, designed." },
   { isbn: "9780525559474", title: "Think Again", author: "Adam Grant", zh: "一本关于重新思考的实用指南：把观点当作可以更新的假设，而不是必须防守的身份。", en: "A practical guide to treating opinions as hypotheses to update, rather than identities to defend." },
@@ -306,8 +315,8 @@ export default function Home() {
   const dragStart = useRef<{ x: number; rotation: number } | null>(null);
   const t = ui[language];
   const selected = selectedId ? details[language][selectedId] : null;
-  const selectedEssayKey = selectedEssayId?.replace(/^story-/, "essay-") || null;
-  const selectedStoryKey = selectedEssayId?.replace(/^essay-/, "story-") || null;
+  const selectedEssayKey = selectedEssayId ? (selectedEssayId.startsWith("story-") ? englishStoryEssayIds[selectedEssayId] : selectedEssayId) : null;
+  const selectedStoryKey = selectedEssayId ? (selectedEssayId.startsWith("essay-") ? chineseEssayStoryIds[selectedEssayId] : selectedEssayId) : null;
   const selectedEssay = (essayCollection as Essay[]).find((essay) => essay.id === selectedEssayKey) || null;
   const selectedEssayTranslation = [...essayTranslations, ...longEssayTranslations].find((essay) => essay.id === selectedEssayKey) || null;
   const selectedEnglishStory = (englishStories as EnglishStory[]).find((story) => story.id === selectedStoryKey) || null;
@@ -400,12 +409,12 @@ export default function Home() {
       </section>
 
       <section className="essay-salon section-pad" id="essays">
-        <div className="essay-heading"><p className="eyebrow">{language === "zh" ? "人间拾光 · 原创随笔" : "COLLECTED LIGHT · ORIGINAL STORIES"}</p><h2>{language === "zh" ? "人间拾光" : "Collected Light"}</h2><p>{language === "zh" ? "十八篇关于城市、艺术、团队、系统与日常的现场笔记。不是攻略，而是生活经过时留下的光。" : `${englishStories.length} complete stories on cities, art, teams, systems, and everyday life—each with its original image and publication date.`}</p></div>
+        <div className="essay-heading"><p className="eyebrow">{language === "zh" ? "人间拾光 · 原创随笔" : "COLLECTED LIGHT · ORIGINAL STORIES"}</p><h2>{language === "zh" ? "人间拾光" : "Collected Light"}</h2><p>{language === "zh" ? "二十篇关于城市、艺术、团队、系统与日常的现场笔记。不是攻略，而是生活经过时留下的光。" : `${englishStories.length} complete stories on cities, art, teams, systems, and everyday life—each with its original image and publication date.`}</p></div>
         <div className="essay-toolbar"><div className="essay-filters" aria-label={language === "zh" ? "随笔分类" : "Story categories"}>{Object.entries(essayCategories[language]).map(([key, label]) => <button key={key} type="button" className={essayCategory === key ? "active" : ""} onClick={() => setEssayCategory(key)}>{label}<span>{key === "all" ? activeEssays.length : activeEssays.filter((essay) => essay.category === key).length}</span></button>)}</div>{language === "en" && <label className="essay-sort"><span>Publication date | 2025-2026</span><select value={essaySort} onChange={(event) => setEssaySort(event.target.value)}><option value="newest">Newest first | 2026 to 2025</option><option value="oldest">Oldest first | 2025 to 2026</option></select></label>}</div>
         <div className="essay-grid">{filteredEssays.map((essay, index) => {
           const originalIndex = Number(essay.id.slice(-2)) - 1;
           const englishStory = language === "en" ? essay as EnglishStory : null;
-          const imageStory = englishStory || (englishStories as EnglishStory[]).find((story) => story.id === essay.id.replace(/^essay-/, "story-"));
+          const imageStory = englishStory || (englishStories as EnglishStory[]).find((story) => story.id === chineseEssayStoryIds[essay.id]);
           return <button type="button" onClick={() => setSelectedEssayId(essay.id)} className={`essay-card essay-tone-${(originalIndex % 6) + 1}`} key={essay.id}><div className="essay-art">{imageStory?.image ? <><img src={imageStory.image} alt="" loading="lazy"/><time className="essay-date" dateTime={imageStory.date}><b>{new Date(`${imageStory.date}T12:00:00`).toLocaleString(language === "zh" ? "zh-CN" : "en", { month: "short" })}</b><span>{new Date(`${imageStory.date}T12:00:00`).getDate()}</span><i>{new Date(`${imageStory.date}T12:00:00`).getFullYear()}</i></time></> : <span>{String(index + 1).padStart(2, "0")}</span>}</div><div className="essay-card-copy"><small>{essayCategories[language][essay.category as keyof typeof essayCategories.en]}{englishStory ? ` | Published ${englishStory.dateLabel}` : ""}</small><h3>{englishStory ? englishStory.title : essay.title}</h3><p>{englishStory ? englishStory.summary : (essay as Essay).excerpt}</p><span>{language === "zh" ? "阅读全文" : "Read full story"} →</span></div></button>;
         })}</div><Engagement id="essays" language={language}/><SectionHome language={language}/>
       </section>
