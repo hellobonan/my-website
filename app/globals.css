@@ -183,9 +183,12 @@ main[lang="zh-CN"] .globe-controls small::after { content: "拖拽旋转地球 �
 .essay-filters button.active { border-color: #ba8a47; background: #172638; color: #f6e5c4; }
 .essay-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; }
 .essay-card { min-height: 520px; padding: 0; display: flex; flex-direction: column; overflow: hidden; border: 0; border-radius: 12px; background: #102032; color: white; text-align: left; cursor: pointer; box-shadow: 0 25px 65px rgba(42,31,22,.16); transition: transform .3s ease, box-shadow .3s ease; }
-.essay-card:nth-child(7n+1) { grid-column: span 2; }
-.essay-art { min-height: 245px; padding: 25px; position: relative; display: flex; align-items: flex-end; justify-content: space-between; overflow: hidden; background: radial-gradient(circle at 72% 25%, rgba(248,211,143,.48), transparent 24%), linear-gradient(145deg,#38576b,#101e30 68%); }
+.essay-card:nth-child(7n+1) { grid-column: auto; }
+.essay-art { min-height: 0; aspect-ratio: 4 / 5; padding: 25px; position: relative; display: flex; align-items: flex-end; justify-content: space-between; overflow: hidden; background: radial-gradient(circle at 72% 25%, rgba(248,211,143,.48), transparent 24%), linear-gradient(145deg,#38576b,#101e30 68%); }
 .essay-art img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .35s ease; }
+.essay-date { z-index: 2; position: absolute; left: 18px; bottom: 18px; width: 58px; padding: 9px 7px; display: grid; justify-items: center; border: 1px solid rgba(255,255,255,.55); background: rgba(12,24,36,.88); color: #fff; box-shadow: 0 8px 24px rgba(0,0,0,.2); }
+.essay-date b, .essay-date i { font-size: 9px; font-style: normal; letter-spacing: .12em; text-transform: uppercase; }
+.essay-date span { font-family: Georgia,serif; font-size: 25px; line-height: 1; margin: 3px 0; }
 .essay-card:hover .essay-art img { transform: scale(1.025); }
 .essay-art:has(img)::before, .essay-art:has(img)::after { display: none; }
 .essay-art::before, .essay-art::after { content: ""; position: absolute; border: 1px solid rgba(255,255,255,.23); border-radius: 50%; }
@@ -449,7 +452,7 @@ footer small { grid-column: 1 / -1; color: #908b82; font-size: 10px; }
   .essay-heading { grid-template-columns: 1fr; }
   .essay-heading .eyebrow { grid-column: auto; }
   .essay-grid { grid-template-columns: repeat(2,1fr); }
-  .essay-card:nth-child(7n+1) { grid-column: span 2; }
+  .essay-card:nth-child(7n+1) { grid-column: auto; }
   .curated-card { grid-column: span 4; }
   .curated-card:nth-child(1), .curated-card:nth-child(6) { grid-column: span 8; }
   .linkedin-grid { grid-template-columns: 1fr; }
