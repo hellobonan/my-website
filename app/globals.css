@@ -174,7 +174,10 @@ main[lang="zh-CN"] .globe-controls small::after { content: "拖拽旋转地球 �
 .essay-heading .eyebrow { grid-column: 1 / -1; margin: 0; }
 .essay-heading h2 { margin: 0; font-family: Georgia, "Noto Serif SC", serif; font-size: clamp(45px,5.5vw,76px); font-weight: 400; line-height: 1.04; letter-spacing: -.045em; }
 .essay-heading > p:last-child { color: var(--muted); font-family: Georgia, "Noto Serif SC", serif; font-size: 18px; line-height: 1.65; }
-.essay-filters { margin: -18px 0 34px; display: flex; flex-wrap: wrap; gap: 9px; }
+.essay-toolbar { margin: -18px 0 34px; display: flex; align-items: flex-end; justify-content: space-between; gap: 18px; }
+.essay-filters { display: flex; flex-wrap: wrap; gap: 9px; }
+.essay-sort { min-width: 154px; display: grid; gap: 6px; color: var(--muted); font-size: 10px; letter-spacing: .08em; text-transform: uppercase; }
+.essay-sort select { padding: 10px 34px 10px 12px; border: 1px solid var(--line); border-radius: 4px; background: #fff; color: var(--ink); }
 .essay-filters button { padding: 11px 15px; border: 1px solid var(--line); border-radius: 999px; background: transparent; color: var(--ink); cursor: pointer; font-size: 11px; letter-spacing: .04em; }
 .essay-filters button span { margin-left: 8px; color: var(--muted); font-size: 9px; }
 .essay-filters button.active { border-color: #ba8a47; background: #172638; color: #f6e5c4; }
@@ -182,6 +185,9 @@ main[lang="zh-CN"] .globe-controls small::after { content: "拖拽旋转地球 �
 .essay-card { min-height: 520px; padding: 0; display: flex; flex-direction: column; overflow: hidden; border: 0; border-radius: 12px; background: #102032; color: white; text-align: left; cursor: pointer; box-shadow: 0 25px 65px rgba(42,31,22,.16); transition: transform .3s ease, box-shadow .3s ease; }
 .essay-card:nth-child(7n+1) { grid-column: span 2; }
 .essay-art { min-height: 245px; padding: 25px; position: relative; display: flex; align-items: flex-end; justify-content: space-between; overflow: hidden; background: radial-gradient(circle at 72% 25%, rgba(248,211,143,.48), transparent 24%), linear-gradient(145deg,#38576b,#101e30 68%); }
+.essay-art img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .35s ease; }
+.essay-card:hover .essay-art img { transform: scale(1.025); }
+.essay-art:has(img)::before, .essay-art:has(img)::after { display: none; }
 .essay-art::before, .essay-art::after { content: ""; position: absolute; border: 1px solid rgba(255,255,255,.23); border-radius: 50%; }
 .essay-art::before { width: 260px; height: 260px; right: -55px; top: -95px; }
 .essay-art::after { width: 150px; height: 150px; right: 32px; top: -45px; }
@@ -198,6 +204,7 @@ main[lang="zh-CN"] .globe-controls small::after { content: "拖拽旋转地球 �
 .essay-card p { margin: 0 0 24px; color: #bbc5d0; font-family: Georgia, "Noto Serif SC", serif; font-size: 14px; line-height: 1.65; }
 .essay-card-copy > span { margin-top: auto; font-size: 9px; font-weight: 750; letter-spacing: .12em; text-transform: uppercase; }
 .essay-card:hover { transform: translateY(-6px); box-shadow: 0 30px 75px rgba(32,28,22,.25); }
+.essay-reader-image { width: 100%; max-height: 430px; margin: 0 0 34px; object-fit: cover; border-radius: 4px; }
 .essay-reader-kicker { color: #ba8a47; font-size: 10px; font-weight: 750; letter-spacing: .16em; text-transform: uppercase; }
 .essay-reader .reader-copy { white-space: pre-line; }
 .bookshelf { padding-top: 125px; }
@@ -479,6 +486,8 @@ footer small { grid-column: 1 / -1; color: #908b82; font-size: 10px; }
   .map-pin span { font-size: 8px; }
   .map-results { display: block; padding: 30px 20px; }
   .map-story-grid { margin-top: 25px; }
+  .essay-toolbar { align-items: stretch; flex-direction: column; }
+  .essay-sort { width: 100%; }
   .essay-grid { grid-template-columns: 1fr; }
   .essay-card, .essay-card:nth-child(n) { min-height: 470px; grid-column: 1 / -1; }
   .essay-card-copy { padding: 24px; }
