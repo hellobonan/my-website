@@ -309,10 +309,7 @@ main[lang="zh-CN"] .globe-controls small::after { content: "拖拽旋转地球 �
 .recommendation-item small { color: var(--coral); font-size: 9px; font-weight: 750; letter-spacing: .12em; }
 .recommendation-item h3 { margin: 8px 0 0; font-family: Georgia, serif; font-size: 23px; font-weight: 400; }
 
-.about { width: 100%; max-width: none; padding-left: max(24px, calc((100vw - 1240px)/2)); padding-right: max(24px, calc((100vw - 1240px)/2)); display: grid; grid-template-columns: minmax(220px, .36fr) 1fr; gap: clamp(44px, 6vw, 90px); align-items: start; background: var(--forest); color: var(--paper); }
-.about-portrait { position: sticky; top: 110px; overflow: hidden; aspect-ratio: 4 / 5; border-radius: 50% 50% 8px 8px; box-shadow: 22px 26px 0 rgba(4,24,20,.34); }
-.about-portrait::after { position: absolute; inset: 0; content: ""; box-shadow: inset 0 0 0 1px rgba(255,255,255,.16); pointer-events: none; }
-.about-portrait img { width: 100%; height: 100%; display: block; object-fit: cover; object-position: center 25%; filter: saturate(.88) contrast(1.04); }
+.about { width: 100%; max-width: none; padding-left: max(24px, calc((100vw - 1240px)/2)); padding-right: max(24px, calc((100vw - 1240px)/2)); background: var(--forest); color: var(--paper); }
 .about h2 { max-width: 1000px; font-size: clamp(50px, 6vw, 84px); }
 .about-lede { max-width: 930px; margin: 45px 0; color: #d4d8d2; font-family: Georgia, serif; font-size: 24px; line-height: 1.6; }
 .about-columns { max-width: 900px; display: grid; grid-template-columns: 1fr 1fr; gap: 50px; color: #aebbb5; font-size: 15px; line-height: 1.7; }
@@ -549,8 +546,6 @@ footer small { grid-column: 1 / -1; color: #908b82; font-size: 10px; }
   .web-visual { min-height: 250px; }
   .recommendation-item { grid-template-columns: 32px 1fr; padding: 20px 0; }
   .recommendation-item > span:last-child { grid-column: 2; }
-  .about { grid-template-columns: 1fr; gap: 20px; }
-  .about-portrait { position: relative; top: auto; width: min(78vw, 330px); margin-bottom: 22px; }
   .about-lede { font-size: 20px; }
   .about-columns { grid-template-columns: 1fr; gap: 10px; }
   .social-heading { margin-bottom: 45px; }
