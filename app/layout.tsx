@@ -14,6 +14,7 @@ export function generateMetadata(): Metadata {
     creator: "Bonan Zhong",
     publisher: "Bonan Zhong",
     category: "Business and Leadership",
+    verification: { google: "3btjWbr4Q3o_ZGJ2khSlcLzxn-_7gwCtLNu1xo6G4sU" },
     keywords: [
       "Bonan Zhong", "钟博南", "marketplace", "ecommerce", "e-commerce", "leader", "executive",
       "director", "account management", "seller service", "seller services", "vision", "Amazon",
