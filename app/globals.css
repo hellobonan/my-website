@@ -392,6 +392,8 @@ footer { order: 13; }
 .archive-toggle:hover { border-color: #f0c77e; color: #f0c77e; }
 .archive-panel { margin-top: 38px; padding-top: 32px; border-top: 1px solid rgba(255,255,255,.18); }
 .sparks-block .channel-title > a, .sparks-block .filter-group > strong, .sparks-block .video-count { color: #a9bcb4; }
+.archive-link-button { padding: 0 0 4px; border: 0; border-bottom: 1px solid rgba(255,255,255,.35); background: transparent; color: #d8e0dc; cursor: pointer; font: inherit; font-size: 12px; font-weight: 700; }
+.archive-link-button:hover { border-color: #f0c77e; color: #f0c77e; }
 .sparks-block .video-filters button { border-color: rgba(255,255,255,.25); color: #d8e0dc; }
 .sparks-block .video-filters button:hover, .sparks-block .video-filters button.active { border-color: #f0b06f; background: #f0b06f; color: #192c26; }
 .sparks-block .video-card { border-color: rgba(255,255,255,.18); }
