@@ -1,0 +1,18 @@
+# Bonan Zhong | 钟博南
+
+> The official bilingual personal website of Bonan Zhong (钟博南), a marketplace and ecommerce leader, systems thinker, and curious observer based in Seattle with connections to Toronto and life-science research.
+
+The site is publicly accessible and provides English and Simplified Chinese content about marketplace leadership, ecommerce, account management, seller services, Amazon, Coupang, AI, life science, stem-cell research, Seattle, Toronto, essays, field notes, useful links, and the Sparks of Life video archive.
+
+## Primary pages
+
+- [Homepage](https://hellobonan-hello-bonan.vercel.app/): Bilingual portfolio, essays, field notes, useful links, and video archive.
+- [Bonan Zhong profile](https://hellobonan-hello-bonan.vercel.app/bonan-zhong): Search-friendly professional profile for Bonan Zhong / 钟博南.
+- [Sitemap](https://hellobonan-hello-bonan.vercel.app/sitemap.xml): Canonical list of indexable pages.
+- [Robots policy](https://hellobonan-hello-bonan.vercel.app/robots.txt): Public crawler permissions.
+
+## Canonical identity
+
+- English name: Bonan Zhong
+- Chinese name: 钟博南
+- Topics: marketplace, ecommerce, leadership, executive operations, account management, seller services, vision, Amazon, Coupang, Seattle, Toronto, stem cells, life science, and AI.

@@ -8,7 +8,7 @@ import essayTranslations from "./essay-translations.json";
 import longEssayTranslations from "./essay-translations-long.json";
 
 const linkedinUrl = "https://www.linkedin.com/in/bonanzhong/";
-const douyinUrl = "https://www.douyin.com/user/MS4wLjABAAAAjQLsDJzNqH-lMIXUsRCp298zla02LnmZyACESD7llC4";
+const douyinUrl = "https://www.douyin.com/user/MS4wLjABAAAAjQJsDJzNqH-lMIXUsRCp298zla02LnmZyACESD7llC4";
 
 type Language = "en" | "zh";
 type Detail = { title: string; category: string; intro: string; paragraphs: string[]; external?: { label: string; url: string } };
@@ -437,7 +437,7 @@ export default function Home() {
         <div className="channel-block sparks-block"><div className="channel-title"><div><img src="/media/douyin-avatar.jpg" alt="西雅图大南瓜"/><h3>{social.douyin}</h3></div><button className="archive-link-button" type="button" onClick={() => { setShowArchive(true); window.setTimeout(() => document.getElementById("douyin-archive")?.scrollIntoView({ behavior: "smooth", block: "start" }), 50); }}>{social.archive} ↓</button></div>
           <p className="spark-intro">{language === "zh" ? "九个经过编辑挑选的瞬间：不是最新发布，而是最能代表我如何看世界的画面。" : "Nine editorially chosen moments—not the newest posts, but the clearest expression of how I see the world."}</p>
           <div className="curated-grid">{curatedSparks.map((video, index) => video && <a className={`curated-card curated-${index + 1}`} href={video.url} target="_blank" rel="noreferrer" key={video.url}><div className="spark-media"><img src={video.image} alt={displayVideoTitle(video, language, index)}/><span className="hover-preview">▶ {language === "zh" ? "悬停静音预览" : "HOVER FOR MUTED PREVIEW"}</span></div><div><small>{language === "zh" ? ["城市", "手作", "绘画", "活动", "艺术", "钓鱼", "夜色", "雕塑", "发现"][index] : ["PLACE", "HANDMADE", "PAINTING", "EVENT", "ART", "FISHING", "NIGHT", "SCULPTURE", "DISCOVERY"][index]}</small><h4>{displayVideoTitle(video, language, index)}</h4><span>{social.open} ↗</span></div></a>)}</div>
-          <button className="archive-toggle" type="button" onClick={() => setShowArchive((open) => !open)}>{showArchive ? (language === "zh" ? "收起完整档案" : "Close the full archive") : (language === "zh" ? "按主题浏览全部 305 个作品" : "Browse all 305 works by theme")} {showArchive ? "↑" : "↓"}</button>
+          <button className="archive-toggle" type="button" onClick={() => setShowArchive((open) => !open)}>{showArchive ? (language === "zh" ? "收起完整档案" : "Close the full archive") : (language === "zh" ? `按主题浏览全部 ${douyinCatalog.length} 个作品` : `Browse all ${douyinCatalog.length} works by theme`)} {showArchive ? "↑" : "↓"}</button>
           {showArchive && <div className="archive-panel" id="douyin-archive">
             <div className="filter-group"><strong>{social.themes}</strong><div className="video-filters" aria-label={social.themes}><button className={videoCategory === "all" ? "active" : ""} onClick={() => { setVideoCategory("all"); setVisibleVideos(24); }} type="button">{social.all} <span>{douyinCatalog.length}</span></button>{Object.entries(categories).map(([key, label]) => { const count = douyinCatalog.filter((video) => video.category === key).length; return <button className={videoCategory === key ? "active" : ""} onClick={() => { setVideoCategory(key); setVisibleVideos(24); }} type="button" key={key}>{label} <span>{count}</span></button>; })}</div></div>
             <div className="spark-time-tools">

@@ -5,7 +5,26 @@ export default function robots(): MetadataRoute.Robots {
   return {
     rules: [
       { userAgent: "*", allow: "/" },
-      { userAgent: ["GPTBot", "ChatGPT-User", "OAI-SearchBot", "ClaudeBot", "PerplexityBot", "Google-Extended", "bingbot", "Baiduspider"], allow: "/" },
+      {
+        userAgent: [
+          "Googlebot",
+          "Bingbot",
+          "Baiduspider",
+          "GPTBot",
+          "ChatGPT-User",
+          "OAI-SearchBot",
+          "ClaudeBot",
+          "PerplexityBot",
+          "Google-Extended",
+          "Applebot",
+          "Applebot-Extended",
+          "Bytespider",
+          "DeepSeekBot",
+          "DuckAssistBot",
+          "CCBot",
+        ],
+        allow: "/",
+      },
     ],
     sitemap: `${siteUrl}/sitemap.xml`,
     host: siteUrl,
