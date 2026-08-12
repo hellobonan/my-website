@@ -264,17 +264,24 @@ main[lang="zh-CN"] .globe-controls small::after { content: "拖拽旋转地球 �
 .book-card small { color: var(--coral); font-size: 9px; letter-spacing: .1em; text-transform: uppercase; }
 .book-card h3 { margin: 9px 0 12px; font-family: Georgia,serif; font-size: 24px; font-weight: 400; }
 .book-card p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.65; }
-.engagement { margin-top: 34px; padding-top: 18px; display: flex; gap: 12px; border-top: 1px solid var(--line); }
+.engagement { margin-top: 34px; padding-top: 18px; display: flex; flex-wrap: wrap; align-items: flex-start; gap: 12px; border-top: 1px solid var(--line); }
 .engagement > button,.engagement summary { padding: 10px 14px; border: 1px solid var(--line); border-radius: 999px; background: transparent; color: var(--muted); cursor: pointer; font-size: 11px; list-style: none; }
 .engagement > button.liked { border-color: #c46868; color: #b84f5c; background: rgba(196,104,104,.08); }
 .engagement details { position: relative; }
-.engagement details[open] { width: min(430px,75vw); }
+.engagement .comment-details[open] { width: min(430px,75vw); }
 .comment-list { max-height: 160px; overflow: auto; margin-top: 10px; }
 .comment-list p { margin: 0 0 6px; padding: 9px 11px; border-radius: 6px; background: rgba(127,127,127,.08); font-size: 12px; }
 .engagement form { margin-top: 9px; display: flex; }
 .engagement input { min-width: 0; flex: 1; padding: 10px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); }
 .engagement form button { padding: 0 15px; border: 0; background: #172638; color: white; cursor: pointer; }
 .engagement details small { display: block; margin-top: 6px; color: var(--muted); font-size: 8px; }
+.share-menu[open] { width: min(620px, 100%); }
+.share-panel { margin-top: 10px; padding: 14px; display: flex; flex-wrap: wrap; gap: 8px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); box-shadow: 0 18px 50px rgba(33,29,23,.12); }
+.share-panel a,.share-panel button { min-height: 38px; padding: 0 13px; display: inline-flex; align-items: center; justify-content: center; border: 1px solid var(--line); border-radius: 999px; background: transparent; color: var(--ink); cursor: pointer; font: inherit; font-size: 11px; text-decoration: none; }
+.share-panel a:hover,.share-panel button:hover { border-color: var(--coral); color: var(--coral); }
+.share-panel .native-share { width: 100%; min-height: 44px; border-color: var(--ink); background: var(--ink); color: white; }
+.share-panel .native-share:hover { border-color: var(--coral); background: var(--coral); color: white; }
+.subscribe > .engagement { grid-column: 1 / -1; }
 .section-home { width: fit-content; margin: 30px 0 0 auto; padding: 11px 15px; display: flex; align-items: center; gap: 8px; border: 1px solid currentColor; border-radius: 999px; color: inherit; font-size: 11px; font-weight: 750; opacity: .72; }
 .section-home:hover { opacity: 1; }
 .floating-home { position: fixed; z-index: 35; right: max(14px, env(safe-area-inset-right)); bottom: max(16px, env(safe-area-inset-bottom)); min-width: 50px; min-height: 50px; padding: 0 14px; display: flex; align-items: center; justify-content: center; gap: 7px; border: 1px solid rgba(255,255,255,.28); border-radius: 999px; background: rgba(16,24,39,.9); color: white; box-shadow: 0 12px 35px rgba(16,24,39,.24); backdrop-filter: blur(12px); }
