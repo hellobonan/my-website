@@ -21,6 +21,7 @@ const chineseEssayStoryIds: Record<string, string> = {
   "essay-09": "story-09", "essay-10": "story-10", "essay-11": "story-11", "essay-12": "story-12",
   "essay-13": "story-13", "essay-14": "story-14", "essay-15": "story-16", "essay-16": "story-17",
   "essay-19": "story-18", "essay-17": "story-19", "essay-18": "story-20", "essay-20": "story-21",
+  "essay-21": "story-22",
 };
 const englishStoryEssayIds = Object.fromEntries(Object.entries(chineseEssayStoryIds).map(([essayId, storyId]) => [storyId, essayId]));
 
@@ -324,12 +325,15 @@ export default function Home() {
   const displayedEssayTitle = language === "zh" ? (selectedEssayTranslation?.title || selectedEssay?.title) : (selectedEnglishStory?.title || selectedEssay?.title);
   const displayedEssayBody = language === "zh" ? (selectedEssayTranslation?.body || selectedEssay?.body) : (selectedEnglishStory?.body || selectedEssay?.body);
   const activeEssays = language === "en" ? (englishStories as EnglishStory[]) : (essayCollection as Essay[]);
+  const essayPublicationDate = (essay: Essay | EnglishStory) => "date" in essay
+    ? essay.date
+    : (englishStories as EnglishStory[]).find((story) => story.id === chineseEssayStoryIds[essay.id])?.date || "";
   const filteredEssays = activeEssays
     .filter((essay) => essayCategory === "all" || essay.category === essayCategory)
     .slice()
-    .sort((a, b) => language === "en" && "date" in a && "date" in b
-      ? (essaySort === "oldest" ? a.date.localeCompare(b.date) : b.date.localeCompare(a.date))
-      : 0);
+    .sort((a, b) => essaySort === "oldest"
+      ? essayPublicationDate(a).localeCompare(essayPublicationDate(b))
+      : essayPublicationDate(b).localeCompare(essayPublicationDate(a)));
   const social = socialCopy[language];
   const posts = linkedinPosts[language];
   const categories = categoryLabels[language];
@@ -410,7 +414,7 @@ export default function Home() {
       </section>
 
       <section className="essay-salon section-pad" id="essays">
-        <div className="essay-heading"><p className="eyebrow">{language === "zh" ? "人间拾光 · 原创随笔" : "COLLECTED LIGHT · ORIGINAL STORIES"}</p><h2>{language === "zh" ? "人间拾光" : "Collected Light"}</h2><p>{language === "zh" ? "二十篇关于城市、艺术、团队、系统与日常的现场笔记。不是攻略，而是生活经过时留下的光。" : `${englishStories.length} complete stories on cities, art, teams, systems, and everyday life—each with its original image and publication date.`}</p></div>
+        <div className="essay-heading"><p className="eyebrow">{language === "zh" ? "人间拾光 · 原创随笔" : "COLLECTED LIGHT · ORIGINAL STORIES"}</p><h2>{language === "zh" ? "人间拾光" : "Collected Light"}</h2><p>{language === "zh" ? `${essayCollection.length} 篇关于城市、艺术、团队、系统与日常的现场笔记。不是攻略，而是生活经过时留下的光。` : `${englishStories.length} complete stories on cities, art, teams, systems, and everyday life—each with its original image and publication date.`}</p></div>
         <div className="essay-toolbar"><div className="essay-filters" aria-label={language === "zh" ? "随笔分类" : "Story categories"}>{Object.entries(essayCategories[language]).map(([key, label]) => <button key={key} type="button" className={essayCategory === key ? "active" : ""} onClick={() => setEssayCategory(key)}>{label}<span>{key === "all" ? activeEssays.length : activeEssays.filter((essay) => essay.category === key).length}</span></button>)}</div>{language === "en" && <label className="essay-sort"><span>Publication date | 2025-2026</span><select value={essaySort} onChange={(event) => setEssaySort(event.target.value)}><option value="newest">Newest first | 2026 to 2025</option><option value="oldest">Oldest first | 2025 to 2026</option></select></label>}</div>
         <div className="essay-grid">{filteredEssays.map((essay, index) => {
           const originalIndex = Number(essay.id.slice(-2)) - 1;
