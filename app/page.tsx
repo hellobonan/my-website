@@ -6,10 +6,10 @@ import essayCollection from "./essay-collection.json";
 import englishStories from "./english-stories.json";
 import essayTranslations from "./essay-translations.json";
 import longEssayTranslations from "./essay-translations-long.json";
+import SocialShare from "./social-share";
 
 const linkedinUrl = "https://www.linkedin.com/in/bonanzhong/";
 const douyinUrl = "https://www.douyin.com/user/MS4wLjABAAAAjQJsDJzNqH-lMIXUsRCp298zla02LnmZyACESD7llC4";
-const siteUrl = "https://hellobonan-hello-bonan.vercel.app";
 
 type Language = "en" | "zh";
 type Detail = { title: string; category: string; intro: string; paragraphs: string[]; external?: { label: string; url: string } };
@@ -84,36 +84,12 @@ const allBooks = [...featuredBooks, ...libraryBooks].map((book) => ({ ...book, .
 
 function BookCover({ title, isbn, cover }: { title: string; isbn?: string; cover?: string }) { const [src, setSrc] = useState(cover || (isbn ? `https://covers.openlibrary.org/b/isbn/${isbn}-L.jpg` : "")); useEffect(() => { if (cover || isbn) return; let active = true; fetch(`https://openlibrary.org/search.json?title=${encodeURIComponent(title)}&limit=1&fields=cover_i`).then((response) => response.json()).then((data) => { if (active && data.docs?.[0]?.cover_i) setSrc(`https://covers.openlibrary.org/b/id/${data.docs[0].cover_i}-L.jpg`); }).catch(() => {}); return () => { active = false; }; }, [title, isbn, cover]); return src ? <img src={src} alt={`${title} cover`} loading="lazy"/> : <div className="book-cover-fallback"><span>{title}</span><i>Hello Bonan Library</i></div>; }
 
-function ShareMenu({ title, language, path }: { title: string; language: Language; path: string }) {
-  const [copied, setCopied] = useState(false);
-  const url = `${siteUrl}/${path.replace(/^\//, "")}`;
-  const text = `${title} — Hello Bonan`;
-  const encodedUrl = encodeURIComponent(url);
-  const encodedText = encodeURIComponent(text);
-  async function nativeShare() {
-    if (navigator.share) {
-      try { await navigator.share({ title, text, url }); return; } catch (error) { if ((error as Error).name === "AbortError") return; }
-    }
-    await navigator.clipboard.writeText(url); setCopied(true); window.setTimeout(() => setCopied(false), 1800);
-  }
-  async function copyLink() { await navigator.clipboard.writeText(url); setCopied(true); window.setTimeout(() => setCopied(false), 1800); }
-  return <details className="share-menu"><summary>↗ {language === "zh" ? "转发与分享" : "Forward & share"}</summary><div className="share-panel" role="group" aria-label={language === "zh" ? `分享：${title}` : `Share ${title}`}>
-    <button type="button" className="native-share" onClick={nativeShare}>{language === "zh" ? "分享到微信、抖音、小红书、Instagram、TikTok 或更多应用" : "Share to WeChat, Douyin, RedNote, Instagram, TikTok, or more apps"}</button>
-    <a href={`mailto:?subject=${encodedText}&body=${encodeURIComponent(`${text}\n\n${url}`)}`}>Email</a>
-    <a href={`https://wa.me/?text=${encodeURIComponent(`${text} ${url}`)}`} target="_blank" rel="noreferrer">WhatsApp</a>
-    <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`} target="_blank" rel="noreferrer">LinkedIn</a>
-    <a href={`https://twitter.com/intent/tweet?text=${encodedText}&url=${encodedUrl}`} target="_blank" rel="noreferrer">X</a>
-    <a href={`https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`} target="_blank" rel="noreferrer">Facebook</a>
-    <button type="button" onClick={copyLink}>{copied ? (language === "zh" ? "链接已复制" : "Link copied") : (language === "zh" ? "复制链接" : "Copy link")}</button>
-  </div></details>;
-}
-
 function Engagement({ id, language, title, path }: { id: string; language: Language; title?: string; path?: string }) {
   const [likes, setLikes] = useState(0); const [liked, setLiked] = useState(false); const [comments, setComments] = useState<string[]>([]); const [draft, setDraft] = useState("");
   useEffect(() => { try { setLikes(Number(localStorage.getItem(`likes-${id}`) || 0)); setLiked(localStorage.getItem(`liked-${id}`) === "1"); setComments(JSON.parse(localStorage.getItem(`comments-${id}`) || "[]")); } catch {} }, [id]);
   function like() { const nextLiked = !liked; const next = Math.max(0, likes + (nextLiked ? 1 : -1)); setLiked(nextLiked); setLikes(next); localStorage.setItem(`liked-${id}`, nextLiked ? "1" : "0"); localStorage.setItem(`likes-${id}`, String(next)); }
   function comment(event: FormEvent) { event.preventDefault(); if (!draft.trim()) return; const next = [...comments, draft.trim()]; setComments(next); setDraft(""); localStorage.setItem(`comments-${id}`, JSON.stringify(next)); }
-  return <div className="engagement"><button className={liked ? "liked" : ""} type="button" onClick={like}>♥ {likes} {language === "zh" ? "喜欢" : "likes"}</button><details className="comment-details"><summary>✦ {comments.length} {language === "zh" ? "留言" : "comments"}</summary><div className="comment-list">{comments.map((item, index) => <p key={`${item}-${index}`}>{item}</p>)}</div><form onSubmit={comment}><input value={draft} onChange={(event) => setDraft(event.target.value)} placeholder={language === "zh" ? "写下你的想法…" : "Share a thought…"}/><button type="submit">{language === "zh" ? "发布" : "Post"}</button></form><small>{language === "zh" ? "互动暂存在这台设备上" : "Saved on this device"}</small></details><ShareMenu title={title || "Hello Bonan"} language={language} path={path || `#${id}`}/></div>;
+  return <div className="engagement"><button className={liked ? "liked" : ""} type="button" onClick={like}>♥ {likes} {language === "zh" ? "喜欢" : "likes"}</button><details className="comment-details"><summary>✦ {comments.length} {language === "zh" ? "留言" : "comments"}</summary><div className="comment-list">{comments.map((item, index) => <p key={`${item}-${index}`}>{item}</p>)}</div><form onSubmit={comment}><input value={draft} onChange={(event) => setDraft(event.target.value)} placeholder={language === "zh" ? "写下你的想法…" : "Share a thought…"}/><button type="submit">{language === "zh" ? "发布" : "Post"}</button></form><small>{language === "zh" ? "互动暂存在这台设备上" : "Saved on this device"}</small></details><SocialShare title={title || "Hello Bonan"} language={language} path={path || `#${id}`}/></div>;
 }
 
 function SectionHome({ language }: { language: Language }) {
@@ -492,7 +468,7 @@ export default function Home() {
 
       {selected && <div className="reader-overlay" role="presentation" onMouseDown={() => setSelectedId(null)}><article className="reader-panel" role="dialog" aria-modal="true" aria-labelledby="reader-title" onMouseDown={(event) => event.stopPropagation()}><div className="reader-topline"><div><span>{selected.category}</span><span>{language === "zh" ? "中文" : "EN"}</span></div><button type="button" onClick={() => setSelectedId(null)}>{t.close} ×</button></div><div className="reader-body"><h2 id="reader-title">{selected.title}</h2><p className="reader-intro">{selected.intro}</p><div className="reader-copy">{selected.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div>{selected.external && <a className="reader-source" href={selected.external.url} target="_blank" rel="noreferrer">{selected.external.label} ↗</a>}<Engagement id={selectedId || "idea"} language={language} title={selected.title} path={`?idea=${selectedId}&lang=${language}#writing`}/></div><div className="reader-footer"><span>Hello Bonan</span><button type="button" onClick={() => setSelectedId(null)}>{t.back}</button></div></article></div>}
 
-      {(selectedEssay || selectedEnglishStory) && <div className="reader-overlay" role="presentation" onMouseDown={() => setSelectedEssayId(null)}><article className="reader-panel essay-reader" role="dialog" aria-modal="true" aria-labelledby="essay-reader-title" onMouseDown={(event) => event.stopPropagation()}><div className="reader-topline"><div><span>{essayCategories[language][(selectedEnglishStory?.category || selectedEssay?.category) as keyof typeof essayCategories.en]}</span><span>{language === "zh" ? "原创中文" : selectedEnglishStory?.dateLabel}</span></div><button type="button" onClick={() => setSelectedEssayId(null)}>{t.close} ×</button></div><div className="reader-body">{selectedEssayImage && <img className="essay-reader-image" src={selectedEssayImage} alt={displayedEssayTitle || ""}/>}<p className="essay-reader-kicker">{language === "zh" ? "人间拾光" : "Collected Light"}</p><h2 id="essay-reader-title">{displayedEssayTitle}</h2><div className="reader-copy">{(displayedEssayBody || "").split(/\n\s*\n/).filter(Boolean).map((paragraph, index) => <p key={`${selectedEssayId}-${language}-${index}`}>{paragraph}</p>)}</div><Engagement id={selectedEssayId || "story"} language={language} title={displayedEssayTitle || "Collected Light"} path={`?story=${selectedEssayId}&lang=${language}#essays`}/></div><div className="reader-footer"><span>Hello Bonan</span><button type="button" onClick={() => setSelectedEssayId(null)}>{language === "zh" ? "返回人间拾光" : "Back to Collected Light"}</button></div></article></div>}
+      {(selectedEssay || selectedEnglishStory) && <div className="reader-overlay" role="presentation" onMouseDown={() => setSelectedEssayId(null)}><article className="reader-panel essay-reader" role="dialog" aria-modal="true" aria-labelledby="essay-reader-title" onMouseDown={(event) => event.stopPropagation()}><div className="reader-topline"><div><span>{essayCategories[language][(selectedEnglishStory?.category || selectedEssay?.category) as keyof typeof essayCategories.en]}</span><span>{language === "zh" ? "原创中文" : selectedEnglishStory?.dateLabel}</span></div><button type="button" onClick={() => setSelectedEssayId(null)}>{t.close} ×</button></div><div className="reader-body">{selectedEssayImage && <img className="essay-reader-image" src={selectedEssayImage} alt={displayedEssayTitle || ""}/>}<p className="essay-reader-kicker">{language === "zh" ? "人间拾光" : "Collected Light"}</p><h2 id="essay-reader-title">{displayedEssayTitle}</h2><div className="reader-copy">{(displayedEssayBody || "").split(/\n\s*\n/).filter(Boolean).map((paragraph, index) => <p key={`${selectedEssayId}-${language}-${index}`}>{paragraph}</p>)}</div><Engagement id={selectedEssayId || "story"} language={language} title={displayedEssayTitle || "Collected Light"} path={`collected-light/${selectedStoryKey}/${language}`}/></div><div className="reader-footer"><span>Hello Bonan</span><button type="button" onClick={() => setSelectedEssayId(null)}>{language === "zh" ? "返回人间拾光" : "Back to Collected Light"}</button></div></article></div>}
 
       <footer><div className="brand footer-brand"><span className="brand-dot">B</span><span>Hello Bonan</span></div><p>{t.footer}</p><div><button type="button" onClick={() => setSelectedId("professional")}>{t.about}</button><a href="#top">{t.top} ↑</a></div><small>© 2026 Bonan Zhong · {t.personal}</small></footer>
     </main>
