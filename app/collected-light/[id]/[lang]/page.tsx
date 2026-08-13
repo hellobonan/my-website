@@ -5,6 +5,7 @@ import chineseEssays from "../../../essay-collection.json";
 import SocialShare from "../../../social-share";
 
 const siteUrl = "https://hellobonan-hello-bonan.vercel.app";
+const previewVersion = "20260813-2";
 const storyToEssay: Record<string, string> = {
   "story-01":"essay-01","story-02":"essay-02","story-03":"essay-03","story-04":"essay-04","story-05":"essay-05","story-06":"essay-06","story-07":"essay-07","story-08":"essay-08","story-09":"essay-09","story-10":"essay-10","story-11":"essay-11","story-12":"essay-12","story-13":"essay-13","story-14":"essay-14","story-16":"essay-15","story-17":"essay-16","story-18":"essay-19","story-19":"essay-17","story-20":"essay-18","story-21":"essay-20","story-22":"essay-21",
 };
@@ -32,7 +33,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ id: string; lang: string }> }): Promise<Metadata> {
   const { id, lang } = await params; const content = getContent(id, lang); if (!content) return {};
   const url = `${siteUrl}/collected-light/${id}/${lang}`;
-  const image = content.image ? `${siteUrl}${content.image}` : `${siteUrl}/og.png`;
+  const image = content.image ? `${siteUrl}${content.image}?v=${previewVersion}` : `${siteUrl}/og.png?v=${previewVersion}`;
   return {
     title: `${content.title} | Hello Bonan`, description: content.summary,
     alternates: { canonical: url, languages: { en: `${siteUrl}/collected-light/${id}/en`, "zh-CN": `${siteUrl}/collected-light/${id}/zh` } },

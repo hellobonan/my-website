@@ -3,10 +3,12 @@
 import { useState } from "react";
 
 const siteUrl = "https://hellobonan-hello-bonan.vercel.app";
+const shareVersion = "20260813-2";
 
 export default function SocialShare({ title, language, path, url: suppliedUrl, compact = false }: { title: string; language: "en" | "zh"; path?: string; url?: string; compact?: boolean }) {
   const [copied, setCopied] = useState(false);
-  const url = suppliedUrl || `${siteUrl}/${(path || "").replace(/^\//, "")}`;
+  const baseUrl = suppliedUrl || `${siteUrl}/${(path || "").replace(/^\//, "")}`;
+  const url = suppliedUrl ? baseUrl : `${baseUrl}${baseUrl.includes("?") ? "&" : "?"}share=${shareVersion}`;
   const text = `${title} — Hello Bonan`;
   const encodedUrl = encodeURIComponent(url);
   const encodedText = encodeURIComponent(text);

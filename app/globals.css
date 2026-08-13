@@ -190,6 +190,9 @@ main[lang="zh-CN"] .globe-controls small::after { content: "拖拽旋转地球 �
 .essay-filters button span { margin-left: 8px; color: var(--muted); font-size: 9px; }
 .essay-filters button.active { border-color: #ba8a47; background: #172638; color: #f6e5c4; }
 .essay-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; }
+.essay-share-item { min-width: 0; }
+.essay-share-item .essay-card { width: 100%; }
+.essay-share-item > .share-menu { margin: 10px 12px 0; }
 .essay-card { min-height: 520px; padding: 0; display: flex; flex-direction: column; overflow: hidden; border: 0; border-radius: 12px; background: #102032; color: white; text-align: left; cursor: pointer; box-shadow: 0 25px 65px rgba(42,31,22,.16); transition: transform .3s ease, box-shadow .3s ease; }
 .essay-card:nth-child(7n+1) { grid-column: auto; }
 .essay-art { min-height: 0; aspect-ratio: 4 / 5; padding: 25px; position: relative; display: flex; align-items: flex-end; justify-content: space-between; overflow: hidden; background: radial-gradient(circle at 72% 25%, rgba(248,211,143,.48), transparent 24%), linear-gradient(145deg,#38576b,#101e30 68%); }
