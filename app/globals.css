@@ -293,6 +293,12 @@ main[lang="zh-CN"] .globe-controls small::after { content: "拖拽旋转地球 �
 .shared-story-date { margin: 0 0 38px; color: var(--muted); font-size: 12px; }
 .shared-story-page article > img { width: 100%; max-height: 620px; margin-bottom: 54px; object-fit: cover; border-radius: 10px; }
 .shared-story-page .share-menu { margin-top: 38px; }
+.shared-section-page { min-height: 100vh; padding: 48px 24px; display: grid; place-items: center; background: linear-gradient(145deg,#f8f2e8,#e6dfd2); }
+.shared-section-page article { width: min(100%,760px); padding: 34px; border-radius: 18px; background: var(--surface); box-shadow: 0 30px 90px rgba(42,34,25,.16); }
+.shared-section-page article > img { width: 100%; max-height: 430px; margin-bottom: 30px; object-fit: cover; border-radius: 10px; }
+.shared-section-page h1 { margin: 10px 0 16px; font-family: Georgia,"Noto Serif SC",serif; font-size: clamp(40px,7vw,68px); font-weight: 400; line-height: 1.04; }
+.shared-section-page article > p:not(.essay-reader-kicker) { max-width: 620px; margin-bottom: 28px; color: var(--muted); font-size: 18px; line-height: 1.65; }
+.shared-section-page .share-menu { margin-top: 30px; }
 .section-home { width: fit-content; margin: 30px 0 0 auto; padding: 11px 15px; display: flex; align-items: center; gap: 8px; border: 1px solid currentColor; border-radius: 999px; color: inherit; font-size: 11px; font-weight: 750; opacity: .72; }
 .section-home:hover { opacity: 1; }
 .floating-home { position: fixed; z-index: 35; right: max(14px, env(safe-area-inset-right)); bottom: max(16px, env(safe-area-inset-bottom)); min-width: 50px; min-height: 50px; padding: 0 14px; display: flex; align-items: center; justify-content: center; gap: 7px; border: 1px solid rgba(255,255,255,.28); border-radius: 999px; background: rgba(16,24,39,.9); color: white; box-shadow: 0 12px 35px rgba(16,24,39,.24); backdrop-filter: blur(12px); }
