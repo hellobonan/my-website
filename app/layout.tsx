@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
-const siteUrl = "https://hellobonan-hello-bonan.vercel.app";
+const siteUrl = "https://bonan.blog";
 
 export function generateMetadata(): Metadata {
   return {
@@ -20,7 +20,12 @@ export function generateMetadata(): Metadata {
       "director", "account management", "seller service", "seller services", "vision", "Amazon",
       "Coupang", "Seattle", "Toronto", "stem cell", "life science", "AI", "marketplace leadership",
     ],
-    alternates: { canonical: "/" },
+    alternates: {
+      canonical: "/",
+      types: { "application/rss+xml": `${siteUrl}/feed.xml` },
+    },
+    referrer: "origin-when-cross-origin",
+    formatDetection: { email: false, address: false, telephone: false },
     robots: {
       index: true,
       follow: true,
@@ -71,6 +76,21 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         alternateName: "Bonan Zhong 钟博南",
         inLanguage: ["en", "zh-CN"],
         author: { "@id": `${siteUrl}/#bonan-zhong` },
+        publisher: { "@id": `${siteUrl}/#bonan-zhong` },
+        potentialAction: {
+          "@type": "ReadAction",
+          target: siteUrl,
+        },
+      },
+      {
+        "@type": "WebPage",
+        "@id": `${siteUrl}/#webpage`,
+        url: siteUrl,
+        name: "Bonan Zhong 钟博南 | Marketplace & Ecommerce Leader",
+        description: "The official bilingual website of Bonan Zhong, covering marketplace leadership, ecommerce, seller services, AI, life science, and original essays.",
+        isPartOf: { "@id": `${siteUrl}/#website` },
+        about: { "@id": `${siteUrl}/#bonan-zhong` },
+        inLanguage: ["en", "zh-CN"],
       },
     ],
   };
