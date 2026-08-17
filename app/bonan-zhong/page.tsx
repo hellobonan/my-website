@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-const siteUrl = "https://hellobonan-hello-bonan.vercel.app";
+const siteUrl = "https://bonan.blog";
 
 export const metadata: Metadata = {
   title: "Bonan Zhong 钟博南 — Marketplace, Ecommerce & Seller Services Leader",
@@ -16,6 +16,16 @@ export const metadata: Metadata = {
 
 export default function BonanZhongProfile() {
   const topics = ["Marketplace", "Ecommerce", "Seller Services", "Account Management", "Leadership", "Executive", "Director", "Amazon", "Coupang", "Seattle", "Toronto", "AI", "Stem Cell Research", "Life Science"];
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    "@id": `${siteUrl}/bonan-zhong#profile`,
+    url: `${siteUrl}/bonan-zhong`,
+    name: "Bonan Zhong 钟博南 — Professional Biography",
+    inLanguage: ["en", "zh-CN"],
+    mainEntity: { "@id": `${siteUrl}/#bonan-zhong` },
+    isPartOf: { "@id": `${siteUrl}/#website` },
+  };
   return (
     <main className="profile-page">
       <header className="profile-header"><a href="/">Hello Bonan</a><a href="/">Back to home · 返回首页</a></header>
@@ -30,6 +40,7 @@ export default function BonanZhongProfile() {
         </section>
         <div className="profile-topics" aria-label="Areas of experience">{topics.map((topic) => <span key={topic}>{topic}</span>)}</div>
       </article>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
     </main>
   );
 }

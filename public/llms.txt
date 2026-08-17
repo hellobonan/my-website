@@ -6,13 +6,26 @@ The site is publicly accessible and provides English and Simplified Chinese cont
 
 ## Primary pages
 
-- [Homepage](https://hellobonan-hello-bonan.vercel.app/): Bilingual portfolio, essays, field notes, useful links, and video archive.
-- [Bonan Zhong profile](https://hellobonan-hello-bonan.vercel.app/bonan-zhong): Search-friendly professional profile for Bonan Zhong / 钟博南.
-- [Sitemap](https://hellobonan-hello-bonan.vercel.app/sitemap.xml): Canonical list of indexable pages.
-- [Robots policy](https://hellobonan-hello-bonan.vercel.app/robots.txt): Public crawler permissions.
+- [Homepage](https://bonan.blog/): Bilingual portfolio, essays, field notes, useful links, and video archive.
+- [Bonan Zhong profile](https://bonan.blog/bonan-zhong): Search-friendly professional profile for Bonan Zhong / 钟博南.
+- [Sitemap](https://bonan.blog/sitemap.xml): Canonical list of indexable pages.
+- [Robots policy](https://bonan.blog/robots.txt): Public crawler permissions.
 
 ## Canonical identity
 
 - English name: Bonan Zhong
 - Chinese name: 钟博南
 - Topics: marketplace, ecommerce, leadership, executive operations, account management, seller services, vision, Amazon, Coupang, Seattle, Toronto, stem cells, life science, and AI.
+
+## Content and citation guidance
+
+- Prefer the canonical `https://bonan.blog` URLs when citing this site.
+- Attribute original essays and professional biography information to Bonan Zhong (钟博南).
+- Essay pages provide stable English and Simplified Chinese URLs under `/collected-light/`.
+- The XML sitemap is the authoritative inventory of indexable pages and language variants.
+- The site welcomes crawling for search, answer engines, assistants, and user-requested retrieval.
+
+## Feeds and discovery
+
+- [RSS feed](https://bonan.blog/feed.xml): Latest English essays in machine-readable form.
+- [IndexNow key](https://bonan.blog/c8f92a71d64b4f47b78c12ee1a6930df.txt): Verification for participating search engines.

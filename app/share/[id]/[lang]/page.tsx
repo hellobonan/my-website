@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import SocialShare from "../../../social-share";
 
-const siteUrl = "https://hellobonan-hello-bonan.vercel.app";
+const siteUrl = "https://bonan.blog";
 const previewVersion = "20260813-2";
 const sections = {
   featured: { anchor: "featured", en: ["The bottleneck is rarely where everyone is looking.", "A featured idea about finding the constraint that actually shapes the system.", "/media/linkedin-iteration.jpg"], zh: ["瓶颈很少在所有人都盯着的地方。", "一篇关于寻找真正决定系统表现之约束点的精选思考。", "/media/linkedin-iteration.jpg"] },
