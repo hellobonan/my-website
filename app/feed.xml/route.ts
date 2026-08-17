@@ -26,7 +26,8 @@ export function GET() {
     <link>${siteUrl}</link>
     <description>Original essays by Bonan Zhong about leadership, systems, marketplaces, places, and everyday observation.</description>
     <language>en-US</language>
-    <atom:link href="${siteUrl}/feed.xml" rel="self" type="application/rss+xml" />${items}
+    <atom:link href="${siteUrl}/feed.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://pubsubhubbub.appspot.com/" rel="hub" />${items}
   </channel>
 </rss>`;
 
