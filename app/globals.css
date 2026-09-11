@@ -393,6 +393,9 @@ footer { order: 14; }
 #channels > .channel-block { width: min(100% - 48px, 1240px); margin-left: auto; margin-right: auto; }
 .sparks-block { width: calc(100% + 64px); margin: 18px -32px -18px; padding: 42px 32px 54px; border: 0; border-radius: 18px; background: radial-gradient(circle at 88% 0, rgba(223,161,86,.23), transparent 25rem), linear-gradient(145deg, #183a33, #132821 65%); color: #f7f1e7; box-shadow: 0 30px 80px rgba(29,43,37,.18); }
 .spark-intro { max-width: 680px; margin: 0 0 28px; color: #bac9c3; font-family: Georgia, "Noto Serif SC", serif; font-size: 18px; line-height: 1.6; }
+.sparks-subheading { margin: 36px 0 22px; font-family: Georgia, "Noto Serif SC", serif; font-size: 24px; font-weight: 400; }
+.latest-sparks { margin-bottom: 48px; }
+.latest-sparks h4 { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden; }
 .curated-grid { display: grid; grid-template-columns: repeat(12,1fr); grid-auto-rows: 230px; gap: 12px; }
 .curated-card { position: relative; grid-column: span 3; overflow: hidden; border-radius: 9px; color: white; }
 .curated-card:nth-child(1), .curated-card:nth-child(6) { grid-column: span 6; grid-row: span 2; }
