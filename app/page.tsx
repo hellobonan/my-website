@@ -7,6 +7,7 @@ import englishStories from "./english-stories.json";
 import essayTranslations from "./essay-translations.json";
 import longEssayTranslations from "./essay-translations-long.json";
 import SocialShare from "./social-share";
+import FilmLearnings from "./film-learnings";
 
 const linkedinUrl = "https://www.linkedin.com/in/bonanzhong/";
 const douyinUrl = "https://www.douyin.com/user/MS4wLjABAAAAjQJsDJzNqH-lMIXUsRCp298zla02LnmZyACESD7llC4";
@@ -372,6 +373,7 @@ export default function Home() {
     ["#web-discoveries", language === "zh" ? "有趣的网站" : "Web discoveries"],
     ["#about", language === "zh" ? "关于博南" : "About"],
     ["#channels", language === "zh" ? "工作与想法" : "Ideas in motion"],
+    ["#operation-grassfire", language === "zh" ? "AI 电影" : "AI film"],
     ["#subscribe", language === "zh" ? "订阅" : "Subscribe"],
   ];
 
@@ -382,6 +384,7 @@ export default function Home() {
       <header className="site-header">
         <a className="brand" href="#top" aria-label="Hello Bonan"><span className="brand-dot">B</span><span>Hello Bonan</span></a>
         <nav className="desktop-nav" aria-label="Primary navigation">
+          <a href="#operation-grassfire">{language === "zh" ? "AI 电影" : "AI film"}</a>
           <a href="#about">{language === "zh" ? "关于博南" : "About"}</a><a href="#channels">{language === "zh" ? "工作与想法" : "Ideas in motion"}</a><a href="#essays">{language === "zh" ? "人间拾光" : "Collected Light"}</a><a href="#postcards">{language === "zh" ? "世界地图" : "Field Atlas"}</a>
         </nav>
         <div className="menu-wrap">
@@ -462,6 +465,13 @@ export default function Home() {
             </div>
             <p className="video-count">{social.showing} {Math.min(visibleVideos, filteredVideos.length)} {social.of} {filteredVideos.length}</p><div className="douyin-grid">{filteredVideos.slice(0, visibleVideos).map((video, index) => <a className="video-card" href={video.url} target="_blank" rel="noreferrer" key={video.url}><div><img src={video.image} alt={displayVideoTitle(video, language, index)} loading="lazy"/><span className="play-mark" aria-hidden="true">▶</span></div><h4>{displayVideoTitle(video, language, index)}</h4><span>{social.open} ↗</span></a>)}</div>{visibleVideos < filteredVideos.length && <button className="load-more" type="button" onClick={() => setVisibleVideos((count) => count + 24)}>{social.loadMore} ↓</button>}</div>}<Engagement id="sparks" language={language} title={social.douyin}/>
         </div>
+      </section>
+
+      <section className="grassfire-home section-pad" id="operation-grassfire" aria-labelledby="grassfire-title">
+        <div className="grassfire-home-copy"><p className="eyebrow">{language === "zh" ? "AI 创作故事 · 完整电影" : "AI BUILDING STORY · FULL FILM"}</p><h2 id="grassfire-title">Operation<br/>Grassfire</h2><p>{language === "zh" ? "这是我用 AI 制作的第一部电影。我用 Claude 和 Higgsfield，从一张白纸开始，经历故事、剧本、角色设计、镜头生成、连续性审核与剪辑，最终完成了《Operation Grassfire》。原本五分钟的计划，成为一部 9分36秒的短片；约14天、76段生成视频和9,449.7积分背后，最重要的收获是制作过程教会我的判断与纪律。" : "This is my very first movie made with AI. Using Claude and Higgsfield, I took Operation Grassfire from a blank page through story, script, character design, shot generation, continuity review, and editing. A five-minute plan became a 9-minute-36-second film. Behind roughly 14 days, 76 video generations, and 9,449.7 credits were the decisions and discipline that brought it together."}</p><a className="button button-primary" href="/operation-grassfire">{language === "zh" ? "观看电影，阅读完整制作故事" : "Watch the film and read the full story"} <span>→</span></a></div>
+        <a className="grassfire-home-still" href="/operation-grassfire" aria-label={language === "zh" ? "打开《Operation Grassfire》完整电影与制作故事" : "Open the complete Operation Grassfire film and production story"}><img src="/media/operation-grassfire-poster.png" alt={language === "zh" ? "《Operation Grassfire》电影画面" : "Still from Operation Grassfire"}/><span aria-hidden="true">▶</span></a>
+        <FilmLearnings language={language}/>
+        <div className="grassfire-home-return"><SectionHome language={language}/></div>
       </section>
 
       <section className="subscribe section-pad" id="subscribe"><div><p className="eyebrow">{t.noteName}</p><h2>{t.subscribeTitle}</h2></div><div className="subscribe-copy"><p>{t.subscribeText}</p>

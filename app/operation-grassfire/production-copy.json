@@ -1,0 +1,150 @@
+{
+  "en": {
+    "back": "Back to Hello Bonan",
+    "eyebrow": "AN INDEPENDENT AI FILM EXPERIMENT · 2026",
+    "deck": "A cowboy, a grasshopper, and one very large promise.",
+    "intro": "Operation Grassfire is my very first movie made with AI. I made it from scratch with Claude and Higgsfield. What began as a five-minute film became 9 minutes and 36 seconds. Here is the finished film and the production experience behind it: what worked, what failed, what it cost, and what I learned.",
+    "watch": "Watch the full film",
+    "runtime": "9 min 36 sec · 16:9 · English dialogue",
+    "direct": "Open the direct video link",
+    "storyLabel": "The film",
+    "storyTitle": "A small life. A global rescue.",
+    "story": "Bonan, a Marine veteran turned Yellowstone park ranger, rescues a small grasshopper named Hopper—and gets the surprise of his life when she thanks him out loud. A tiny brass keepsake is the only clue to relatives scattered generations ago. Their search crosses the Pacific and leads to a fictional trafficking annex beneath a Seoul palace, where a rescue mission becomes an unruly celebration of courage, family, and second chances.",
+    "whyLabel": "Why I made it",
+    "whyTitle": "From a blank page to a finished film.",
+    "why": "I approached Operation Grassfire as a first-principles experiment: can one person take an original story from idea to finished movie with today’s AI tools? The answer is yes—but not in one click. The real work was directing a system that does not reliably remember: defining characters, translating story logic into checkable shots, reviewing every generation, correcting continuity, and assembling the final cut outside the generation platform.",
+    "processLabel": "How it was built",
+    "processTitle": "The workflow behind the screen.",
+    "process": [
+      [
+        "01",
+        "Story and structure",
+        "Claude helped me develop the premise, screenplay logic, character rules, and a production brief that connected the emotional arc to a practical shot map."
+      ],
+      [
+        "02",
+        "Continuity system",
+        "I created reusable character, wardrobe, prop, voice, geography, and insect-anatomy constraints, then restated the critical rules inside every individual shot prompt."
+      ],
+      [
+        "03",
+        "Generate and audit",
+        "I generated clips in Higgsfield, inspected each one immediately, and corrected failures in sequence: wording, pose, camera angle, then—when necessary—the shot structure itself."
+      ],
+      [
+        "04",
+        "Edit and finish",
+        "The platform generated individual clips, not a finished timeline. I trimmed, repaired, ordered, and assembled the movie externally, preserving cause and effect across the complete cut."
+      ]
+    ],
+    "factsLabel": "Production record",
+    "factsIntro": "These figures combine records from multiple sources rather than a single platform screenshot.",
+    "days": "calendar span",
+    "videos": "generated videos",
+    "footage": "raw generated footage",
+    "spend": "personal tool spend",
+    "tools": "Higgsfield: 9,449.7 credits / $377.988 · Claude: $112 · Total: $489.988",
+    "lessonsLabel": "What the experiment revealed",
+    "lessonsTitle": "Four lessons I would carry into the next film.",
+    "lessons": [
+      [
+        "Continuity must live at shot level.",
+        "A character bible is not enough if the generation model never sees it. Any detail that matters—wardrobe, anatomy, voice, props, and temporary states—has to appear in the prompt for that shot."
+      ],
+      [
+        "Camera geometry can solve what words cannot.",
+        "After a wording fix fails, change the pose or angle. A structurally clearer shot often prevents occlusion and anatomy errors more reliably than another paragraph of prompting."
+      ],
+      [
+        "Story logic has to be visible.",
+        "Motivation, setup, and location transitions cannot remain in the writer’s head. Each shot must earn the next one on screen, or the audience will feel the missing link."
+      ],
+      [
+        "Scope is a production decision.",
+        "The target grew from five minutes to 9:36 through individually reasonable additions. Runtime, character roster, cost, and regeneration budget need to be locked and tracked from day one."
+      ]
+    ],
+    "nextLabel": "If I started again",
+    "next": "I would lock every recurring character before generating the first frame, complete a cause-and-effect audit of the whole shot map, paste a universal continuity checklist into every prompt from day one, cap each shot at two or three story beats, and maintain a live ledger of credits, cost, time, attempts, and accepted footage.",
+    "reflectionLabel": "Final reflection",
+    "reflection": "The expense was real, and so was the discarded work. But the project changed my understanding of AI filmmaking. The scarce capability is not simply generating attractive images; it is judgment—knowing what must stay consistent, what the audience needs to see, when to redesign a shot, and when the story is finally complete. Operation Grassfire is my first film, and the most valuable output may be the production system I learned to build along the way.",
+    "disclosureLabel": "Fiction, AI & independence disclosure",
+    "disclosure": "This is a fictional, AI-assisted film. All characters, organizations, incidents, military action, and the palace service annex are invented. No government, military, museum, heritage institution, or nationality is depicted as participating in wrongdoing. AI-assisted images of real places are dramatic representations, not documentary footage. The project was created independently, outside working hours, without employer resources, approval, sponsorship, or endorsement. Views and creative choices are personal.",
+    "top": "Back to top",
+    "home": "Return to the homepage"
+  },
+  "zh": {
+    "back": "返回 Hello Bonan",
+    "eyebrow": "独立 AI 电影实验 · 2026",
+    "deck": "一个牛仔，一只蚱蜢，和一个很大的承诺。",
+    "intro": "《Operation Grassfire》是我用 AI 制作的第一部电影。我用 Claude 和 Higgsfield 从零开始创作，原计划拍五分钟，最终成为一部 9分36秒的短片。这里既有完整成片，也有幕后的制作经历：哪些方法有效、哪些地方失败、实际投入，以及我学到的经验。",
+    "watch": "观看完整电影",
+    "runtime": "9分36秒 · 16:9 · 英语对白",
+    "direct": "打开视频直达链接",
+    "storyLabel": "电影故事",
+    "storyTitle": "一个微小的生命，一场跨越世界的营救。",
+    "story": "博南是一名退役海军陆战队员，后来成为黄石公园护林员。一天，他救下一只名叫 Hopper 的小蚱蜢——没想到她竟开口道谢。一枚黄铜小纪念物，是寻找数代前失散亲人的唯一线索。他们横跨太平洋，追查到首尔一座宫殿下虚构的秘密附属设施；一场营救最终变成关于勇气、家人与第二次机会的热闹庆典。",
+    "whyLabel": "为什么拍这部电影",
+    "whyTitle": "从一张白纸，到一部完整电影。",
+    "why": "我把《Operation Grassfire》当作一次从第一性原理出发的实验：今天，一个人能否借助 AI 工具，把原创故事从想法变成完整电影？答案是可以——但绝不是一键完成。真正的工作，是导演一个无法稳定记忆的系统：定义角色，把故事逻辑拆成可检查的镜头，逐条审核生成结果，修正连续性，并在生成平台之外完成最终剪辑。",
+    "processLabel": "制作方法",
+    "processTitle": "银幕背后的工作流程。",
+    "process": [
+      [
+        "01",
+        "故事与结构",
+        "我用 Claude 协助打磨故事设定、剧本逻辑、人物规则与制作简报，把情感主线转化为可以执行的镜头地图。"
+      ],
+      [
+        "02",
+        "连续性系统",
+        "我建立了可复用的人物、服装、道具、声音、地理关系和昆虫解剖约束，并把关键规则重新写进每一个单独的镜头提示词。"
+      ],
+      [
+        "03",
+        "生成与审核",
+        "我在 Higgsfield 生成片段，每完成一个就立即检查；遇到问题时，依次调整措辞、姿势、机位，必要时重新设计镜头结构。"
+      ],
+      [
+        "04",
+        "剪辑与完成",
+        "平台提供的是单独片段，而不是完整时间线。我在外部完成裁剪、修复、排序和合成，让整部电影保持清晰的因果关系。"
+      ]
+    ],
+    "factsLabel": "制作记录",
+    "factsIntro": "以下数字由多项记录汇总而成，并非来自某一个平台的单张截图。",
+    "days": "天日历周期",
+    "videos": "段生成视频",
+    "footage": "生成原始素材",
+    "spend": "个人工具投入",
+    "tools": "Higgsfield：9,449.7 积分 / $377.988 · Claude：$112 · 总计：$489.988",
+    "lessonsLabel": "这次实验带来的发现",
+    "lessonsTitle": "下一部电影，我会带走的四条经验。",
+    "lessons": [
+      [
+        "连续性必须落实到每个镜头。",
+        "如果生成模型看不到人物设定文档，文档本身就无法形成约束。任何重要细节——服装、解剖结构、声音、道具和临时状态——都必须写进当前镜头的提示词。"
+      ],
+      [
+        "机位关系能够解决文字解决不了的问题。",
+        "当修改措辞仍然无效时，就改变姿势或镜头角度。结构更清楚的画面，往往比增加一段提示词更能避免遮挡和解剖错误。"
+      ],
+      [
+        "故事逻辑必须真正出现在画面里。",
+        "人物动机、笑点铺垫和地点转换不能只存在于创作者脑中。每个镜头都要在银幕上为下一个镜头提供理由，否则观众会直接感到逻辑缺口。"
+      ],
+      [
+        "范围本身就是制作决策。",
+        "目标时长从五分钟逐步增长到 9分36秒，每次增加单独看都很合理，累积起来却显著扩大了项目。片长、角色数量、成本和重生成预算，都应从第一天开始锁定并跟踪。"
+      ]
+    ],
+    "nextLabel": "如果重新开始",
+    "next": "我会在生成第一帧之前锁定所有重复出现的角色；对整张镜头地图做一次完整的因果审查；从第一天起，把通用连续性清单放进每条提示词；把每个镜头控制在两到三个叙事节拍以内；并实时记录积分、成本、时间、尝试次数和最终采用的素材。",
+    "reflectionLabel": "最后的思考",
+    "reflection": "成本是真实的，被舍弃的工作也是真实的。但这个项目改变了我对 AI 电影制作的理解。稀缺能力并不只是生成漂亮画面，而是判断力：知道什么必须保持一致、观众必须看到什么、何时应该重新设计镜头，以及故事何时才算真正完成。《Operation Grassfire》是我的第一部电影，而最有价值的成果，也许是我在过程中学会建立的那套制作系统。",
+    "disclosureLabel": "虚构、AI 与独立创作声明",
+    "disclosure": "本片为虚构的 AI 辅助创作。片中人物、组织、事件、军事行动及宫殿附属设施均属虚构；不暗示任何政府、军队、博物馆、文化遗产机构或国籍群体参与不当行为。对真实地点的 AI 影像为戏剧化呈现，并非纪录片素材。本项目完全由个人在业余时间独立完成，未使用雇主资源，也不代表雇主的批准、赞助、立场或背书。所有观点与创作选择均属个人。",
+    "top": "回到顶部",
+    "home": "返回首页"
+  }
+}
