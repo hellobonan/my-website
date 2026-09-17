@@ -348,7 +348,7 @@ export default function Home() {
   const categories = categoryLabels[language];
   const places = placeLabels[language];
   const videoDate = (video: (typeof douyinCatalog)[number]) => {
-    const id = video.url.match(/video\/(\d+)/)?.[1];
+    const id = video.url.match(/(?:video|note)\/(\d+)/)?.[1];
     return id ? new Date(Number(BigInt(id) >> 32n) * 1000) : new Date(0);
   };
   const videoYears = [...new Set(douyinCatalog.map((video) => videoDate(video).getFullYear()))].sort((a, b) => b - a);
