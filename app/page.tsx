@@ -24,6 +24,8 @@ const chineseEssayStoryIds: Record<string, string> = {
   "essay-13": "story-13", "essay-14": "story-14", "essay-15": "story-16", "essay-16": "story-17",
   "essay-19": "story-18", "essay-17": "story-19", "essay-18": "story-20", "essay-20": "story-21",
   "essay-21": "story-22",
+  "essay-22": "story-23", "essay-23": "story-24", "essay-24": "story-25", "essay-25": "story-26",
+  "essay-26": "story-27", "essay-27": "story-28",
 };
 const englishStoryEssayIds = Object.fromEntries(Object.entries(chineseEssayStoryIds).map(([essayId, storyId]) => [storyId, essayId]));
 

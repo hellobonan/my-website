@@ -5,9 +5,10 @@ import chineseEssays from "../../../essay-collection.json";
 import SocialShare from "../../../social-share";
 
 const siteUrl = "https://bonan.blog";
-const previewVersion = "20260813-2";
+const previewVersion = "20260925-1";
 const storyToEssay: Record<string, string> = {
   "story-01":"essay-01","story-02":"essay-02","story-03":"essay-03","story-04":"essay-04","story-05":"essay-05","story-06":"essay-06","story-07":"essay-07","story-08":"essay-08","story-09":"essay-09","story-10":"essay-10","story-11":"essay-11","story-12":"essay-12","story-13":"essay-13","story-14":"essay-14","story-16":"essay-15","story-17":"essay-16","story-18":"essay-19","story-19":"essay-17","story-20":"essay-18","story-21":"essay-20","story-22":"essay-21",
+  "story-23":"essay-22","story-24":"essay-23","story-25":"essay-24","story-26":"essay-25","story-27":"essay-26","story-28":"essay-27",
 };
 type EnglishStory = (typeof englishStories)[number];
 type ChineseEssay = (typeof chineseEssays)[number];
