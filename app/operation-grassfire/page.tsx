@@ -4,7 +4,7 @@ import { useState } from "react";
 import copy from "./production-copy.json";
 import FilmLearnings from "../film-learnings";
 
-const media = "https://hello-bonan.zhongbonan.chatgpt.site/media";
+const filmUrl = "https://evmg6pl30iamli5t.public.blob.vercel-storage.com/media/operation-grassfire.mp4";
 
 export default function OperationGrassfire() {
   const [language, setLanguage] = useState<"en" | "zh">("en");
@@ -21,8 +21,8 @@ export default function OperationGrassfire() {
     <section className="film-hero" id="top"><p className="eyebrow">{t.eyebrow}</p><h1>Operation<br/>Grassfire</h1><p className="film-deck">{t.deck}</p><p className="film-intro">{t.intro}</p></section>
     <section className="film-player-wrap" aria-labelledby="watch-title">
       <div className="film-player-heading"><div><p className="eyebrow" id="watch-title">{t.watch}</p><p>{t.runtime}</p></div><span>01 / 01</span></div>
-      <video className="film-player" controls playsInline preload="metadata" poster="/media/operation-grassfire-poster.png"><source src={`${media}/operation-grassfire.mp4`} type="video/mp4"/>{language === "zh" ? "你的浏览器不支持 HTML 视频。" : "Your browser does not support HTML video."}</video>
-      <a className="film-direct-link" href={`${media}/operation-grassfire.mp4`} target="_blank" rel="noreferrer">{t.direct} ↗</a>
+      <video className="film-player" controls playsInline preload="metadata" poster="/media/operation-grassfire-poster.png"><source src={filmUrl} type="video/mp4"/>{language === "zh" ? "你的浏览器不支持 HTML 视频。" : "Your browser does not support HTML video."}</video>
+      <a className="film-direct-link" href={filmUrl} target="_blank" rel="noreferrer">{t.direct} ↗</a>
     </section>
     <section className="film-story section-pad"><div><p className="eyebrow">{t.storyLabel}</p><h2>{t.storyTitle}</h2></div><p>{t.story}</p></section>
     <section className="film-note section-pad"><p className="eyebrow">{t.whyLabel}</p><div><h2>{t.whyTitle}</h2><p>{t.why}</p></div></section>
